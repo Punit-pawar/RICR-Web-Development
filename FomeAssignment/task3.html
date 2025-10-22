@@ -1,47 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Task 3</title>
-</head>
-<body style="background-color: rgb(228, 228, 211);">
+  </head>
+  <body style="background-color: rgb(228, 228, 211)">
 
-
-    <fieldset style="background: white;">
-        <h1 style="margin-top: 0px; text-align: center;">Registration Form</h1>
-        
-        <p style="text-align: center;">Of course, all submitted information is kept in the strictest confidence. <br>
-            You always retain control of your inforamtaion with D.W. Simpson & Co. <br>
-            <b>Our servces are always at no cost to you.</b>
-        </p>
-        
-
-        <div style="margin-left: 110px;">
-            <label for="Name">Name:</label>
-            <input type="text" name="Name" id="Name">
-        </div>
-
-        <br>
-        
-        <div style="margin-left: 110px;">
-            <label for="Address">Address:</label>
-            <input type="text" name="Address" id="Address"/>            
-        </div>
-
-        <br>
-
-        <div>
+    <fieldset style="background-color: white; margin-left: 25%; margin-right: 25%; border: 4px solid black">
             
-        </div>
+        <h2 style="text-align: center">Registration Form</h2>
 
-        
+        <p style="text-align: center;">Of course, all submitted information is kept in the strictest confidence.<br />
+        You always retain control of your information with D.W. Simpson & Co.<br>
+        <b>Our services are always at no cost to you.</b>
+        <p/>
 
+        <form style=" margin-left: 16%; margin-right: 16%;">
+            <label for="name"> <b>Name:</b></label>
+            <input type="text" name="name" id="name"/><br>
+            <br>
 
+            <label for="address"><b>Address:</b></label>
+            <input type="text" name="address" id="address"/><br>
+            <br>
 
+            <label for="city"><b>City:</b></label>
+            <input type="text" name="city" id="city"/> 
+            <label for="state"><b>State/Province:</b></label>
+            <input type="text" name="state" id="state"/><br>
+            <br>
 
+            <label for="zip"><b>Zip Code:</b></label>
+            <input type="text" name="zip" id="zip"/><br>
+            <br>
+
+            <label for="country"><b>Country:</b></label>
+            <input type="text" name="country" id="country"/><br>
+            <br>
+
+            <label for="phone"><b>Phone (H)</b></label>
+            <input type="number" name="phone" id="phone"/> &nbsp;
+            <label for="fax"><b>Fax:</b></label>
+            <input type="text" name="fax" id="fax"/><br>
+            <br>
+
+            <label for="workphone"><b>Phone (W)</b></label>
+            <input type="text" name="workphone" id="workphone"/> (if able to speak freely)<br>
+            <br>
+
+            <label  for="emial"><b>Email:</b></label>
+            <input type="email" name="email" id="email"/><br>
+            <br>
+
+            <label for="company"><b>Company Name:</b></label>
+            <input type="text" name="company" id="company"/> (Optional)<br>
+            <br>
+
+            <label for="desired"><b>Desired Region</b></label>
+            <select>
+                <option>Other</option>
+            </select>
+
+            <b>Other:</b> <input type="text" name="otherregion" /><br>
+            <br>
+
+            <div>
+                <label for="Professional"><b>Professional designation earned:</b></label><br>
+                <input type="checkbox">College Student 
+                <input type="checkbox">Actuarial Student 
+                <input type="checkbox">ACAS 
+                <input type="checkbox">FCAS 
+                <input type="checkbox">ASA <br>
+                <input type="checkbox">FSA 
+                <input type="checkbox">FCAS 
+                <input type="checkbox">EA 
+                <input type="checkbox">CFA 
+                <input type="checkbox">MBA 
+                <input type="checkbox">MAAA 
+                <input type="checkbox">FIA 
+                <input type="checkbox">FCIA <br>
+                <input type="checkbox">FIAA 
+                <input type="checkbox">Financial Engineer 
+                <input type="checkbox">M.S. 
+                <input type="checkbox">Ph.D. 
+                <input type="checkbox">Data Mining 
+                <input type="checkbox">Quant 
+            </div>
+
+            <br>
+
+            <label for="otherdesignations"><b>Other <br> Designations:</b></label>
+            <input type="text" name="otherdesignations" id="otherdesignations"/>
+            
+        </form>
     </fieldset>
 
-    
-</body>
+  </body>
 </html>
