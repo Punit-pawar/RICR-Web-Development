@@ -7,15 +7,15 @@
 </head>
 <body>
     <form>
-        <fieldset>
+        <fieldset style="width: 50px; margin-left: 20%;">
 
-            <B>APPLICATION FORM</B>
+            <b>APPLICATION FORM</b>
 
             <fieldset>
 
                 <legend><b>Personal Details</b></legend>
 
-                <table>
+                <table border="1">
                     <tr>
                         <td><b>Applicant's full name</b></td>
                         <td>
@@ -34,7 +34,7 @@
                         <td><b>Father's Name</b></td>
                         <td>
                             <select name="father_name" id="father_name">
-                                <option value="Mr.">Mr.-</option>
+                                <option value="Mr.">Mr.</option>
                                 <input type="text" name="father_name" id="father_name">
                             </select>
                         </td>
@@ -114,7 +114,7 @@
                 
                 <legend><b>Contect Details</b></legend>
 
-                <table>
+                <table border="1">
 
                     <tr>
                         <td><b>Mobile Number</b></td>
@@ -143,10 +143,17 @@
                     </tr>
                 </table>
 
-                <fieldset>
-                    <legend><b>Qualification Details</b></legend>
+                
+            </fieldset>
 
-                    <table>
+            <fieldset>
+
+                    <legend>
+                        <b>Qualification Details</b>
+                    </legend>
+
+                    <table border="1">
+
                         <tr>
                             <th>Sr No.</th>
                             <th>Qualification</th>
@@ -156,9 +163,130 @@
                             <th>Marks Obtain</th>
                             <th>Percentage</th>
                         </tr>
+
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <select name="Qualification" id="Qualification">
+                                    <option value="select">--Select--</option>
+                                </select>
+                            </td>
+                            <td><input type="text" name="board" id="board"></td>
+                            <td><input type="number" name="year" id="year" value="1990"></td>
+                            <td><input type="number" name="maxmark" id="maxmark" value="4"></td>
+                            <td><input type="number" name="obtainmark" id="obtainmark" value="2"></td>
+                            <td><input type="number" name="percentage" id="percentage" value="2"></td>
+                        </tr>
+
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                <select name="Qualification" id="Qualification">
+                                    <option value="select">--Select--</option>
+                                </select>
+                            </td>
+                            <td><input type="text" name="board" id="board"></td>
+                            <td><input type="number" name="year" id="year"></td>
+                            <td><input type="number" name="maxmark" id="maxmark"></td>
+                            <td><input type="number" name="obtainmark" id="obtainmark"></td>
+                            <td><input type="number" name="percentage" id="percentage"></td>
+                        </tr>
+
+                        <tr>
+                            <td>3</td>
+                            <td>
+                                <select name="Qualification" id="Qualification">
+                                    <option value="select">--Select--</option>
+                                </select>
+                            </td>
+                            <td><input type="text" name="board" id="board"></td>
+                            <td><input type="number" name="year" id="year"></td>
+                            <td><input type="number" name="maxmark" id="maxmark"></td>
+                            <td><input type="number" name="obtainmark" id="obtainmark"></td>
+                            <td><input type="number" name="percentage" id="percentage"></td>
+                        </tr>
+
+                        <tr>
+                            <td>4</td>
+                            <td>
+                                <select name="Qualification" id="Qualification">
+                                    <option value="select">--Select--</option>
+                                </select>
+                            </td>
+                            <td><input type="text" name="board" id="board"></td>
+                            <td><input type="number" name="year" id="year"></td>
+                            <td><input type="number" name="maxmark" id="maxmark"></td>
+                            <td><input type="number" name="obtainmark" id="obtainmark"></td>
+                            <td><input type="number" name="percentage" id="percentage"></td>
+                        </tr>
+
                     </table>
                 </fieldset>
-            </fieldset>
+
+                <fieldset>
+                    <legend>
+                        <b>Language Knowledge</b>
+                    </legend>
+
+                    <table border="1">
+
+                        <tr>
+                            <th><b>Language</b></th>
+                            <th><b>Reading</b></th>
+                            <th><b>Writing</b></th>
+                            <th><b>Spoken</b></th>
+                        </tr>
+
+                        <tr>
+                            <td><b>Hindi</b></td>
+                            <td><input type="checkbox" name="hindi" id="hindi"></td>
+                            <td><input type="checkbox" name="hindi" id="hindi"></td>
+                            <td><input type="checkbox" name="hindi" id="hindi"></td>
+                        </tr>
+
+                        <tr>
+                            <td><b>English</b></td>
+                            <td><input type="checkbox" name="english" id="english"></td>
+                            <td><input type="checkbox" name="english" id="english"></td>
+                            <td><input type="checkbox" name="english" id="english"></td>
+                        </tr>
+
+                        <tr>
+                            <td><b>Urdu</b></td>
+                            <td><input type="checkbox" name="urdu" id="urdu"></td>
+                            <td><input type="checkbox" name="urdu" id="urdu"></td>
+                            <td><input type="checkbox" name="urdu" id="urdu"></td>
+                        </tr>                        
+
+                    </table>
+
+                </fieldset>
+
+                <fieldset>
+
+                    <legend>
+                        <b>Identification Details</b>
+                    </legend>
+
+                    <table border="1">
+
+                        <tr>
+                            <td><b>Aadhar Card Number</b> </td>
+                            <td><input type="number" name="aadhar" id="aadhar"></td>
+                            <td><b>PAN Card Number</b></td>
+                            <td><input type="number" name="pancard" id="pancard"></td>
+                        </tr>
+
+                        <tr>
+                            <td><b>Upload Photo</b></td>
+                            <td><input type="file" name="photo" id="photo"></td>
+                            <td><b>Upload Signature</b></td>
+                            <td><input type="file" name="signature" id="signature" value="Browse...."></td>
+                        </tr>
+
+                    </table>
+
+                </fieldset>
             
         </fieldset>
     </form>
