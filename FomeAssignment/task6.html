@@ -8,28 +8,34 @@
 <body>
 
     <form>
-        <fieldset style="width: 60%;" >
-            <table border="1" width="100%" align="center" cellpadding="10" cellspacing="0">
+        <fieldset>
+
+            <table border="0" cellpadding="10" cellspacing="0" >
+
                 <tr>
                     <td width="40%" align="center">
-                        <img src="Screenshot 2025-10-29 230841.png" alt="nurse" height="400" width="350">
+                        <img src="Screenshot 2025-10-29 230841.png" alt="nurse" height="500" width="450">
                     </td>
-                    <td width="60%" valign="top">
+                    <td width="50%" valign="top">
 
-                        <h2 align="center">Doctor Appointment Form</h2>
+                        <h1 align="center">Doctor Appointment Form</h1>
+
+                        <hr color="red" width="100%">
 
                         <form>
 
-                        <table border="1" cellpadding="7" align="center">
+                        <table border="0" cellpadding="4"   cellspacing="9" style="text-align: left;" align="center">
 
                             <tr>
-                                <td>Appointment Date</td>
-                                <td><input type="date" name="appointmentdate" id="appointmentdate"></td>
+                                <td style="width: 20%;">Appointment Date</td>
+                                <td style="width: 16%;"><input type="date" name="appointmentdate" id="appointmentdate"></td>
+                                <td style="width: 10%;"></td>
                             </tr>
 
                             <tr>
                                 <td>Appointment Time</td>
                                 <td><input type="time" name="appointmenttime" id="appointmenttime"></td>
+                                <td></td>
                             </tr>
 
                             <tr>
@@ -41,14 +47,15 @@
                             <tr>
                                 <td>Gender</td>
                                 <td>
-                                    Male <input type="radio">
-                                    Female <input type="radio">
+                                    Male<input type="radio">Female<input type="radio">
                                 </td>
+                                <td></td>
                             </tr>
 
                             <tr>
                                 <td>Phone</td>
-                                <td><input type="number" name="number" id="number" placeholder="####"></td>
+                                <td><input type="number" name="number" id="number" placeholder="####"</td>
+                                <td></td>
                             </tr>
 
                             <tr>
@@ -59,23 +66,23 @@
 
                             <tr>
                                 <td>Your Query</td>
-                                <td><textarea name="query" id="query"></textarea></td>
+                                <td colspan="2"><textarea name="query" id="query"></textarea></td>
                             </tr>
 
                             <tr>
-                                <td>Appointment Type</td>
+                                <td valign="top">Appointment Type</td>
                                 <td colspan="2">
                                     Select which appointment type(s) you require <br>
-                                    <input type="checkbox">Cervix checkup <br>
-                                    <input type="checkbox">Heart checkup <br>
-                                    <input type="checkbox">Eye check-up <br>
-                                    <input type="checkbox">Hearing Test <br>
-                                </td>
+                                    <input type="checkbox"> Cervix checkup <br>
+                                    <input type="checkbox"> Heart checkup <br>
+                                    <input type="checkbox"> Eye check-up <br>
+                                    <input type="checkbox"> Hearing Test <br></td>
                             </tr>
 
                             <tr>
                                 <td></td>
-                                <td><button>Send</button></td>
+                                <td><button type="submit">Send</button></td>
+                                <td></td>
                             </tr>
 
                         </table>
