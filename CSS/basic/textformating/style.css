@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Bitcount+Grid+Single:wght@100..900&display=swap');
+
+.head{
+    font-family: "Bitcount Grid Single", system-ui;
+}
+
+div{
+    border: 5px double #f30707;
+}
+
+div{
+    border: 5px dot #1942e4;
+}
+/* .heading{
+
+    font-size: xxx-large;
+    text-shadow: 2px 2px 7px rgb(143, 0, 0);
+    
+
+}
+
+.pera{
+
+    font-weight: 900;
+    
+    
+}
+
+.shawdo{
+
+    color: rgb(0, 0, 0);
+    text-shadow: 8px 1px 4px rgb(239, 0, 0);
+
+}
+
+.pera{
+
+    border: 9px solid blue;
+} */

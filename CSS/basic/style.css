@@ -1,0 +1,20 @@
+*{
+    background-color: rgb(222, 160, 246);
+}
+
+#heading{
+    background: aqua;
+
+}
+
+.peragraph{
+    background: #350cc8;
+}
+
+h1{
+    background: linear-gradient(red, blue,yellow);
+}
+
+h2{
+    background: linear-gradient(90deg, red, blue,yellow);
+}
