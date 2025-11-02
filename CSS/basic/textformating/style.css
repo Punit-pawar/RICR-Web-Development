@@ -5,30 +5,33 @@ h1,h2{
 }
 
 div{
+    height: 400px;
+    width: 700px;
     
-    border: 5px dashed #f33e07;
+    border: 5px solid #353434;
+}
+
+h1{
+    background-color: gray;
+    
+    color: rgb(0, 0, 0);
 }
 
 h1{
 
-    color: rgb(128, 179, 224);
-}
-
-
-h1{
-
-    font-size: xxx-large;
+    font-size: xx-large;
+    background: linear-gradient(90deg,  rgb(144, 246, 144), rgb(250, 126, 126));
     text-shadow: 11px 1px 10px rgb(226, 57, 57);
 
 }
 
 h2{
-    color: red;
+    background: linear-gradient(90deg, rgb(141, 141, 238), rgb(144, 246, 144), rgb(250, 126, 126));
+    color: rgb(247, 247, 247);
     text-shadow: 11px 1px 10px rgb(39, 178, 55);
 }
 
 p1{
-
     font-weight: 900;
 }
 
