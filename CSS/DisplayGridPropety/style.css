@@ -1,0 +1,26 @@
+.superDiv{
+    width: 700px;
+    height: 700px;
+    border: 1px solid #000;
+    background-color: aqua;
+}
+
+#mainDiv{
+    width: 700px;
+    height: 700px;
+    border: 1px solid #000;
+    background-color: rgb(138, 231, 247);
+    display: grid;
+    grid-template-columns: 100px 100px 100px ;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+
+}
+
+.subDiv{
+    width: 60px;
+    height: 60px;
+    border: 1px solid #000000;
+    background-color: aliceblue;
+}

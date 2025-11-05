@@ -1,0 +1,17 @@
+#mainDiv{
+    width: 700px;
+    height: 700px;
+    border: 1px solid #000;
+    background-color: rgb(138, 196, 247);
+    display: flex;
+    /* gap: 4px; */
+    justify-content: space-around;
+    align-items: baseline;
+}
+
+.subDiv{
+    width: 60px;
+    height: 60px;
+    border: 1px solid #000000;
+    background-color: aliceblue;
+}

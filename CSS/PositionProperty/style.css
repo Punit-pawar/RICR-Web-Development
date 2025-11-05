@@ -1,0 +1,26 @@
+#navbar{
+    border: 1px solid #000;
+    background-color: rgb(60, 127, 204);
+    display: flex;
+    justify-content: space-between;
+    align-items: center ;
+    
+}
+
+h4{
+    text-align: center;
+}
+
+#help{
+    font-size: x-large;
+    padding: 10px;
+    border-radius: 30px;
+    height: 30px;
+    width: 30px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    
+
+}
