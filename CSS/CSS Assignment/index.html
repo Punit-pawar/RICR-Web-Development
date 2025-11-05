@@ -4,29 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div id="mainbox">
-        <h1 id="head"><span>Lo</span>gin</h1>
+    
+        <div id="loginbox">
 
-        <div id="usermail">
-            <span>&#9993;</span>
-            <input type="email" name="email" id="email" placeholder="Enter your email">
-            <hr>
+            <h1 id="head"><span>Lo</span>gin</h1>
+
+            <div id="usermail">
+                <span>&#9993;</span>
+                <input type="email" name="email" id="email" placeholder="Enter your email">
+                <hr>
+            </div>
+
+            <div id="userpassword">
+                <span>&#x1F512;</span>
+                <input type="password" name="password" id="password" placeholder="Confirm a password">
+                <hr>
+            </div>
+
+            <div id="forget">
+                <input type="checkbox" name="save" id="save"> Remember me
+                <label for="forget">Forget Password?</label>
+            </div>
+
+            <button id="login">Login Now</button>
+
+            <div id="forgetacc">
+                <label for="forgetacc">Dont't have an account?</label>
+                <p>Signup now</p>
+            </div>
+
+        </div>  
+
+
+    <section>
+
+        <div id="registerbox">
+            <h1><span>Re</span>gisteration</h1>
+
+            <div id="name">
+                <input type="text" name="name" id="name" placeholder="Enter your name">
+                <hr>
+            </div>
+
+            <div id="email">
+                <input type="email" name="email" id="email" placeholder="Enter your email">
+                <hr>
+            </div>
+
+            <div id="newpassword">
+                <input type="password" name="passowrd" id="password" placeholder="Create a password">
+                <hr>
+            </div>
+
+            <div id="comfirmpassword">
+                <input type="password" name="password" id="passowrd" placeholder="Confirm a password">
+                <hr>
+            </div>
+
+            <div id="condition">
+                <input type="checkbox" name="terms" id="terms"> i acceot all terms & conditions
+            </div>
+
+            <button id="register">Register Now</button>
+
+            <div>
+                <label for="alreadyacc">Already have an account></label>
+                <p1>Login now</p1>
+            </div>
         </div>
 
-        <div id="userpassword">
-            <span>&#x1F512;</span>
-            <input type="password" name="password" id="password" placeholder="Confirm a password">
-            <hr>
-        </div>
-
-        <div id="forget">
-            <input type="checkbox" name="save" id="save"> Remember me
-            <label for="forget">Forget Password?</label>
-        </div>
-    </div>
+    </section>
     
 </body>
 </html>
