@@ -1,0 +1,97 @@
+body {
+  background-color: rgb(114, 114, 235);
+
+}
+
+#Userlogin {
+  background-color: white;
+  border: 1px solid black;
+  height: 400px;
+  width: 300px;
+  border-radius: 10px;
+  padding: 50px;
+  margin-top: 9rem;
+}
+
+#forgot {
+  color: blue;
+}
+
+input 
+{
+    border: none;
+}
+
+button {
+  color: white;
+  background-color: blue;
+  border-radius: 5px;
+  text-align: center;
+  width: 300px;
+  height: 35px;
+}
+
+
+#view
+{
+    padding-left: 80px;
+}
+
+#RegisterNow {
+  width: 350px;
+}
+
+#userregistration {
+  background-color: white;
+  border: 1px solid black;
+  height: 500px;
+  width: 350px;
+  border-radius: 10px;
+  margin: 50px;
+  padding: 50px;
+}
+
+p{
+    text-align: center;
+}
+
+
+.heading
+{
+    border: 1px solid blue;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+}
+
+span
+{
+    text-decoration: none;
+}
+
+
+a{
+    text-decoration: none;
+}
+
+
+#forgot
+{
+    margin-left: 60px;
+}
+
+
+#main{
+  
+    width: fit-content ;
+    margin:  auto;
+    display: flex;
+}
+
+
+
+
+#eye1
+{
+    padding-left: 130px;
+}
