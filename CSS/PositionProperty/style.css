@@ -1,26 +1,47 @@
-#navbar{
-    border: 1px solid #000;
-    background-color: rgb(60, 127, 204);
-    display: flex;
-    justify-content: space-between;
-    align-items: center ;
-    
+*{
+    margin: 0;
+    padding: 0;
 }
+
+#Navbar {
+  border: 1px solid #000;
+  background-color: blue;
+  color: aliceblue;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 25px;
+  align-items: center;
+
+  div{
+    display: flex;
+    gap: 15px;
+  }
+
+  span:hover{
+    color: red;
+  }
+
+  position: sticky;
+  top: 0;
+}
+
 
 h4{
     text-align: center;
 }
 
-#help{
-    font-size: x-large;
+
+
+#helpButton{
+    height: 50px;
+    width: 50px;
+    font-size: xx-large;
     padding: 10px;
-    border-radius: 30px;
-    height: 30px;
-    width: 30px;
-    display:flex;
+    border-radius: 50%;
+    display: flex;
     align-items: center;
     justify-content: center;
     position: fixed;
-    
-
+    bottom: 20px;
+    right: 20px;
 }

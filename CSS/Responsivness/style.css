@@ -1,0 +1,41 @@
+#mainDiv{
+    width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    gap: 10px;
+}
+
+.subDiv{
+    border: 1px solid #000;
+    border-radius: 15px;
+    padding: 20px;
+    background-color: whitesmoke;
+}
+
+@media screen and (max-width: 1200px) {
+    #mainDiv{
+        grid-template-columns: auto auto auto auto;
+    }
+    
+}
+
+@media screen and (max-width: 900px) {
+    #mainDiv{
+        grid-template-columns: auto auto auto;
+    }
+    
+}
+@media screen and (max-width: 600px) {
+    #mainDiv{
+        grid-template-columns: auto auto;
+    }
+    
+}
+
+@media screen and (max-width: 350px) {
+    #mainDiv{
+        grid-template-columns: auto;
+    }
+    
+}
