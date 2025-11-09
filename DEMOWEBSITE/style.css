@@ -1,5 +1,137 @@
-#mainDiv{
+
+body{
+    padding-left: 63px;
+    padding-right: 63px;
+}
+
+#navbar {
+    background: transparent; 
+    backdrop-filter: blur(100px);
+    background-color: white;
+    color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 25px;
+    align-items: center;
+    opacity: 90%;
+    
+
+    .item{
+        font-size: large;
+    }
+
+    .signin:hover{
+        background-color: rgb(232, 232, 232);
+    }
+
+    .signin{
+        border: 0;
+        color: black;
+        background-color: white;
+        border-radius: 10px;
+        padding: 10px 20px; 
+    }
+
+    .blocks:hover{
+        box-shadow: 2px 5px 15px #a3a3a4;
+
+    }
+    
+    .blocks{
+        color: white;
+        background-color: black;
+        border-radius: 10px;
+        padding: 10px 20px;
+    }
+
+    div{
+        display: flex;
+        gap: 30px;
+    }
+
+    position: sticky;
+    top: 0;
+}
+
+#frontcon{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 40px;
+    padding-top: 20px;    
+}
+
+#portofolio,#photo{
+    display: inline-block;
+
+    h1{
+        font-size: xxx-large;
+    }
+
+    img{
+        border-radius: 20px;
+        height: 580px;
+        width: 640px;
+    }
+
+}
+
+#portofolio{
+    margin-top: 80px;
+    margin-left: 20px;
+
+    h1{
+        font-size: xxx-large;
+    }
+
+    .terms{
+        color: gray;
+    }
+
+    .content{
+        color: gray;
+        margin-right: 100px;
+    }
+
+    p{
+        font-size: x-large;
+    }
+
+    #mail{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        width: 350px;
+        height: 40px;
+    }
+
+    #mail:placeholder{
+        font-size: large;
+    }
+
+    button:hover{
+        box-shadow: 2px 5px 15px #a3a3a4;
+    }
+
+    button{
+        background: black;
+        color: white;
+        margin-left: 15px;
+        border-radius: 10px;
+        height: 45px;
+        width: 150px;
+    }
+}
+
+#seconddiv{
     border: 1px solid #000;
-    background-color: #000;
-    width: 700px;
+
+    h3{
+        margin-top: 100px;
+        text-align: center;
+    }
+
+    .company{
+        border: 1px solid #000;
+
+    }
 }
