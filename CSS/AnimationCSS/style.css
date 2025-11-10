@@ -1,0 +1,80 @@
+h1{
+    margin-left: 0px;
+    width: 200px;
+    border: 1px solid #000;
+}
+
+h1:hover{
+    /* transition: margin-left 5s;
+    margin-left: 200px; */
+
+    transition: width 3s;
+    width: 300px;
+    
+}
+
+#out{
+    border: 1px solid #000;
+    width: 400px;
+    height: 30px;
+}
+
+#in{
+    background-color: rgb(205, 7, 7);
+    width: 0px;
+    height: 30px;
+}
+
+#out:hover{
+    #in {
+        width: 400px;
+        background-color: rgb(0, 255, 4);
+        transition: width 5s ease-in-out, background-color 5s ease-in-out ;
+    }
+   
+}
+
+#out1{
+    border: 1px solid #000;
+    width: 400px;
+    height: 30px;
+}
+
+#in1{
+    height: 30px;
+}
+
+#out1:hover{
+
+    #in1 {
+        animation: myAnimation 5s linear;
+    }
+   
+}
+
+
+@keyframes myAnimation {
+    0%{
+        width: 0%;
+        background-color: red;
+    }
+
+    50%{
+        width: 50%;
+        background-color: yellow;
+    }
+
+    100%{
+        width: 100%;
+        background-color: green;
+    }
+
+}
+
+
+#main{
+    border: 1px solid #000;
+    width: 500px;
+    height: 500px;
+}
+
