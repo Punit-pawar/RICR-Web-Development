@@ -1,11 +1,5 @@
-/* *body{
+*body{
     background-color: #3366ff;
-} */
-
-
-/* body {
-  background-color: #3366ff;
-  font-family: 'Poppins', sans-serif;
 }
 
 .form-box {
@@ -17,21 +11,9 @@
   color: #333;
 }
 
-.form-control {
-  border: none;
-  border-bottom: 1px solid #ccc;
-  border-radius: 0;
-  box-shadow: none;
-}
-
-.form-control:focus {
-  border-color: #3366ff;
-  box-shadow: none;
-}
-
 .btn-primary {
   background-color: #3366ff;
-  border: none;
+  border: 0;
   transition: 0.3s;
 }
 
@@ -39,10 +21,8 @@
   background-color: #2854d3;
 }
 
-a {
-  text-decoration: none;
-}
-
-a:hover {
+.underline-color{
   text-decoration: underline;
-} */
+  text-decoration-color: #3366ff;
+
+}
