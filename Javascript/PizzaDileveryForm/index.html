@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Order Form</title>
+</head>
+<body>
+
+         <fieldset style="width: 30%; border: 2px solid black">
+
+        <h2>Pizza Order Form</h2>
+        <div>
+            <label for="firstname">First Name: </label> 
+            <input type="text" name="firstname" id="firstname"/>
+        </div>
+
+        <br>
+
+        <div>
+            <label for="lastname">Last Name: </label> 
+            <input type="text" name="lastname" id="lastname"/>  
+        </div>
+        
+        <br>
+    
+        <div>
+            <label for="Email">Email Address: </label> 
+            <input type="email" name="Email" id="Email"/>
+        </div>
+
+        <br>
+
+        <div>
+            <label for="Number">Contact Number:</label>
+            <input type="number" name="Number" id="Number" />
+        </div>
+
+        <br>
+
+        <div>
+            <label for="deliverydate">Preferred Delivery Date</label>
+            <input type="date" name="deliverydate" id="deliverydate" /> 
+        </div>
+
+        <br>
+
+        <div>
+            Size:  <br>
+            Small<input type="radio" id="small">
+            Medium<input type="radio" id="Medium">
+            Large<input type="radio" id="large"> 
+        </div>
+
+        <br>
+        
+        <div>
+            Flavor:  <br>
+            <input type="checkbox"> Hawaiion (Php 150.00) 
+            <select name="quantity" id="Hawaiion">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select> 
+
+            <br>
+
+            <input type="checkbox"> Papperoni (Php 140.00) 
+            <select name="quantity" id="Papperoni">
+                <option value="2">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>         
+            
+            <br>
+
+            <input type="checkbox"> Vegetable (Php 130.00) 
+            <select name="quantity" id="Vegetable">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>             
+        </div> 
+
+        <br>
+
+        <div>
+            <label for="Number">Credit Card Number:</label>
+            <input type="number" name="Number" id="Number" />
+        </div>
+
+        <br>
+
+        <div>
+            <label for="PIN">PIN:</label>
+            <input type="password" name="PIN" id="PIN" />
+        </div>                       
+        
+        <br>
+
+        <div>
+            Additional Notes:
+            <br>
+            <textarea name="comment" rows="5" cols="30"></textarea> 
+        </div>
+
+        <br>
+
+        
+        <button onclick="submit()">Submit Order</button>
+        
+
+    </fieldset>     
+    
+    <script src="script.js">
+        
+    </script>
+
+
+    
+</body>
+</html>
