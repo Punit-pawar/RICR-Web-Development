@@ -1,20 +1,254 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RICR Enquiry Form</title>
+    <link rel="stylesheet" href="style.css">
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"/>
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" 45
+    />
+  </head>
+  <body class="position-relative">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">    
-</head>
-<body>
 
-    
-    
-</body>
+    <div>
+
+      <div class="d-flex justify-content-between  fs-5 align-items-center mt-3 ">
+
+        <div class="d-flex" style="margin-left: 60px;">
+          
+          <div>
+
+            <img src="ricr logo.png" alt="logoricr" style="height: 50px;">
+
+          </div>
+
+          <div class="d-flex gap-5  align-items-center" style="margin-left: 100px ;">
+
+            <div id="navitem">
+              Home
+            </div>
+
+            <div id="navitem">
+              About
+            </div>
+
+            <div id="navitem">
+              Courese
+            </div>
+
+            <div id="navitem">
+              IDE
+            </div>
+
+            <div id="navitem">
+              Contect Us
+            </div>
+
+          </div>
+
+
+        </div>
+
+        <div class="d-flex gap-4 align-items-center" style="margin-right: 100px;" >
+
+          <div class="d-flex gap-2 align-items-center">
+
+            <div>
+              <i class="bi bi-telephone-fill"></i> 
+            </div>
+
+            <div>
+              +91 8889991736
+            </div>
+            
+
+          </div>
+
+          <div>
+            <button class="btn rounded-2 " style="z-index: 99; height: 50px; width:150px; background: #125785; color: white; font-size: large; box-shadow: 6px 7px 2px rgb(121, 157, 240);">
+              Student Login
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- <div class="position-absolute rounded-2" style="height: 50px; width:150px; background: #a3c6de; margin-left: 1291px; top: 9px;  ">
+
+    </div> -->
+
+
+    <div class="d-flex justify-content-center">
+
+      <div class="rounded-4" style="height: 1000px; width: 960px; background: #edfeff; margin-top: 70px; ">
+         
+        <div class="text-center mt-5">
+
+          <h1>Enquiry Form</h1>
+          <p class="mt-2">Have questions or need assistance? Fill out the form below to connect with our team and explore your opportunities</p>
+
+        </div>    
+
+        <div class="fs-6" style="height: 500px; width: 869px; margin-left: 49px; margin-right: 49px;  ">
+
+          <div class="d-flex justify-content-between" style="text-align: left;">
+
+            <div id="name"  style="width: 435px;">
+
+              <label for="PersonName">Person Name*</label>
+              <br>
+              <input class="rounded-3 border-1 mt-2" style="width: 400px; height: 60px;" type="text" name="PersonName" id="firstname" placeholder="   Person Name" >
+
+            </div>
+
+            <div id="Number"  style="width: 435px;">
+
+              <label for="ContactNumber">Contact Number*</label>
+              <br>
+              <input class="rounded-3 border-1 mt-2" style="width: 400px; height: 60px;" type="number" name="PersonName" id="ContactNumber" placeholder="   Contact Number">
+              
+            </div>            
+
+          </div>
+
+          <div class="d-flex justify-content-between mt-4" style="text-align: left; ">
+
+            <div id="emaildiv"  style="width: 580px;">
+
+              <label for="email">Email*</label>
+              <br>
+              <input class="rounded-3 border-1 mt-2" style="width: 550px; height: 60px;" type="email" name="email" id="email" placeholder="   Email" >
+
+            </div>
+
+            <div id="qualificationdiv"  style="width: 270px;">
+
+              <label for="Qualification">Qualification*</label>
+              <br>
+              <input class="rounded-3 border-1 mt-2" style="width: 234px; height: 60px;" type="text" name="Qualification" id="Qualification" placeholder="   Qualification">
+
+            </div>  
+            
+          </div>
+
+          <div class="d-flex justify-content-between mt-4" style="text-align: left; ">
+
+            <div id="schoolname"  style="width: 435px;">
+              <label for="ContactNumber">College/School Name*</label>
+              <br>
+              <input class="rounded-3 border-1 mt-2" style="width: 830px; height: 60px;" type="text" name="College/SchoolName" id="collegename" placeholder="   College/School Name">
+            </div>  
+            
+          </div>
+
+          <div class="d-flex justify-content-between mt-4" style="text-align: left;">
+
+            <div id="yeardiv"  style="width: 435px;">
+              <label for="year">Year*</label>
+              <br>
+              <!-- <input type="text" name="PersonName" id="firstname" placeholder="   Year" > -->
+              <select name="year" id="year" class="rounded-3 border-1 mt-2" style="width: 400px; height: 60px;">
+                <option value="year">Year</option>
+                <option value="First Year">First Year</option>
+                <option value="Second Year">Second Year</option>
+                <option value="Third Year">Third Year</option>
+                <option value="Fourth Year">Fourth Year</option>
+                <option value="Passout">Passout</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div id="Branchdiv"  style="width: 435px;">
+              <label for="Branch">Branch*</label>
+              <br>
+              <input class="rounded-3 border-1 mt-2" style="width: 400px; height: 60px;" type="text" name="Branch" id="Branch" placeholder="   Branch">
+            </div>  
+            
+          </div>
+
+          <div class="d-flex fs-6 mt-4" style="text-align: left; ">
+
+            <div id="Coursediv" style="width: 435px;">
+
+              <label for="email">Interested in Which Course*</label><br>
+              <input type="checkbox" id="Full Stack Web Development - Placement Oriented" >  Full Stack Web Development - Placement Oriented <br>
+              <input type="checkbox" id="Data Science with Python - Placement Oriented">  Data Science with Python - Placement Oriented <br>
+              <input type="checkbox" id="Data Analytics with Python - Placement Oriented">  Data Analytics with Python - Placement Oriented <br>
+              <input type="checkbox" id="Business Analyst">  Business Analyst <br>
+              <input type="checkbox" id="Java Programming">  Java Programming <br>
+              <input type="checkbox" id="Python Programming">  Python Programming <br>
+              <input type="checkbox" id="C/C++ Programming">  C/C++ Programming <br>
+              <input type="checkbox" id="Other">  Other <br>
+
+            </div>
+
+            <div id="informationdiv" style="width: 435px;">
+
+              <label for="Qualification">Source of Information</label>
+              <h6><b>(Only choose 'Received call from institute' if you actually got a call from us)*</b></h6>
+
+              <select name="source" id="source" class="rounded-3 border-1 mt-2" style="width: 400px; height: 60px;">
+                <option value="Source of Information">Source of Information</option>
+                <option value="NewsPaper/Print Media">NewsPaper/Print Media</option>
+                <option value="Friends/Relative">Friends/Relative</option>
+                <option value="Social Media">Social Media</option>
+                <option value="Workshop/Seminar">Workshop/Seminar</option>
+                <option value="Received Call From Institue">Received Call From Institue</option>
+                <option value="Other">Other</option>
+              </select>
+
+              <label for="Name of Executive" class="mt-2">Name of Executive*</label>
+              <br>
+              <select name="Name of Executive*" id="executive" class="rounded-3 border-1 mt-2" style="width: 400px; height: 60px;">
+                <option value="" disabled selected>Name of Executive</option> 
+              </select>
+
+            </div>  
+            
+          </div>  
+
+          <div class=" d-flex justify-content-center mt-5">
+
+              <button class="rounded-5 text-light " style="height: 60px; width: 140px; background: #081A28;" ><h5>Submit</h5></button>
+
+          </div>        
+
+        </div>
+
+
+
+      </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="script.JS"></script>
+  </body>
 </html>
