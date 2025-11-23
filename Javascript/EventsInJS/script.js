@@ -38,7 +38,7 @@ function SB_control()
 {
     const btn = document.getElementById("SB_btn");
     
-    if (btn.innerText === "on")
+    if (btn.innerText === "n")
     {
         document.getElementById("SB_btn").innerText = "off";
         document.getElementById("smartbulb").classList.add("on");
