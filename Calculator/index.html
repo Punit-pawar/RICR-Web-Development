@@ -1,19 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator</title>
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>  
+    <div class="container">
 
-    <div>
-        
-        <div class="container">
-            <div></div>
-        </div>
-        
+      <div class="top">
+
+        <input type="text" name="display" placeholder="0" id="display"/>
+
+        <button id="cancel" onclick="Input('C')">C</button>
+
+      </div>
+
+      <div class="allbuttons">
+
+        <button class="btn" onclick="Input('7')">7</button>
+        <button class="btn" onclick="Input('8')">8</button>
+        <button class="btn" onclick="Input('9')">9</button>
+        <button class="btn" onclick="Input('/')">/</button>
+        <button class="btn" onclick="Input('4')">4</button>
+        <button class="btn" onclick="Input('5')">5</button>
+        <button class="btn" onclick="Input('6')">6</button>
+        <button class="btn" onclick="Input('*')">*</button>
+        <button class="btn" onclick="Input('1')">1</button>
+        <button class="btn" onclick="Input('2')">2</button>
+        <button class="btn" onclick="Input('3')">3</button>
+        <button class="btn" onclick="Input('-')">-</button>
+        <button class="btn" onclick="Input('0')">0</button>
+        <button class="btn" onclick="Input('.')">.</button>
+        <button class="btn" onclick="Input('=')">=</button>
+        <button class="btn" onclick="Input('+')">+</button>
+
+      </div>
+
     </div>
-    
-</body>
+
+    <script src="script.js"></script>
+  </body>
 </html>
