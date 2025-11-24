@@ -18,10 +18,3 @@ function chnageprgcolor(paracolor) {
 
 const prgcolor = document.getElementById("paracolor");
 prgcolor.addEventListener("change", () => chnageprgcolor(prgcolor.value));
-
-function chnageprtwogcolor(paracolortwo) {
-  document.getElementById("paratwo").style.color = paracolortwo;
-}
-
-const prgcolortwo = document.getElementById("paracolortwo");
-prgcolortwo.addEventListener("change", () => chnageprtwogcolor(prgcolortwo.value));
