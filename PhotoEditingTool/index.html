@@ -1,11 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Editor</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div
+        class="container-fluid bg-primary px-3 py-2 text-center display-6 fw-bold text-light"
+      >
+        Image Editor
+      </div>
+    </header>
+
+    <main>
+      <div class="mx-3 border border-primary d-flex gap-3" id="content">
+        <div class="border border-danger w-25 p-3">
+          <div class="w-100 border rounded shadow p-2 mb-3">
+            <input
+              type="range"
+              name="Brightness"
+              id="Brightness"
+              min="0"
+              max="100"
+              value="50"
+              onchange="changeBrightness()"
+              class="form-range px-3"
+            />
+            <div class="px-3 d-flex justify-content-between w-100">
+              <span>0</span>
+              <label for="Brightness">Brightness</label>
+              <span>100</span>
+            </div>
+          </div>
+
+          <div class="w-100 border rounded shadow p-2">
+            <input
+              type="range"
+              name="Contrast"
+              id="Contrast"
+              min="0"
+              max="100"
+              value="50"
+              onchange="changeContrast()"
+              class="form-range px-3"
+            />
+            <div class="px-3 d-flex justify-content-between w-100">
+              <span>0</span>
+              <label for="Contrast">Contrast</label>
+              <span>100</span>
+            </div>
+          </div>
+
+          <div class="w-100 border rounded shadow p-2">
+            <input
+              type="range"
+              name="grayscale"
+              id="grayscale"
+              min="0"
+              max="100"
+              value="0"
+              onchange="changegrayscale()"
+              class="form-range px-3"
+            />
+            <div class="px-3 d-flex justify-content-between w-100">
+              <span>0</span>
+              <label for="Contrast">grayscale</label>
+              <span>100</span>
+            </div>
+          </div>
+
+          <div class="w-100 border rounded shadow p-2">
+            <input
+              type="range"
+              name="Sepia"
+              id="Sepia"
+              min="0"
+              max="100"
+              value="0"
+              onchange="changeSepia()"
+              class="form-range px-3"
+            />
+            <div class="px-3 d-flex justify-content-between w-100">
+              <span>0</span>
+              <label for="Contrast">Sepia</label>
+              <span>100</span>
+            </div>
+          </div>
+
+          <div class="w-100 border rounded shadow p-2">
+            <input
+              type="range"
+              name="Saturate"
+              id="Saturate"
+              min="0"
+              max="100"
+              value="50"
+              onchange="changeSaturate()"
+              class="form-range px-3"
+            />
+            <div class="px-3 d-flex justify-content-between w-100">
+              <span>0</span>
+              <label for="Contrast">Saturate</label>
+              <span>100</span>
+            </div>
+          </div>
+
+          <div class="w-100 border rounded shadow p-2">
+            <input
+              type="range"
+              name="invert"
+              id="invert"
+              min="0"
+              max="100"
+              value="0"
+              onchange="changeinvert()"
+              class="form-range px-3"
+            />
+            <div class="px-3 d-flex justify-content-between w-100">
+              <span>0</span>
+              <label for="Contrast">invert</label>
+              <span>100</span>
+            </div>
+          </div>
+
+          <div class="d-flex flex-column gap-2 mt-4">
+
+            <button class="btn btn-outline-warning" onload="reset()">
+              <i class="bi bi-arrow-clockwise"></i>reset 
+            </button>
+
+            <button class="btn btn-outline-success" onload="Download()" >
+              <i class="bi bi-download"></i> Download
+            </button>
+
+            <button class="btn btn-outline-info">
+              <i class="bi bi-download"></i> Upload Another Photo
+            </button>
+
+          </div>
+
+        </div>
+
+        <div
+          class="border border-success w-75 d-flex justify-content-center align-items-center"
+          id="workspace"
+        >
+          <img src="" alt="" id="image" class="border object-fit-contain" />
+          <label class="btn btn-outline-primary" for="Upload" id="uploadLabel">
+            <i class="bi bi-camera"></i> Upload Image
+          </label>
+          <input
+            type="file"
+            name="Upload"
+            id="Upload"
+            class="d-none"
+            onchange="uploadImage()"
+            accept="image/*"
+          />
+        </div>
+      </div>
+    </main>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="scrpit.js"></script>
+  </body>
 </html>
