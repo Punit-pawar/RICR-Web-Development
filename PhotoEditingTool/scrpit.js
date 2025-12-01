@@ -1,10 +1,9 @@
-let 
-b=1, 
-c=1, 
-g=0, 
-s=0, 
-sa=1,
-i=0;
+let b = 1,
+  c = 1,
+  g = 0,
+  se = 0,
+  s = 0,
+  i = 0;
 
 const img = document.getElementById("image");
 
@@ -24,50 +23,70 @@ function uploadImage() {
   document.getElementById("uploadLabel").style.display = "none";
 }
 
-// function applyFilter(){
-//   document.getElementById("image").style.filter = ` Brightness(${b})
-//                                                     Contrast(${c})
-//                                                     grayscale(${g}%)
-//                                                     Sepia(${s}%)
-//                                                     Saturate(${sa})
-//                                                     invert(${i}%)`
-// }
+function applyFilter() {
+  document.getElementById("image").style.filter = ` brightness(${b}) 
+                                                    contrast(${c}) 
+                                                    grayscale(${g}%) 
+                                                    sepia(${se}%)
+                                                    Saturate(${s}%)
+                                                    invert(${i}%)`;
+}
 
 
 function changeBrightness(){
     const value =  document.getElementById("Brightness").value;
-    document.getElementById("image").style.filter=`brightness(${value*2/100})`
+    b = (value * 2) / 100;
+    applyFilter();
 }
 
 
 function changeContrast(){
     const value =  document.getElementById("Contrast").value;
-    document.getElementById("image").style.filter=`contrast(${value*2/100})`
+    c = (value * 2) / 100;
+    applyFilter();
 }
 
 function changegrayscale(){
     const value =  document.getElementById("grayscale").value;
-    document.getElementById("image").style.filter=`grayscale(${value}%)`
+    g = value;
+    applyFilter();
 }
 
 function changeSepia(){
     const value =  document.getElementById("Sepia").value;
-    document.getElementById("image").style.filter=`Sepia(${value}%)`
+    se = value;
+    applyFilter();
 }
 
 function changeSaturate(){
     const value =  document.getElementById("Saturate").value;
-    document.getElementById("image").style.filter=`Saturate(${value*2/100})`
+    s = (value * 2) / 100;
+    applyFilter();
 }
 
-function changehuerotate(){
-    const value =  document.getElementById("hue-rotate").value;
-    document.getElementById("image").style.filter=`hue-rotate(${value*2/100})`
-}
 
 function changeinvert(){
     const value =  document.getElementById("invert").value;
-    document.getElementById("image").style.filter=`invert(${value*2/100})`
+    i = value;
+    applyFilter();
+}
+
+function reset() {
+  b = 1;
+  c = 1;
+  se = 0;
+  s = 1;
+  i = 0;
+  g = 0;
+
+  applyFilter();
+  document.getElementById("Brightness").value = "50";
+  document.getElementById("Contrast").value = "50";
+  document.getElementById("Sepia").value = "0";
+  document.getElementById("Saturate").value = "50";
+  document.getElementById("Invert").value = "0";
+  document.getElementById("Grayscale").value = "0";
+
 }
 
 function Download(){
