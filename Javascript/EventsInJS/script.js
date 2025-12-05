@@ -50,3 +50,65 @@ function SB_control()
     }
 
 }
+
+
+Document.getElementById("c1").addEventListener("mouseenter", ()=>{
+    fillcolor("red")
+});
+
+Document.getElementById("c1").addEventListener("mosueleave", ()=>{
+    fillcolor("white")
+});
+
+Document.getElementById("c2").addEventListener("mosueenter", ()=>{
+    fillcolor("green")
+});
+
+Document.getElementById("c2").addEventListener("mosueleave", ()=>{
+    fillcolor("white")
+});
+
+Document.getElementById("c3").addEventListener("mosueenter", ()=>{
+    fillcolor("blue")
+});
+
+Document.getElementById("c3").addEventListener("mosueleave", ()=>{
+    fillcolor("white")
+});
+
+Document.getElementById("c4").addEventListener("mosueenter", ()=>{
+    fillcolor("black")
+});
+
+Document.getElementById("c4").addEventListener("mosueleave", ()=>{
+    fillcolor("white")
+});
+
+Document.getElementById("c5").addEventListener("mosueenter", ()=>{
+    fillcolor("purple")
+});
+
+Document.getElementById("c5").addEventListener("mosueleave", ()=>{
+    fillcolor("white")
+});
+
+Document.getElementById("c6").addEventListener("mosueenter", ()=>{
+    fillcolor("gray")
+});
+
+Document.getElementById("c6").addEventListener("mosueleave", ()=>{
+    fillcolor("white")
+});
+
+Document.getElementById("c7").addEventListener("mosueenter", ()=>{
+    fillcolor("violet")
+});
+
+Document.getElementById("c7").addEventListener("mosueleave", ()=>{
+    fillcolor("white")
+});
+
+function fillcolor(color)
+{
+    document.getElementById("hoverbulb").style.backgroundColor = color;
+}

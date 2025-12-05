@@ -31,3 +31,47 @@ input{
 .on{
     background-color: yellow;
 }
+
+#hoverbulb{
+    padding: 50px;
+    border: 1px solid #000;
+    border-radius: 70%;
+    width: fit-content;
+    
+}
+
+.color{
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 70%;
+    width: fit-content;   
+    margin: 10px; 
+
+}
+
+#coloplate{
+    display: flex;
+    
+}
+
+#c1{
+    background-color: red;
+}
+#c2{
+    background-color: green;
+}
+#c3{
+    background-color: blue;
+}
+#c4{
+    background-color: black;
+}
+#c5{
+    background-color: purple;
+}
+#c6{
+    background-color: gray;
+}
+#c7{
+    background-color: violet;
+}
