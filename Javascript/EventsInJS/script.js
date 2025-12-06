@@ -84,7 +84,7 @@ document.getElementById("c4").addEventListener("mouseleave", ()=>{
 });
 
 document.getElementById("c5").addEventListener("mouseenter", ()=>{
-    fillcolor("purpule")
+    fillcolor("purple")
 });
 
 document.getElementById("c5").addEventListener("mouseleave", ()=>{
