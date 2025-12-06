@@ -51,62 +51,62 @@ function SB_control()
 
 }
 
-
-Document.getElementById("c1").addEventListener("mouseenter", ()=>{
+document.getElementById("c1").addEventListener("mouseenter", ()=>{
     fillcolor("red")
 });
 
-Document.getElementById("c1").addEventListener("mosueleave", ()=>{
+document.getElementById("c1").addEventListener("mouseleave", ()=>{
     fillcolor("white")
 });
 
-Document.getElementById("c2").addEventListener("mosueenter", ()=>{
+document.getElementById("c2").addEventListener("mouseenter", ()=>{
     fillcolor("green")
 });
 
-Document.getElementById("c2").addEventListener("mosueleave", ()=>{
+document.getElementById("c2").addEventListener("mouseleave", ()=>{
     fillcolor("white")
 });
 
-Document.getElementById("c3").addEventListener("mosueenter", ()=>{
+document.getElementById("c3").addEventListener("mouseenter", ()=>{
     fillcolor("blue")
 });
 
-Document.getElementById("c3").addEventListener("mosueleave", ()=>{
+document.getElementById("c3").addEventListener("mouseleave", ()=>{
     fillcolor("white")
 });
 
-Document.getElementById("c4").addEventListener("mosueenter", ()=>{
+document.getElementById("c4").addEventListener("mouseenter", ()=>{
     fillcolor("black")
 });
 
-Document.getElementById("c4").addEventListener("mosueleave", ()=>{
+document.getElementById("c4").addEventListener("mouseleave", ()=>{
     fillcolor("white")
 });
 
-Document.getElementById("c5").addEventListener("mosueenter", ()=>{
-    fillcolor("purple")
+document.getElementById("c5").addEventListener("mouseenter", ()=>{
+    fillcolor("purpule")
 });
 
-Document.getElementById("c5").addEventListener("mosueleave", ()=>{
+document.getElementById("c5").addEventListener("mouseleave", ()=>{
     fillcolor("white")
 });
 
-Document.getElementById("c6").addEventListener("mosueenter", ()=>{
+document.getElementById("c6").addEventListener("mouseenter", ()=>{
     fillcolor("gray")
 });
 
-Document.getElementById("c6").addEventListener("mosueleave", ()=>{
+document.getElementById("c6").addEventListener("mouseleave", ()=>{
     fillcolor("white")
 });
 
-Document.getElementById("c7").addEventListener("mosueenter", ()=>{
+document.getElementById("c7").addEventListener("mouseenter", ()=>{
     fillcolor("violet")
 });
 
-Document.getElementById("c7").addEventListener("mosueleave", ()=>{
+document.getElementById("c7").addEventListener("mouseleave", ()=>{
     fillcolor("white")
 });
+
 
 function fillcolor(color)
 {
