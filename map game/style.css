@@ -1,5 +1,103 @@
-#map{
-    height: 700px;
-    margin-top: 50px;
+
+body {
+    
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f5f6fa;
+  font-family: system-ui;
+}
+
+.topbar {
+  display: flex;
+  gap: 10px;
+  margin: 10px;
+}
+
+.topbar,
+.topbar * {
+  position: relative;
+  z-index: 9999;
+}
+
+input,
+select {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  width: 260px;
+  background: white;
+}
+
+button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  background: skyblue;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.map-wrap {
+  position: relative;
+  width: 900px;
+  height: 1100px;
+  border: 2px solid #444;
+  background: #fff;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.map-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.marker {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.marker svg {
+  width: 34px;
+  height: 34px;
+}
+
+.marker .tooltip {
+  position: absolute;
+  bottom: 100%;             
+  left: 50%;                 
+  transform: translateX(-50%) translateY(-10px);
+
+  background: #222;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  width: max-content;
+  max-width: 220px;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.25s ease-in-out;
+
+  border: 1px solid #444;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+}
+
+.marker:hover .tooltip {
+  opacity: 1;
+}
+
+.clear-btn {
+  margin-top: 12px;
+  background: #444;
+  position: relative;
+  z-index: 9999;
 }
 

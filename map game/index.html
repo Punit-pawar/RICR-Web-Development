@@ -3,17 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Courses</title>
-  </head>
-  <body>
-
-  </body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Test web</title>
     <link rel="stylesheet" href="style.css" />
     <link
@@ -29,14 +18,27 @@
   </head>
   <body>
 
-    <div class="container d-flex mt-4 gap-4">
-         <input type="text" name="sreach" id="state" class="form-control" placeholder="Enter the state" required onclick="state()">
-         <button class="btn btn-primary w-25">Search</button>
+    <div class="d-flex justify-content-center">
+      <h2 class="text-secondary justify-content-center"> <u>STATE</u> <u>SEARCH</u> </h2>
     </div>
+    
+      <div class="">
 
-    <div>
-        <img src="Map.jpg" alt="map" id="map">
-    </div>
+        <div>
+          <select id="stateDropdown" class="form-control">
+          <option value="">-- Select a State --</option>
+          </select>
+        </div>
+
+        <div class="d-flex justify-content-center mb-3">
+          <button id="clearBtn" class="clear-btn btn btn-primary" onclick="relode()">Clear All Flags</button>
+        </div>
+
+      </div>
+
+      <div class="map-wrap" id="mapWrap">
+        <img src="Map.jpg" id="mapimg" alt="Map" />
+      </div>
 
     
 
@@ -46,6 +48,6 @@
       crossorigin="anonymous"
     ></script>
 
-    <script src="scirpt.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
