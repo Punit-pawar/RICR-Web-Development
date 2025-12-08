@@ -1,0 +1,63 @@
+body{
+  background: #dee7f2;
+}
+#state:hover{
+  cursor: pointer;
+  background: rgb(179, 206, 255);
+  box-shadow: 1px 1px 100px rgb(0, 89, 255);
+  border: none;
+}
+
+#india{
+  border: 1px solid #000;
+  margin-top: 5px;
+  height: 40px;
+  width: 60px;
+}
+
+#india:hover{
+  box-shadow: 1px 1px 100px rgb(255, 0, 0);
+}
+
+#clear:hover{
+  box-shadow: 1px 1px 100px rgb(255, 0, 0);
+}
+
+#add:hover{
+  box-shadow: 1px 1px 100px rgb(28, 201, 2);
+}
+
+#div {
+  width: fit-content;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+#DD {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#state {
+  width: fit-content;
+}
+
+img {
+  cursor: pointer;
+  height: 80vh;
+  aspect-ratio: 1;
+}
+
+@media (max-width: 400px) {
+  map {
+    width: 100vw;
+    height: auto;
+    margin: 0 auto;
+  }
+  #state {
+    margin-bottom: 10%;
+  }
+
+
+}
