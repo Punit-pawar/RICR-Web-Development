@@ -2,102 +2,135 @@ const states = [
   { state: "Andhra Pradesh", 
     capital: "Amaravati", top: "68%", left: "37%" 
   },
+
   { state: "Arunachal Pradesh", 
     capital: "Itanagar", top: "26%", left: "85%" 
   },
+
   { state: "Assam", 
     capital: "Dispur", top: "32%", left: "80%" 
   },
+
   { state: "Bihar", 
     capital: "Patna", top: "35%", left: "59%" 
   },
+
   { state: "Chhattisgarh", 
     capital: "Raipur", top: "47%", left: "47%" 
   },
+
   { state: "Delhi", 
     capital: "New Delhi", top: "26%", left: "32%" 
   },
+
   { state: "Goa", 
     capital: "Panaji", top: "65.5%", left: "20%" 
   },
+
   { state: "Gujarat", 
     capital: "Gandhinagar", top: "42%", left: "15%" 
   },
+
   { state: "Haryana", 
     capital: "Chandigarh", top: "24%", left: "30%" 
   },
+
   { state: "Himachal Pradesh", 
     capital: "Shimla", top: "16%", left: "34%" 
   },
+
   { state: "Jammu & Kashmir",
     capital: "Srinagar/Jammu", top: "10%", left: "27%",
   },
+
   { state: "Jharkhand", 
     capital: "Ranchi", top: "41%", left: "57%" 
   },
+  
   { state: "Karnataka", 
     capital: "Bengaluru", top: "68%", left: "26%" 
   },
+
   { state: "Kerala", 
     capital: "Thiruvananthapuram", top: "83%", left: "28%" 
   },
+
   { state: "Ladakh",
     capital: "Leh", top: "7%", left: "32%" 
   },
+
   { state: "Madhya Pradesh", 
     capital: "Bhopal", top: "42%", left: "35%" 
   },
+
   { state: "Maharashtra", 
     capital: "Mumbai", top: "53%", left: "25%" 
   },
+
   { state: "Manipur", 
     capital: "Imphal", top: "37%", left: "84%" 
   },
+
   { state: "Meghalaya", 
     capital: "Shillong", top: "34.5%", left: "75%" 
   },
+
   { state: "Mizoram", 
     capital: "Aizawl", top: "42%", left: "81%" 
   },
+
   { state: "Nagaland", 
     capital: "Kohima", top: "32%", left: "86%" 
   },
+
   { state: "Odisha", 
     capital: "Bhubaneswar", top: "50%", left: "50%" 
   },
+
   { state: "Punjab", 
     capital: "Chandigarh", top: "18%", left: "27%" 
   },
+
   { state: "Rajasthan", 
     capital: "Jaipur", top: "30%", left: "20%" 
   },
+
   { state: "Sikkim", 
     capital: "Gangtok", top: "30%", left: "66.8%" 
   },
+
   { state: "Tamil Nadu", 
     capital: "Chennai", top: "80%", left: "35%" 
   },
+
   { state: "Telangana",
     capital: "Hyderabad", top: "58%", left: "37%" 
   },
+
   { state: "Tripura", 
     capital: "Agartala", top: "40%", left: "77%" 
   },
+
   { state: "Uttar Pradesh", 
     capital: "Lucknow", top: "32%", left: "43%" 
   },
+
   { state: "Uttarakhand", 
     capital: "Dehradun", top: "21%", left: "39%" 
   },
+
   { state: "West Bengal", 
     capital: "Kolkata", top: "41%", left: "65%" 
   },
+  
 ];
 
-function Search() {
+function Search() 
+{
   const text = document.getElementById("state").value;
   const img = document.getElementById("div");
   const div = document.createElement("div");
+
   const w = window.innerWidth;
 
   div.innerText = "🚩";
