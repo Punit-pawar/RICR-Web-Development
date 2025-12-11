@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIP Calculator</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">    
+</head>
+<body class=" bg-secondary">
+
+    <header>
+        <div class="bg-secondary py-2 text-center fw-bold text-light text-decoration-underline ">
+            <h1>TIP CALCULATOR</h1>
+        </div>
+    </header>
+
+  <div class="d-grid justify-content-center align-items-center min-vh-100">
+
+    <div class="p-5  bg-body-secondary text-center border rounded-5 " >
+
+        <h4 class="fw-bold mb-3 bg-danger bg-opacity-50 h-50 rounded-3">
+            Tip Calculator
+        </h4>
+
+        <div class="mb-4">
+            <label for="bill" class="mb-1">Bill Amount</label>
+            <input type="number" name="bill" id="bill" class="form-control" placeholder="Enter bill amount">
+        </div>
+
+        <div class="mb-4">
+            <label for="service" class="mb-1">How was the service ?</label>
+            <select id="service" class="form-control">
+                <option value="Select">--Select--</option>
+                <option value="0.25">25% - Top Notch</option>
+                <option value="0.20">20% - Excellent</option>
+                <option value="0.15">15% - Good</option>
+                <option value="0.10">10% - Fair</option>
+                <option value="0.05">5% - Poor</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label for="persons" class="mb-1">Total number of persons</label>
+            <input type="number" name="persons" id="persons" class="form-control" placeholder="Enter number of people">
+        </div>   
+        
+        <div class="mb-4">
+            <button class="btn btn-outline-success w-75" onclick="calculateTip()">Calculate</button>
+        </div>
+
+        <div class="tip" id="tip"></div>
+      </div>
+    </div>
+  </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous">
+    </script>    
+
+    <script src="script.js"></script>
+    
+</body>
+</html>
