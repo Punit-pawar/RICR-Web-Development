@@ -294,18 +294,7 @@ function Search()
   }
   const temp2 = document.createElement("p");
 
-  states.map((item) => {
-    if (item.state === text) {
-      temp2.innerText = `Capital: ${item.capital}`;
-      temp2.style.position = "absolute";
-      temp2.style.zIndex = "1";
-      temp2.style.bottom = "-55px";
-      temp2.style.left = "0%";
-      temp2.style.cursor = "pointer";
-      temp2.style.width = "210px";
-      temp2.style.zIndex = "99";
-    }
-  });
+
 
   if (
     text === "Arunachal Pradesh" ||
