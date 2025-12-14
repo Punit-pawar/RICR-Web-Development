@@ -165,13 +165,13 @@ function placeFlag(state) {
       <b>${state.replace(/\b\w/g, (c) => c.toUpperCase())}</b><br>
       Capital: ${info.capital}<br>
       
-    </div>
-  `;
+    </div>`;
 
   mapWrap.appendChild(marker);
 }
 
-function flash(state) {
+function flash(state) 
+{
   document.querySelectorAll(".marker").forEach((m) => {
     if (m.querySelector(".tooltip").innerHTML.toLowerCase().includes(state)) {
       m.animate(
@@ -186,7 +186,8 @@ function flash(state) {
   });
 }
 
-function search(arg) {
+function search(arg) 
+{
   const raw = arg || input.value;
   const name = normalize(raw);
   if (!name) return alert("Enter a state!");
@@ -205,6 +206,7 @@ function search(arg) {
   placeFlag(st);
   input.value = "";
 }
-function relode(){
+
+function reload(){
   window.location.reload();
 }
