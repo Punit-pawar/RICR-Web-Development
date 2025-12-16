@@ -5,7 +5,6 @@ async function getweather() {
   const response = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=560bfdfdfce966e66cb91bfdfd42091f`
   );
-
   const data = await response.json();
 
   document.getElementById("Weatherdata").innerHTML = `
