@@ -7,7 +7,14 @@
 }
 
 #inner{
-
     margin-top: 50px;
 }
 
+button {
+    transition: 0.5s;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
