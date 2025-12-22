@@ -1,0 +1,34 @@
+body {
+    background: linear-gradient(135deg, #eef2f3, #d9e2ec);
+    min-height: 100vh;
+}
+
+.calculator-card {
+    max-width: 520px;
+    margin: auto;
+    border-radius: 15px;
+}
+
+.btn-custom {
+    transition: 0.3s;
+}
+
+.btn-custom:hover {
+    transform: translatey(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.bill-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.bill-row span:last-child {
+    font-weight: 600;
+}
+
+.total {
+    font-size: 1.2rem;
+    color: #0d6efd;
+}
