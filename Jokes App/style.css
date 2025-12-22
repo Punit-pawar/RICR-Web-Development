@@ -1,0 +1,25 @@
+main{
+    margin-left: 500px;
+    width: 500px;
+}
+
+#punchline{
+    text-align: center;
+}
+
+#setup{
+    text-align: center;
+}
+
+#btn{
+    margin-left: 150px;
+}
+
+#btn {
+    transition: 0.2s;
+}
+
+#btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
