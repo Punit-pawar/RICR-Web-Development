@@ -1,0 +1,25 @@
+body {
+    background: linear-gradient(135deg, #e3f2fd, #fce4ec);
+    min-height: 100vh;
+}
+
+#outter {
+    max-width: 500px;
+    margin: auto;
+    border-radius: 15px;
+}
+
+#calculate {
+    transition: 0.2s;
+}
+
+#calculate:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+}
