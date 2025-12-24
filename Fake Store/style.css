@@ -15,3 +15,17 @@ a:active{
     height: 500px;
 }
 
+#productRow{
+    margin-left: 100px;
+    border: 1px solid #000;
+}
+
+.container{
+    border: 1px solid #000;
+}
+
+img{
+    height: 300px;
+    mar
+}
+
