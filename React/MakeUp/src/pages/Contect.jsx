@@ -5,12 +5,12 @@ import "bootstrap/dist/js/bootstrap.min.js"
 import "bootstrap-icons/font/bootstrap-icons.css"
 
 
-const Product = () => {
+const Contact = () => {
     return(
         <>
-        <p>this is Products</p>
+        
         </>
     );
 };
 
-export default Product;
+export default Contact;
