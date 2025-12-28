@@ -2,19 +2,24 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-    return(
-        <>
-        <div>
-            <h3>My Website</h3>
-            <div>
-                <Link to={"/"}>Home</Link>
-                <Link to={"About"}>About</Link>
-                <Link to={"Product"}>Product</Link>
-                <Link to={"Contact"}>Contact</Link>
-            </div>
+  return (
+    <>
+      <div className="flex justify-between bg-amber-200 items-center h-15">
+
+        <div className="text-4xl fw-bold italic ms-5 cursor-pointer text-fuchsia-500">
+          Glow More
         </div>
-        </>
-    );
+
+        <div className="flex gap-4 me-5 font-medium">
+          <Link to={"/"} className="text-decoration-none text-black"> Home </Link>
+          <Link to={"About"} className="text-decoration-none text-black"> About </Link>
+          <Link to={"Product"} className="text-decoration-none text-black"> Product </Link>
+          <Link to={"Contact"} className="text-decoration-none text-black"> Contact </Link>
+        </div>
+
+      </div>
+    </>
+  );
 };
 
 export default Header;
