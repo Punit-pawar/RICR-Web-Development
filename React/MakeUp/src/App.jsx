@@ -4,8 +4,10 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Product from "./pages/Product";
 import Contact from "./pages/Contact";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 import Header from "./component/Header";
-import Footer from "./component/Footer";
+
 function App() {
   return (
     <>
@@ -16,8 +18,9 @@ function App() {
           <Route path="/About" element={<About/>} />
           <Route path="/Product" element={<Product/>} />
           <Route path="/Contact" element={<Contact/>} />
+          <Route path="/Login" element={<Login/>} />
+          <Route path="/SignUp" element={<SignUp/>} />
         </Routes>
-        <Footer />
       </BrowserRouter>
     </>
   );

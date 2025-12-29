@@ -6,23 +6,32 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { useState } from "react";
 
 const Contact = () => {
-  const [fullname, setfullname] = useState("");
-  const [email, setemail] = useState("");
-  const [message, setmessage] = useState("");
+  const [contactData, setContactData] = useState({
+    fullname: "",
+    email: "",
+    phone: "",
+    city: "",
+    subject: "",
+    message: "",
+  });
+
   const [isloading, setisloading] = useState(false);
 
-  const handleclearform = () => {
-    setfullname("");
-    setmessage("");
-    setemail("");
+  const handleChange = (e) => {
+    const { name, value } = e.traget;
+    setContactData((previousData) => ({ ...previousData, [name]: value }));
   };
 
-  const handlesubmitform =async (e) => {
+  const handleclearform = () => {
+    
+  };
+
+  const handlesubmitform = async (e) => {
     isloading(true);
     e.preventDefalut();
 
     try {
-        const response = await fetch("https://fakestoreapi.com/products");
+      const response = await fetch("https://fakestoreapi.com/products");
       setTimeout(() => {
         const data = {
           fullname,
@@ -42,6 +51,7 @@ const Contact = () => {
     }
 
     handleclearform();
+    
   };
 
   return (
@@ -57,8 +67,8 @@ const Contact = () => {
                 type="text"
                 name="fullname"
                 id="fullname"
-                value={fullname}
-                onChange={(e) => setfullname(e.target.value)}
+                value={contactData.fullname}
+                onChange={handleChange}
                 placeholder="Enter the Name"
                 className="text-black"
                 required
@@ -71,11 +81,50 @@ const Contact = () => {
                 type="email"
                 name="email"
                 id="email"
-                value={email}
-                onChange={(e) => setemail(e.target.value)}
+                value={contactData.email}
+                onChange={handleChange}
                 placeholder="Enter the Email"
                 className="text-black"
                 required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="phone">Phone</label>
+              <input
+                type="number"
+                name="phone"
+                id="phone"
+                value={contactData.phone}
+                onChange={handleChange}
+                placeholder="Enter your phone"
+                className="text-primary"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="city">City</label>
+              <input
+                type="text"
+                name="city"
+                id="city"
+                value={contactData.city}
+                onChange={handleChange}
+                placeholder="Enter your city"
+                className="text-primary"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="subject">Subject</label>
+              <input
+                type="text"
+                name="subject"
+                id="subject"
+                value={contactData.subject}
+                onChange={handleChange}
+                placeholder="Enter your subject"
+                className="text-primary"
               />
             </div>
 
@@ -84,8 +133,8 @@ const Contact = () => {
               <textarea
                 name="message"
                 id="message"
-                value={message}
-                onChange={(e) => setmessage(e.target.value)}
+                value={contactData.message}
+                onChange={handleChange}
                 placeholder="Enter the message"
                 className="text-black"
                 required
@@ -93,11 +142,15 @@ const Contact = () => {
             </div>
 
             <div>
-              <button type="reset" className="btn btn-danger">Clear Form</button>
+              <button type="reset" className="btn btn-danger">
+                Clear Form
+              </button>
 
-              <button type="submit" className="btn btn-success">{isloading?"loading":"submit"}</button>
-              
+              <button type="submit" className="btn btn-success">
+                {isloading ? "loading" : "submit"}
+              </button>
             </div>
+
           </form>
         </div>
       </div>
