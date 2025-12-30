@@ -1,96 +1,99 @@
-import React from "react";
-
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.min.js";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import { useState } from "react";
+import React, { useState } from "react";
 
 const Contact = () => {
   const [contactData, setContactData] = useState({
-    fullname: "",
+    fullName: "",
     email: "",
     phone: "",
     city: "",
     subject: "",
     message: "",
+    religion: "",
+    gender: "",
+    skill: [],
   });
 
-  const [isloading, setisloading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.traget;
-    setContactData((previousData) => ({ ...previousData, [name]: value }));
-  };
-
-  const handleclearform = () => {
-    
-  };
-
-  const handlesubmitform = async (e) => {
-    isloading(true);
-    e.preventDefalut();
-
-    try {
-      const response = await fetch("https://fakestoreapi.com/products");
-      setTimeout(() => {
-        const data = {
-          fullname,
-          email,
-          message,
-        };
-        console.log(data);
-      }, 5000);
-    } 
-
-    catch (error) {
-      console.log(error.message);
-    } 
-
-    finally {
-      setisloading(false);
+    const { name, value, type, checked } = e.target;
+    if (type === "checkbox") {
+      let temp = contactData.skill;
+      if (checked) {
+        temp.push(value);
+        setContactData((previousData) => ({ ...previousData, [name]: temp }));
+      } else {
+        temp = Object.values(temp); //Convert to Array
+        temp = temp.filter((word) => word !== value); //Remove the Undersired Value
+        setContactData((previousData) => ({ ...previousData, [name]: temp }));
+      }
+    } else {
+      setContactData((previousData) => ({ ...previousData, [name]: value }));
     }
+  };
 
-    handleclearform();
-    
+  const handleClearForm = () => {
+    setContactData({
+      fullName: "",
+      email: "",
+      phone: "",
+      city: "",
+      subject: "",
+      message: "",
+      religion: "",
+      gender: "",
+      skill: [],
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      console.log(contactData);
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+    handleClearForm();
   };
 
   return (
     <>
-      <div className="text-center">
+      <div className="text-center mt-30 w-75 ms-50 border-2 h-70 rounded-3xl">
         <h1>Contact Us</h1>
 
-        <div className="container flex justify-center">
-          <form onReset={handleclearform} onSubmit={handlesubmitform}>
-            <div>
-              <label htmlFor="fullname">Full Name: </label>
+        <div className="container mt-4">
+          <form onReset={handleClearForm} onSubmit={handleSubmit}>
+            <div className="flex items-center mb-4">
+              <label htmlFor="fullName" className="w-28 font-bold">Full Name</label>
               <input
                 type="text"
-                name="fullname"
-                id="fullname"
-                value={contactData.fullname}
+                name="fullName"
+                id="fullName"
+                value={contactData.fullName}
                 onChange={handleChange}
-                placeholder="Enter the Name"
-                className="text-black"
-                required
+                placeholder="Enter your Name"
+                className="flex-1 border-2 border-black p-2 rounded"
               />
             </div>
 
-            <div>
-              <label htmlFor="email">Email: </label>
+            <div className="flex items-center mb-4">
+              <label htmlFor="email" className="w-28 font-bold">Email</label>
               <input
                 type="email"
                 name="email"
                 id="email"
                 value={contactData.email}
                 onChange={handleChange}
-                placeholder="Enter the Email"
-                className="text-black"
-                required
+                placeholder="Enter your Email"
+                className="flex-1 border-2 border-black p-2 rounded"
               />
             </div>
 
-            <div>
-              <label htmlFor="phone">Phone</label>
+            <div className="flex items-center mb-4">
+              <label htmlFor="phone" className="w-28 font-bold">Phone</label>
               <input
                 type="number"
                 name="phone"
@@ -98,12 +101,12 @@ const Contact = () => {
                 value={contactData.phone}
                 onChange={handleChange}
                 placeholder="Enter your phone"
-                className="text-primary"
+                className="flex-1 border-2 border-black p-2 rounded"
               />
             </div>
 
-            <div>
-              <label htmlFor="city">City</label>
+            <div className="flex items-center mb-4">
+              <label htmlFor="city" className="w-28 font-bold">City</label>
               <input
                 type="text"
                 name="city"
@@ -111,12 +114,12 @@ const Contact = () => {
                 value={contactData.city}
                 onChange={handleChange}
                 placeholder="Enter your city"
-                className="text-primary"
+                className="flex-1 border-2 border-black p-2 rounded"
               />
             </div>
 
-            <div>
-              <label htmlFor="subject">Subject</label>
+            <div className="flex items-center mb-4">
+              <label htmlFor="subject" className="w-28 font-bold">Subject</label>
               <input
                 type="text"
                 name="subject"
@@ -124,31 +127,134 @@ const Contact = () => {
                 value={contactData.subject}
                 onChange={handleChange}
                 placeholder="Enter your subject"
-                className="text-primary"
+                className="flex-1 border-2 border-black p-2 rounded"
               />
             </div>
 
-            <div>
-              <label htmlFor="message">Message: </label>
+            <div className="flex items-center mb-4">
+              <label htmlFor="religion" className="w-28 font-bold">Religion</label>
+              <select
+                name="religion"
+                id="religion"
+                onChange={handleChange}
+                value={contactData.religion}
+              >
+                <option value="">--Select Religion--</option>
+                <option value="islam">Islam</option>
+                <option value="hinduism">Hinduism</option>
+                <option value="christianity">Christianity</option>
+                <option value="buddhism">Buddhism</option>
+                <option value="jainism">Jainism</option>
+                <option value="sikhism">Sikhism</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div className="flex items-center mb-4">
+              <label htmlFor="gender" className="w-28 font-bold">Gender</label>
+              <input
+                type="radio"
+                name="gender"
+                value="male"
+                onChange={handleChange}
+                checked={contactData.gender === "male"}
+              />{" "}
+              Male
+              <input
+                type="radio"
+                name="gender"
+                value="female"
+                onChange={handleChange}
+                checked={contactData.gender === "female"}
+              />{" "}
+              Female
+              <input
+                type="radio"
+                name="gender"
+                value="other"
+                onChange={handleChange}
+                checked={contactData.gender === "other"}
+              />{" "}
+              Other
+            </div>
+
+            <div className="flex items-center mb-4">
+              <label htmlFor="skill">Skill known</label>
+              <input
+                type="checkbox"
+                name="skill"
+                value="html"
+                onChange={handleChange}
+                checked={
+                  Object.values(contactData.skill).find(
+                    (word) => word === "html"
+                  )
+                    ? true
+                    : false
+                }
+              />{" "}
+              HTML
+              <input
+                type="checkbox"
+                name="skill"
+                value="css"
+                onChange={handleChange}
+                checked={
+                  Object.values(contactData.skill).find(
+                    (word) => word === "css"
+                  )
+                    ? true
+                    : false
+                }
+              />{" "}
+              CSS
+              <input
+                type="checkbox"
+                name="skill"
+                value="js"
+                onChange={handleChange}
+                checked={
+                  Object.values(contactData.skill).find(
+                    (word) => word === "js"
+                  )
+                    ? true
+                    : false
+                }
+              />{" "}
+              JS
+              <input
+                type="checkbox"
+                name="skill"
+                value="react"
+                onChange={handleChange}
+                checked={
+                  Object.values(contactData.skill).includes("react")
+                }
+              />{" "}
+              React
+            </div>
+
+            <div className="flex items-center mb-4">
+              <label htmlFor="message" className="w-28 font-bold">Message</label>
               <textarea
                 name="message"
                 id="message"
                 value={contactData.message}
                 onChange={handleChange}
-                placeholder="Enter the message"
-                className="text-black"
-                required
+                placeholder="Enter your Message"
+                className="flex-1 border-2 border-black p-2 rounded"
               ></textarea>
             </div>
 
-            <div>
+            <div className="flex mt-6 justify-center gap-20">
+
               <button type="reset" className="btn btn-danger">
                 Clear Form
               </button>
-
               <button type="submit" className="btn btn-success">
-                {isloading ? "loading" : "submit"}
+                {isLoading ? "Loading" : "Submit"}
               </button>
+
             </div>
 
           </form>

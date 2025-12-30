@@ -1,96 +1,134 @@
 import React, { useState } from "react";
 
-const Login = () => {
-  const [loginData, setLoginData] = useState({
+const Signup = () => {
+  const [signupData, setSignupData] = useState({
+    name: "",
+    username: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setLoginData((prevData) => ({
+    setSignupData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
   const handleClearForm = () => {
-    setLoginData({
+    setSignupData({
+      name: "",
+      username: "",
       email: "",
       password: "",
+      confirmPassword: "",
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log("Login Data:", loginData);
+    console.log("Signup Data:", signupData);
 
     setTimeout(() => {
       setIsLoading(false);
       handleClearForm();
-    }, 1000);
+    }, );
   };
 
   return (
     <>
-      <div className="text-center">
-        <h1 className="text-3xl font-bold mb-6">Login</h1>
+      <div className="text-center mt-30 border-amber-200 border-2 w-75 ms-50 h-120 rounded-3xl">
+        <h1>Sign Up</h1>
 
-        <div className="container ">
+        <div className="container mt-4">
           <form onSubmit={handleSubmit} onReset={handleClearForm}>
-            <div className="flex items-center mb-4">
-              <label htmlFor="email" className="w-28 font-semibold">
-                Email
-              </label>
+            <div className="flex items-center gap-4 mb-4">
+              <label htmlFor="name" className="w-32 font-bold">Name :</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={signupData.name}
+                onChange={handleChange}
+                placeholder="Enter your name"
+                className="flex-1 border-2 border-black p-2 rounded"
+              />
+            </div>
+
+            <div className="flex items-center gap-4 mb-4">
+              <label htmlFor="username" className="w-32 font-bold">Username :</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={signupData.username}
+                onChange={handleChange}
+                placeholder="Enter username"
+                className="flex-1 border-2 border-black p-2 rounded"
+              />
+            </div>
+
+            <div className="flex items-center gap-4 mb-4">
+              <label htmlFor="email" className="w-32 font-bold">Email :</label>
               <input
                 type="email"
                 id="email"
                 name="email"
-                value={loginData.email}
+                value={signupData.email}
                 onChange={handleChange}
-                placeholder="Enter your email"
+                placeholder="Enter email"
                 className="flex-1 border-2 border-black p-2 rounded"
               />
             </div>
 
-            <div className="flex items-center mb-4">
-              <label htmlFor="password" className="w-28 font-semibold">
-                Password
-              </label>
+            <div className="flex items-center gap-4 mb-4">
+              <label htmlFor="password" className="w-32 font-bold">Password :</label>
               <input
                 type="password"
                 id="password"
                 name="password"
-                value={loginData.password}
+                value={signupData.password}
                 onChange={handleChange}
-                placeholder="Enter your password"
+                placeholder="Enter password"
                 className="flex-1 border-2 border-black p-2 rounded"
               />
             </div>
 
-            <div className="flex mt-6">
-              <button
-                type="reset"
-                className="bg-red-600 text-white px-4 py-2 rounded "
-              >
+            <div className="flex items-center gap-4 mb-4">
+              <label htmlFor="confirmPassword" className="w-32 font-bold">Confirm Password :</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                value={signupData.confirmPassword}
+                onChange={handleChange}
+                placeholder="Confirm password"
+                className="flex-1 border-2 border-black p-2 rounded"
+              />
+            </div>
+
+            <div className="flex mt-6 justify-center gap-20">
+              <button type="reset" className="bg-red-600 text-white px-4 py-2 rounded ">
                 Clear
               </button>
 
-              <button
-                type="submit"
-                className="bg-blue-600 text-white px-4 py-2 rounded "
-              >
-                {isLoading ? "Logging in..." : "Login"}
+              <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded ">
+                {isLoading ? "Signing up..." : "Sign Up"}
               </button>
+
             </div>
+
           </form>
+
         </div>
       </div>
     </>
   );
 };
 
-export default Login;
+export default Signup;

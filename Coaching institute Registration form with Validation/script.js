@@ -7,23 +7,6 @@ function submit(){
     document.getElementById("fullname").value = "";
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     let seletedbatchtiming=[];
 
 
