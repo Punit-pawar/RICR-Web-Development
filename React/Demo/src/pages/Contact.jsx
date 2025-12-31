@@ -75,7 +75,7 @@ const Contact = () => {
                 value={contactData.fullName}
                 onChange={handleChange}
                 placeholder="Enter your Name"
-                className="flex-1 border-2 border-black p-2 rounded"
+                className="flex-1 border-2 border-black p-2 rounded "
               />
             </div>
 
