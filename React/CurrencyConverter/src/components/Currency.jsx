@@ -34,7 +34,7 @@ const Currency = () => {
 
             </div>
 
-            <select name="to" value={to} onChange={(e)=> setto(e.target.value)} className="border p-3 rounded overflow-hidden">
+            <select name="to" value={to} onChange={(e)=> setto(e.target.value)} className="border border-2 p-3 rounded overflow-hidden">
               <option value="">--Select Country--</option>
               {
                 CountryData.map((country,idx)=>(
