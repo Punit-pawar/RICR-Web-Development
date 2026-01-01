@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Toaster, { toast } from "react-hot-toast";
+import toaster, { toast } from "react-hot-toast";
 
 const App = () => {
 
@@ -29,7 +29,7 @@ const [AppData, setAppData] = useState({
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     if (type === "checkbox") {
-      let temp = AppData.skill;
+      let temp = AppData.Batch;
       if (checked) {
         temp.push(value);
         setAppData((previousData) => ({ ...previousData, [name]: temp }));
@@ -67,8 +67,16 @@ const [AppData, setAppData] = useState({
   };
 
   const validate = () => {
-    
-  }
+    let Error = {}
+    if(AppData.name.length < 3){
+      Error.name = "Name should be more than 3 Characters "
+    }
+    else{
+      if(!/^[A-Za-z]+$/.test(AppData.name)){
+      Error.name = "Only contain A-Z , a-z and space"
+      }
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -103,7 +111,7 @@ const [AppData, setAppData] = useState({
   return (
     <>
 
-    <Toaster position="top-right" reverseOrder={true}/>
+    <toaster position="top-right" reverseOrder={true}/>
 
     <div>
 
@@ -127,6 +135,7 @@ const [AppData, setAppData] = useState({
                 name="name"
                 value={AppData.name}
                 onChange={handleChange}
+                required
                 placeholder="Enter your name"
                 className="flex-1 border-2 border-black p-2 rounded-3xl focus:outline-none focus:border-indigo-500 bg-white"
               />
@@ -140,6 +149,7 @@ const [AppData, setAppData] = useState({
                 name="email"
                 value={AppData.email}
                 onChange={handleChange}
+                required
                 placeholder="Enter email"
                 className="flex-1 border-2 border-black p-2 rounded-3xl focus:outline-none focus:border-indigo-500 bg-white"
               />
@@ -153,6 +163,7 @@ const [AppData, setAppData] = useState({
                 name="number"
                 value={AppData.number}
                 onChange={handleChange}
+                required
                 placeholder="Enter number"
                 className="flex-1 border-2 border-black p-2 rounded-3xl focus:outline-none focus:border-indigo-500 bg-white"
               />
@@ -166,6 +177,7 @@ const [AppData, setAppData] = useState({
                 name="dob"
                 value={AppData.dob}
                 onChange={handleChange}
+                required
                 placeholder="Confirm Date of birth"
                 className="flex-1 border-2 border-black p-2 rounded-3xl focus:outline-none focus:border-indigo-500 bg-white"
               />
@@ -183,7 +195,8 @@ const [AppData, setAppData] = useState({
               <label htmlFor="Qualification" className="w-32 font-bold">Qualification :</label>
               <select name="Qualification" id='Qualification' className="flex-1 border-2 border-black p-2 rounded-3xl focus:outline-none focus:border-indigo-500 bg-white" 
                 onChange={handleChange}
-                value={AppData.Qualification}>
+                value={AppData.Qualification}
+                required>
                 <option value="">--Select Qualification--</option>
                 <option value="10th">10th</option>
                 <option value="12th">12th</option>
@@ -201,6 +214,7 @@ const [AppData, setAppData] = useState({
                 name="Percentage"
                 value={AppData.Percentage}
                 onChange={handleChange}
+                required
                 placeholder="Enter Percentage"
                 className="flex-1 border-2 border-black p-2 rounded-3xl focus:outline-none focus:border-indigo-500 bg-white"
               />
@@ -215,7 +229,8 @@ const [AppData, setAppData] = useState({
               <label htmlFor="Courses" className="w-32 font-bold">Available Courses :</label>
               <select name="Courses" id='Courses' className="flex-1 border-2 border-black p-2 rounded-3xl focus:outline-none focus:border-indigo-500 bg-white"
                 onChange={handleChange}
-                value={AppData.Courses}>
+                value={AppData.Courses}
+                required>
                 <option value="">--Select Courses--</option>
                 <option value="10full stacl developmentth">Full Stack Development</option>
                 <option value="data science">Data Science</option>
@@ -235,6 +250,7 @@ const [AppData, setAppData] = useState({
                   name="Batch"
                   value="Morning"
                   onChange={handleChange}
+                  required
                   checked={
                     Object.values(AppData.Batch).find(
                       (word) => word === "Morning"
@@ -251,6 +267,7 @@ const [AppData, setAppData] = useState({
                   name="Batch"
                   value="Afternoon"
                   onChange={handleChange}
+                  required
                   checked={
                     Object.values(AppData.Batch).find(
                       (word) => word === "Afternoon"
@@ -267,6 +284,7 @@ const [AppData, setAppData] = useState({
                   name="Batch"
                   value="Evening"
                   onChange={handleChange}
+                  required
                   checked={
                     Object.values(AppData.Batch).find(
                       (word) => word === "Evening"
@@ -283,6 +301,7 @@ const [AppData, setAppData] = useState({
                   name="Batch"
                   value="Weekend"
                   onChange={handleChange}
+                  required
                   checked={
                     Object.values(AppData.Batch).find(
                       (word) => word === "Weekend"
@@ -305,6 +324,7 @@ const [AppData, setAppData] = useState({
                   name="Timing"
                   value="7:00 AM - 10:00 AM"
                   onChange={handleChange}
+                  required
                   checked={AppData.Timing === "7:00 AM - 10:00 AM"}
                   />
                   7:00 AM - 10:00 AM
@@ -315,6 +335,7 @@ const [AppData, setAppData] = useState({
                   name="Timing"
                   value="12:00 PM - 3:00 PM"
                   onChange={handleChange}
+                  required
                   checked={AppData.Timing === "12:00 PM - 3:00 PM"}
                   />
                   12:00 PM - 3:00 PM
@@ -325,6 +346,7 @@ const [AppData, setAppData] = useState({
                   name="Timing"
                   value="6:30 PM - 9:00 PM"
                   onChange={handleChange}
+                  required
                   checked={AppData.Timing === "6:30 PM - 9:00 PM"}
                   />
                   6:30 PM - 9:00 PM
@@ -345,6 +367,7 @@ const [AppData, setAppData] = useState({
                 name="Address"
                 value={AppData.Address}
                 onChange={handleChange}
+                required
                 placeholder="Enter your Address"
                 className="flex-1 border-2 border-black p-2 rounded-3xl focus:outline-none focus:border-indigo-500 bg-white"
               />
@@ -358,6 +381,7 @@ const [AppData, setAppData] = useState({
                 name="City"
                 value={AppData.City}
                 onChange={handleChange}
+                required
                 placeholder="Enter City"
                 className="flex-1 border-2 border-black p-2 rounded-3xl focus:outline-none focus:border-indigo-500 bg-white"
               />
@@ -371,6 +395,7 @@ const [AppData, setAppData] = useState({
                 name="pincode"
                 value={AppData.pincode}
                 onChange={handleChange}
+                required
                 placeholder="Enter pincode"
                 className="flex-1 border-2 border-black p-2 rounded-3xl focus:outline-none focus:border-indigo-500 bg-white"
               />
@@ -389,6 +414,7 @@ const [AppData, setAppData] = useState({
                 name="fathername"
                 value={AppData.fathername}
                 onChange={handleChange}
+                required
                 placeholder="Enter father name"
                 className="flex-1 border-2 border-black p-2 rounded-3xl focus:outline-none focus:border-indigo-500 bg-white"
               />
@@ -402,6 +428,7 @@ const [AppData, setAppData] = useState({
                 name="fathernumber"
                 value={AppData.fathernumber}
                 onChange={handleChange}
+                required
                 placeholder="Enter father number"
                 className="flex-1 border-2 border-black p-2 rounded-3xl focus:outline-none focus:border-indigo-500 bg-white"
               />
@@ -416,7 +443,8 @@ const [AppData, setAppData] = useState({
               <label htmlFor="aboutus" className="w-32 font-bold">How did you hear about us? :</label>
               <select name="aboutus" id='aboutus' className="flex-1 border-2 border-black p-2 rounded-3xl focus:outline-none focus:border-indigo-500 bg-white"
                 onChange={handleChange}
-                value={AppData.aboutus}>
+                value={AppData.aboutus}
+                required>
                 <option value="">--Select--</option>
                 <option value="friend">Friend</option>
                 <option value="OnlineAD">Online AD</option>
@@ -430,7 +458,8 @@ const [AppData, setAppData] = useState({
               <label htmlFor="Requirements" className="w-32 font-bold">Special Requirements :</label>
               <textarea name="Requirements" id="Requirements"className="flex-1 border-2 border-black p-2 rounded-3xl focus:outline-none focus:border-indigo-500 bg-white"
               value={AppData.Requirements}
-                onChange={handleChange}>
+                onChange={handleChange}
+                required>
               </textarea>
             </div>
         </div>
