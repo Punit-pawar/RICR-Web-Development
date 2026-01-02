@@ -9,10 +9,10 @@ const Header = () => {
     <>
       <div className="bg-blue-500 px-4 py-2 text-3xl text-white text-center flex justify-center items-center gap-4">
         <HiCurrencyRupee className="animate-bounce" />
-        <HiMiniCurrencyDollar className="animate-spin"/>
+        <HiMiniCurrencyDollar className="animate-bounce"/>
         <span className="font-bold">Currency Convertor</span>
-        <HiMiniCurrencyEuro className="animate-pulse"/>
-        <HiMiniCurrencyPound className="animate-ping"/>
+        <HiMiniCurrencyEuro className="animate-bounce"/>
+        <HiMiniCurrencyPound className="animate-bounce"/>
       </div>
     </>
   );
