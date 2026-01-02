@@ -1,62 +1,62 @@
 [
   {
-    "countryName": "India",
-    "currencyName": "Indian Rupee",
-    "currencyCode": "INR",
-    "countryCode": "IN"
+    "CountryName": "India",
+    "CurrencyName": "Indian Rupee",
+    "CurrencyCode": "INR",
+    "CountryCode": "IN"
   },
   {
-    "countryName": "United States of America",
-    "currencyName": "United States Dollar",
-    "currencyCode": "USD",
-    "countryCode": "US"
+    "CountryName": "United States of America",
+    "CurrencyName": "US Dollar",
+    "CurrencyCode": "USD",
+    "CountryCode": "US"
   },
   {
-    "countryName": "United Kingdom",
-    "currencyName": "Pound Sterling",
-    "currencyCode": "GBP",
-    "countryCode": "GB"
+    "CountryName": "United Kingdom",
+    "CurrencyName": "Pound Sterling",
+    "CurrencyCode": "GBP",
+    "CountryCode": "GB"
   },
   {
-    "countryName": "Japan",
-    "currencyName": "Japanese Yen",
-    "currencyCode": "JPY",
-    "countryCode": "JP"
+    "CountryName": "Canada",
+    "CurrencyName": "Canadian Dollar",
+    "CurrencyCode": "CAD",
+    "CountryCode": "CA"
   },
   {
-    "countryName": "Canada",
-    "currencyName": "Canadian Dollar",
-    "currencyCode": "CAD",
-    "countryCode": "CA"
+    "CountryName": "Australia",
+    "CurrencyName": "Australian Dollar",
+    "CurrencyCode": "AUD",
+    "CountryCode": "AU"
   },
   {
-    "countryName": "Australia",
-    "currencyName": "Australian Dollar",
-    "currencyCode": "AUD",
-    "countryCode": "AU"
+    "CountryName": "Germany",
+    "CurrencyName": "Euro",
+    "CurrencyCode": "EUR",
+    "CountryCode": "DE"
   },
   {
-    "countryName": "Germany",
-    "currencyName": "Euro",
-    "currencyCode": "EUR",
-    "countryCode": "DE"
+    "CountryName": "France",
+    "CurrencyName": "Euro",
+    "CurrencyCode": "EUR",
+    "CountryCode": "FR"
   },
   {
-    "countryName": "France",
-    "currencyName": "Euro",
-    "currencyCode": "EUR",
-    "countryCode": "FR"
+    "CountryName": "Japan",
+    "CurrencyName": "Yen",
+    "CurrencyCode": "JPY",
+    "CountryCode": "JP"
   },
   {
-    "countryName": "China",
-    "currencyName": "Yuan Renminbi",
-    "currencyCode": "CNY",
-    "countryCode": "CN"
+    "CountryName": "China",
+    "CurrencyName": "Yuan Renminbi",
+    "CurrencyCode": "CNY",
+    "CountryCode": "CN"
   },
   {
-    "countryName": "South Africa",
-    "currencyName": "Rand",
-    "currencyCode": "ZAR",
-    "countryCode": "ZA"
+    "CountryName": "United Arab Emirates",
+    "CurrencyName": "UAE Dirham",
+    "CurrencyCode": "AED",
+    "CountryCode": "AE"
   }
 ]
