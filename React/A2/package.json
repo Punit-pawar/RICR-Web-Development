@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "react-hot-toast": "^2.6.0",
+    "react-icons": "^5.5.0",
+    "react-router-dom": "^7.11.0",
+    "tailwindcss": "^4.1.18",
+    "tailwindcss-icons": "^1.0.2"
+  }
+}
