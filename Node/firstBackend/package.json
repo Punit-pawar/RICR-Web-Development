@@ -1,0 +1,17 @@
+{
+  "name": "firstbackend",
+  "version": "1.0.0",
+  "description": "hello i'm punit",
+  "license": "ISC",
+  "author": "punit pawar",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1"
+  }
+}
