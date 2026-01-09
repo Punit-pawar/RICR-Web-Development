@@ -13,10 +13,11 @@
     "@react-three/fiber": "^9.5.0",
     "@tailwindcss/vite": "^4.1.18",
     "face-api.js": "^0.22.2",
+    "ogl": "^1.0.11",
     "postprocessing": "^6.38.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router-dom": "^7.11.0",
+    "react-router-dom": "^7.12.0",
     "three": "^0.167.1"
   },
   "devDependencies": {

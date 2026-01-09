@@ -1,13 +1,25 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <>
-    <div className="bg-orange-200 px-4 py-2 h-30 text-6xl text-black text-center flex justify-center items-center gap-4">
-        <span className="font-bold">A2 Production & Events</span>
-    </div>
+      <div className="d-flex justify-content-between p-2 bg-secondary text-black">
+        <h3>AP PRoduction and Events</h3>
+        <div className="d-flex gap-3 align-items-center">
+          <Link to={"/"} className="text-decoration-none text-light ">
+            Home
+          </Link>
+          <Link to={"Events"} className="text-decoration-none text-light ">
+            Events
+          </Link>
+          <Link to={"Production"} className="text-decoration-none text-light ">
+            Production
+          </Link>
+        </div>
+      </div>
     </>
-  )
-}
+  );
+};
 
 export default Header;
