@@ -1,12 +1,12 @@
-import mongoose, { connect } from "mongoose";
+import mongoose from "mongoose";
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI);
+    const conn = await mongoose.connect(process.env.MONGO_URI); //Connecting the MongoDB Database
     console.log(
-        `MongoDB connected at : ${conn.connection.host} : ${conn.connection.port}`
+      `MongoDb Connected at : ${conn.connection.host}:${conn.connection.port}`
     );
-    console.log ("Database Name :", conn.connection.name);
+    console.log("DataBase Name :", conn.connection.name);
   } catch (error) {
     console.log(error);
     process.exit(1);
