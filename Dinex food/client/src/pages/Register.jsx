@@ -7,18 +7,8 @@ const Register = () => {
     fullName: "",
     email: "",
     mobileNumber: "",
-    dateOfBirth: "",
-    lastQualification: "",
-    percentageGrade: "",
-    preferredCourse: "",
-    batchTiming: "",
-    residentialAddress: "",
-    city: "",
-    pinCode: "",
-    guardianName: "",
-    guardianContact: "",
-    hearAboutUs: "",
-    specialRequirements: "",
+    password: "",
+    confirmPassword: "",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [validationError, setValidationError] = useState({});
@@ -33,18 +23,8 @@ const Register = () => {
       fullName: "",
       email: "",
       mobileNumber: "",
-      dateOfBirth: "",
-      lastQualification: "",
-      percentageGrade: "",
-      preferredCourse: "",
-      batchTiming: "",
-      residentialAddress: "",
-      city: "",
-      pinCode: "",
-      guardianName: "",
-      guardianContact: "",
-      hearAboutUs: "",
-      specialRequirements: "",
+      password: "",
+      confirmPassword: "",
     });
   };
 
@@ -76,7 +56,7 @@ const Register = () => {
     return Object.keys(Error).length > 0 ? false : true;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
@@ -87,8 +67,8 @@ const Register = () => {
     }
 
     try {
-      const res =await api.post("/auth/register", formData)
-      toast.success("Regisrtation Successfull");
+      const res = await api.post("/auth/register",formData)
+      toast.success(res.data.message);
       handleClearForm();
     } catch (error) {
       console.log(error);
@@ -101,14 +81,14 @@ const Register = () => {
   return (
     <>
       <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100 py-6 px-4">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-xl mx-auto">
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-gray-900 mb-2">
-              Student Registration
+              Registration
             </h1>
             <p className="text-lg text-gray-600">
-              Join our academy and start your learning journey
+              You are 1 step away to stop your Cavings
             </p>
           </div>
 
@@ -121,10 +101,7 @@ const Register = () => {
             >
               {/* Personal Information */}
               <div className="mb-10">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6 pb-3 border-b-2 border-indigo-500">
-                  Personal Information
-                </h2>
-                <div className="grid grid-cols-2 gap-6">
+                <div className="space-y-4">
                   <div>
                     <input
                       type="text"
@@ -161,177 +138,23 @@ const Register = () => {
                     className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition"
                   />
                   <input
-                    type="date"
-                    name="dateOfBirth"
-                    value={formData.dateOfBirth}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition"
-                  />
-                </div>
-              </div>
-
-              {/* Academic Details */}
-              <div className="mb-10">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6 pb-3 border-b-2 border-indigo-500">
-                  Academic Details
-                </h2>
-                <div className="grid grid-cols-2 gap-6">
-                  <select
-                    name="lastQualification"
-                    value={formData.lastQualification}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition bg-white"
-                  >
-                    <option value="">Select Qualification</option>
-                    <option value="10th">10th</option>
-                    <option value="12th">12th</option>
-                    <option value="Graduate">Graduate</option>
-                    <option value="Postgraduate">Postgraduate</option>
-                  </select>
-                  <input
-                    type="text"
-                    name="percentageGrade"
-                    placeholder="Percentage/Grade"
-                    value={formData.percentageGrade}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition"
-                  />
-                </div>
-              </div>
-
-              {/* Course Information */}
-              <div className="mb-10">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6 pb-3 border-b-2 border-indigo-500">
-                  Course Information
-                </h2>
-                <div className="grid grid-cols-2 gap-6">
-                  <select
-                    name="preferredCourse"
-                    value={formData.preferredCourse}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition bg-white"
-                  >
-                    <option value="">Select Course</option>
-                    <option value="IIT-JEE">IIT-JEE</option>
-                    <option value="NEET">NEET</option>
-                    <option value="Banking Exams">Banking Exams</option>
-                    <option value="UPSC">UPSC</option>
-                  </select>
-                  <select
-                    name="batchTiming"
-                    value={formData.batchTiming}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition bg-white"
-                  >
-                    <option value="">Select Batch Timing</option>
-                    <option value="Morning">Morning</option>
-                    <option value="Afternoon">Afternoon</option>
-                    <option value="Evening">Evening</option>
-                    <option value="Weekend">Weekend</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* Address */}
-              <div className="mb-10">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6 pb-3 border-b-2 border-indigo-500">
-                  Address
-                </h2>
-                <div className="space-y-6">
-                  <textarea
-                    name="residentialAddress"
-                    placeholder="Residential Address"
-                    rows="3"
-                    value={formData.residentialAddress}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition resize-none"
-                  ></textarea>
-                  <div className="grid grid-cols-2 gap-6">
-                    <input
-                      type="text"
-                      name="city"
-                      placeholder="City"
-                      value={formData.city}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition"
-                    />
-                    <input
-                      type="text"
-                      name="pinCode"
-                      placeholder="Pin Code"
-                      maxLength="6"
-                      value={formData.pinCode}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Guardian Details */}
-              <div className="mb-10">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6 pb-3 border-b-2 border-indigo-500">
-                  Guardian Details
-                </h2>
-                <div className="grid grid-cols-2 gap-6">
-                  <input
-                    type="text"
-                    name="guardianName"
-                    placeholder="Guardian's Full Name"
-                    value={formData.guardianName}
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    placeholder="Create Password"
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition"
                   />
                   <input
-                    type="tel"
-                    name="guardianContact"
-                    placeholder="Guardian's Contact Number"
-                    maxLength="10"
-                    value={formData.guardianContact}
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Confirm Password"
+                    value={formData.confirmPassword}
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition"
                   />
-                </div>
-              </div>
-
-              {/* Additional Information */}
-              <div className="mb-10">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6 pb-3 border-b-2 border-indigo-500">
-                  Additional Information
-                </h2>
-                <div className="space-y-6">
-                  <select
-                    name="hearAboutUs"
-                    value={formData.hearAboutUs}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition bg-white"
-                  >
-                    <option value="">How did you hear about us?</option>
-                    <option value="Friends">Friends</option>
-                    <option value="Online Ad">Online Ad</option>
-                    <option value="Newspaper">Newspaper</option>
-                    <option value="Social Media">Social Media</option>
-                    <option value="Other">Other</option>
-                  </select>
-                  <textarea
-                    name="specialRequirements"
-                    placeholder="Special Requirements (optional)"
-                    rows="3"
-                    value={formData.specialRequirements}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition resize-none"
-                  ></textarea>
                 </div>
               </div>
 
