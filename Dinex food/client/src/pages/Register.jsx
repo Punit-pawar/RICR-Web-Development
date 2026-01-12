@@ -56,7 +56,7 @@ const Register = () => {
     return Object.keys(Error).length > 0 ? false : true;
   };
 
-  const handleSubmit =async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
@@ -88,7 +88,7 @@ const Register = () => {
               Registration
             </h1>
             <p className="text-lg text-gray-600">
-              You are 1 step away to stop your Cavings
+              You are 1 step away to stop your Food
             </p>
           </div>
 
@@ -110,8 +110,12 @@ const Register = () => {
                       value={formData.fullName}
                       onChange={handleChange}
                       required
-                      className="w-full h-fit px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition"
-                    />
+                      disabled={isLoading}
+                      className="w-full h-fit px-4 py-3 border-2
+                       border-gray-300 rounded-lg focus:outline-none
+                       focus:border-indigo-500 hover:border-indigo-300 
+                       transition duration-300 transform hover:scale-102 disabled:cursor-not-allowed
+                       disabled:scale-100 disabled:bg-gray-200 "/>
                     {validationError.fullName && (
                       <span className="text-xs text-red-500">
                         {validationError.fullName}
@@ -125,8 +129,12 @@ const Register = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full h-fit px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition"
-                  />
+                    disabled={isLoading}
+                    className="w-full h-fit px-4 py-3 border-2
+                     border-gray-300 rounded-lg focus:outline-none
+                     focus:border-indigo-500 hover:border-indigo-300
+                     transition duration-300 transform hover:scale-102 disabled:cursor-not-allowed
+                     disabled:scale-100 disabled:bg-gray-200"/>
                   <input
                     type="tel"
                     name="mobileNumber"
@@ -135,8 +143,12 @@ const Register = () => {
                     value={formData.mobileNumber}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition"
-                  />
+                    disabled={isLoading}
+                    className="w-full h-fit px-4 py-3 border-2
+                     border-gray-300 rounded-lg focus:outline-none
+                     focus:border-indigo-500 hover:border-indigo-300
+                     transition duration-300 transform hover:scale-102 disabled:cursor-not-allowed
+                     disabled:scale-100 disabled:bg-gray-200"/>
                   <input
                     type="password"
                     name="password"
@@ -144,8 +156,12 @@ const Register = () => {
                     placeholder="Create Password"
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition"
-                  />
+                    disabled={isLoading}
+                    className="w-full h-fit px-4 py-3 border-2
+                     border-gray-300 rounded-lg focus:outline-none
+                     focus:border-indigo-500 hover:border-indigo-300
+                     transition duration-300 transform hover:scale-102 disabled:cursor-not-allowed
+                     disabled:scale-100 disabled:bg-gray-200"/>
                   <input
                     type="password"
                     name="confirmPassword"
@@ -153,25 +169,39 @@ const Register = () => {
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition"
-                  />
+                    disabled={isLoading}
+                    className="w-full h-fit px-4 py-3 border-2
+                     border-gray-300 rounded-lg focus:outline-none
+                     focus:border-indigo-500 hover:border-indigo-300
+                     transition duration-300 transform hover:scale-102 disabled:cursor-not-allowed
+                     disabled:scale-100 disabled:bg-gray-200"/>
+
                 </div>
               </div>
 
               {/* Submit Button */}
               <div className="flex gap-4 pt-8 border-t-2 border-gray-200">
-                <button
-                  type="submit"
-                  className="flex-1 bg-linear-to-r from-indigo-600 to-indigo-700 text-white font-bold py-4 px-6 rounded-lg hover:from-indigo-700 hover:to-indigo-800 transition duration-300 transform hover:scale-105 shadow-lg"
-                >
-                  Submit Registration
-                </button>
+                
                 <button
                   type="reset"
-                  className="flex-1 bg-gray-300 text-gray-800 font-bold py-4 px-6 rounded-lg hover:bg-gray-400 transition duration-300 transform hover:scale-105"
-                >
+                  disabled={isLoading}
+                  className="flex-1 bg-gray-300 text-gray-800 font-bold py-4 px-6 rounded-lg
+                   hover:text-white hover:bg-gray-400 transition
+                    duration-300 transform hover:scale-105 disabled:cursor-not-allowed
+                     disabled:scale-100 disabled:bg-gray-300 disabled:text-white">
                   Clear Form
                 </button>
+
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="flex-1 bg-linear-to-r from-indigo-600 to-indigo-700
+                  text-white font-bold py-4 px-6 rounded-lg hover:from-indigo-700
+                  hover:to-indigo-800 transition duration-300 transform hover:scale-105
+                    shadow-lg disabled:cursor-not-allowed disabled:scale-100 disabled:bg-indigo-600">
+                  {isLoading?"Submitting":"Submit"}
+                </button>
+
               </div>
             </form>
           </div>
