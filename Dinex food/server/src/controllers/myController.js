@@ -12,6 +12,7 @@ export const UserRegister = async (req,res,next) =>{
         }
 
         const existingUser = await User.findOne({email});
+        
         if(existingUser) {
             const error = new Error("Email already registered");
             error.statusCode = 409;
