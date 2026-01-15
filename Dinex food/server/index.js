@@ -4,6 +4,7 @@ import express from "express";
 import cors from "cors";
 import connectDB from "./src/config/db.js";
 import Authrouter from "./src/routers/authRouter.js";
+import newcontact from "./src/routers/publicRouter.js";
 import morgan from "morgan";
 
 const app = express();
@@ -13,6 +14,8 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 app.use("/auth", Authrouter);
+
+app.use("/public", newcontact);
 
 app.get("/", (req, res) => {
   console.log("server is working");
