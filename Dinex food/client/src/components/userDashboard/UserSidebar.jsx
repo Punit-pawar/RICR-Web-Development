@@ -1,82 +1,146 @@
-import React from "react";
-import { ImProfile } from "react-icons/im";
-import { TbChartTreemap } from "react-icons/tb";
-import { TiShoppingCart } from "react-icons/ti";
-import { TbTransactionRupee } from "react-icons/tb";
-import { RiCustomerService2Fill } from "react-icons/ri";
+import React, { useState } from "react";
+import {
+  LayoutDashboard,
+  UserRound,
+  ArchiveRestore,
+  ArrowLeftRight,
+  Info,
+  Menu,
+} from "lucide-react";
 
 const UserSidebar = ({ active, setActive }) => {
+  const [expanded, setExpanded] = useState(true);
+
+  const menuItem = {
+    
+  }
+
   return (
-    <>
-      <div className="p-3">
-        <div className="text-xl font-bold">User Dashboard</div>
+    <div
+      className={`h-full bg-white border-r border-gray-200 shadow-sm transition-all duration-300 ease-in-out flex flex-col
+        ${expanded ? "w-72" : "w-20"}
+      `}
+    >
+      <div className="flex items-center h-20 px-2 border-b border-gray-100 shrink-0">
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="p-2 rounded-lg hover:bg-blue-50 text-gray-600 hover:text-blue-600 transition-colors bg-white z-10 w-16 flex justify-center items-center cursor-pointer"
+        >
+          <Menu size={24} />
+        </button>
 
-        <hr />
-
-        <div className="grid gap-3 m-5">
-          <button
-            className={`flex gap-2 items-center p-3 rounded-xl ${
-              active === "overview"
-                ? "bg-(--color-secondary) text-white"
-                : "hover:bg-gray-200"
-            }
-             `}
-            onClick={() => setActive("overview")}
-          >
-            {" "}
-            <TbChartTreemap /> Overview
-          </button>
-          <button
-            className={`flex gap-2 items-center p-3 rounded-xl ${
-              active === "profile"
-                ? "bg-(--color-secondary) text-white"
-                : "hover:bg-gray-100/70"
-            }
-             `}
-            onClick={() => setActive("profile")}
-          >
-            {" "}
-            <ImProfile /> Profile
-          </button>
-          <button
-            className={`flex gap-2 items-center p-3 rounded-xl ${
-              active === "orders"
-                ? "bg-(--color-secondary) text-white"
-                : "hover:bg-gray-100/70"
-            }
-             `}
-            onClick={() => setActive("orders")}
-          >
-            {" "}
-            <TiShoppingCart /> Orders
-          </button>
-          <button
-            className={`flex gap-2 items-center p-3 rounded-xl ${
-              active === "transections"
-                ? "bg-(--color-secondary) text-white"
-                : "hover:bg-gray-100/70"
-            }
-             `}
-            onClick={() => setActive("transections")}
-          >
-            {" "}
-            <TbTransactionRupee /> Transections
-          </button>
-          <button
-            className={`flex gap-2 items-center p-3 rounded-xl ${
-              active === "helpdesk"
-                ? "bg-(--color-secondary) text-white"
-                : "hover:bg-gray-100/70"
-            }
-             `}
-            onClick={() => setActive("helpdesk")}
-          >
-            {" "}
-            <RiCustomerService2Fill /> Help Desk
-          </button>
+        <div
+          className={`font-bold text-xl text-gray-600 overflow-hidden transition-all duration-300 whitespace-nowrap
+            ${expanded ? "w-40 ml-2 opacity-100" : "w-0 ml-0 opacity-0"}
+          `}
+        >
+          Dashboard
         </div>
       </div>
-    </>
+
+      <nav className="flex-1 px-2 py-6 space-y-2 overflow-y-auto scrollbar-hide">
+        <button
+          onClick={() => setActive("overview")}
+          className={`relative flex items-center w-full py-3 rounded-xl transition-all duration-200
+            ${
+              active === "overview"
+                ? "bg-blue-600 text-white shadow-md shadow-bule-200"
+                : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+            }
+          `}
+        >
+          <div className="min-w-16 flex justify-center items-center">
+            <LayoutDashboard size={22} />
+          </div>
+
+          <span
+            className={`overflow-hidden transition-all duration-300 whitespace-nowrap ${expanded ? "w-40 opacity-100" : "w-0 opacity-0"}`}
+          >
+            Overview
+          </span>
+        </button>
+
+        <button
+          onClick={() => setActive("profile")}
+          className={`relative flex items-center w-full py-3 rounded-xl transition-all duration-200
+            ${
+              active === "profile"
+                ? "bg-blue-600 text-white shadow-md shadow-blue-200"
+                : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+            }
+          `}
+        >
+          <div className="min-w-16 flex justify-center items-center">
+            <UserRound size={22} />
+          </div>
+          <span
+            className={`overflow-hidden transition-all duration-300 whitespace-nowrap ${expanded ? "w-40 opacity-100" : "w-0 opacity-0"}`}
+          >
+            Profile
+          </span>
+        </button>
+
+        <button
+          onClick={() => setActive("orders")}
+          className={`relative flex items-center w-full py-3 rounded-xl transition-all duration-200
+            ${
+              active === "orders"
+                ? "bg-blue-600 text-white shadow-md shadow-blue-200"
+                : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+            }
+          `}
+        >
+          <div className="min-w-16 flex justify-center items-center">
+            <ArchiveRestore size={22} />
+          </div>
+          <span
+            className={`overflow-hidden transition-all duration-300 whitespace-nowrap ${expanded ? "w-40 opacity-100" : "w-0 opacity-0"}`}
+          >
+            Orders
+          </span>
+        </button>
+
+        <button
+          onClick={() => setActive("transections")}
+          className={`relative flex items-center w-full py-3 rounded-xl transition-all duration-200
+            ${
+              active === "transections"
+                ? "bg-blue-600 text-white shadow-md shadow-blue-200"
+                : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+            }
+          `}
+        >
+          <div className="min-w-16 flex justify-center items-center">
+            <ArrowLeftRight size={22} />
+          </div>
+          <span
+            className={`overflow-hidden transition-all duration-300 whitespace-nowrap ${expanded ? "w-40 opacity-100" : "w-0 opacity-0"}`}
+          >
+            Transactions
+          </span>
+        </button>
+
+        <button
+          onClick={() => setActive("helpdesk")}
+          className={`relative flex items-center w-full py-3 rounded-xl transition-all duration-200
+            ${
+              active === "helpdesk"
+                ? "bg-blue-600 text-white shadow-md shadow-blue-200"
+                : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+            }
+          `}
+        >
+          <div className="min-w-16 flex justify-center items-center">
+            <Info size={22} />
+          </div>
+          <span
+            className={`overflow-hidden transition-all duration-300 whitespace-nowrap ${expanded ? "w-40 opacity-100" : "w-0 opacity-0"}`}
+          >
+            Help Desk
+          </span>
+        </button>
+      </nav>
+    </div>
   );
 };
 
