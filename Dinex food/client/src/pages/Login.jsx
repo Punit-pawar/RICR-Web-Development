@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import toast from "react-hot-toast";
 import api from "../config/Api";
 import {useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
+
+  const {setUser,setIslogin} = useAuth();
 
   const navigate = useNavigate();
 
@@ -28,6 +31,9 @@ const Login = () => {
     try {
       const res = await api.post("/auth/login",formData)
       toast.success(res.data.message);
+      setUser(res.data.data);
+      setIslogin(true);
+      sessionStorage.setItem("DinXUser",JSON.stringify(res.data.data));
       navigate("/UserDashboard");
     } catch (error) {
       console.log(error);

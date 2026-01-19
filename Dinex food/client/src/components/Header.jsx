@@ -1,8 +1,11 @@
 import React from "react";
 import logo from "../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Header = () => {
+
+  const {user,islogin} = useAuth();
 
   const navigate = useNavigate();
 
@@ -31,12 +34,15 @@ const Header = () => {
         </div>
 
         <div className="flex gap-5">
-            
-          <button onClick={()=>navigate("/login")} className="bg-(--color-secondary) py-2 px-4 font-bold hover:bg-(--color-secondary-hover) hover:text-white rounded">
+
+           
+          <button onClick={()=>navigate("/login")} 
+          className="bg-(--color-secondary) py-2 px-4 font-bold hover:bg-(--color-secondary-hover) hover:text-white rounded-3xl">
             Login
           </button>
 
-          <button onClick={()=>navigate("/register")} className="bg-(--color-secondary) py-2 px-4 font-bold hover:bg-(--color-secondary-hover) hover:text-white rounded">
+          <button onClick={()=>navigate("/register")} 
+          className="bg-(--color-secondary) py-2 px-4 font-bold hover:bg-(--color-secondary-hover) hover:text-white rounded-3xl">
             Register
           </button>
 
