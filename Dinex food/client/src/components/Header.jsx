@@ -33,7 +33,7 @@ const Header = () => {
 
         </div>
 
-        <div className="flex gap-5">
+        <div className="flex gap-4">
 
            
           <button onClick={()=>navigate("/login")} 
