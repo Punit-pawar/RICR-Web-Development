@@ -119,7 +119,7 @@ const Login = () => {
           </div>
 
           <p className="text-center text-gray-600 mt-8 text-sm">
-            All fields marked are mandatory. We respect your privacy.
+            All fields are marked mandatory. We Respect your privacy.
           </p>
         </div>
       </div>
