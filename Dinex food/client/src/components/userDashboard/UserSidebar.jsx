@@ -24,7 +24,7 @@ const UserSidebar = ({ active, setActive }) => {
       <div className="flex items-center h-20 px-2 border-b border-gray-100 shrink-0">
         <button
           onClick={() => setExpanded(!expanded)}
-          className="p-2 rounded-lg hover:bg-blue-50 text-gray-600 hover:text-blue-600 transition-colors bg-white z-10 w-16 flex justify-center items-center cursor-pointer"
+          className="p-2 rounded-lg hover:bg-blue-50 text-gray-600 hover:text-blue-600 transition-colors bg-white  w-16 flex justify-center items-center cursor-pointer"
         >
           <Menu size={24} />
         </button>
