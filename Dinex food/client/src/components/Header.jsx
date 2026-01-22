@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 
 const Header = () => {
 
-  const {user,islogin} = useAuth();
+  const { user , islogin } = useAuth();
 
   const navigate = useNavigate();
 
