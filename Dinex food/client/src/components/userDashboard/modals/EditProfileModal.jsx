@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
+import api from "../../../config/Api";
 
 const EditProfileModal = ({ onClose }) => {
   const { user } = useAuth();
@@ -17,7 +18,7 @@ const EditProfileModal = ({ onClose }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Updated Profile Data:", formData);
     onClose();
