@@ -9,14 +9,15 @@ const Register = () => {
     mobileNumber: "",
     password: "",
     confirmPassword: "",
+    role: "",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [validationError, setValidationError] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setFormData((prev) => ({ ...prev, [name]: value }));
-    
   };
 
   const handleClearForm = () => {
@@ -26,6 +27,7 @@ const Register = () => {
       mobileNumber: "",
       password: "",
       confirmPassword: "",
+      role: "",
     });
   };
 
@@ -42,7 +44,7 @@ const Register = () => {
 
     if (
       !/^[\w\.]+@(gmail|outlook|ricr|yahoo)\.(com|in|co.in)$/.test(
-        formData.email
+        formData.email,
       )
     ) {
       Error.email = "Use Proper Email Format";
@@ -50,6 +52,10 @@ const Register = () => {
 
     if (!/^[6-9]\d{9}$/.test(formData.mobileNumber)) {
       Error.mobileNumber = "Only Indian Mobile Number allowed";
+    }
+
+    if (!role) {
+      Error.role = " please choose any role";
     }
 
     setValidationError(Error);
@@ -68,7 +74,7 @@ const Register = () => {
     }
 
     try {
-      const res = await api.post("/auth/register",formData)
+      const res = await api.post("/auth/register", formData);
       toast.success(res.data.message);
       handleClearForm();
     } catch (error) {
@@ -103,6 +109,57 @@ const Register = () => {
               {/* Personal Information */}
               <div className="mb-10">
                 <div className="space-y-4">
+                  <div className="flex justify-around items-center">
+                    
+                    <div className="flex gap-7">
+                      <label htmlFor="Iam" className="font-bold italic">
+                      I AM
+                    </label>
+                    
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="role"
+                        id="manager"
+                        checked={formData.role === "manager"}
+                        value={"manager"}
+                        onChange={handleChange}
+                      />
+                      {validationError.fullName && (
+                      <span className="text-xs text-red-500">
+                        {validationError.fullName}
+                      </span>
+                    )}
+                      <label htmlFor="manager">Restruent Manager</label>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="role"
+                        id="partner"
+                        checked={formData.role === "manager"}
+                        value={"partner"}
+                        onChange={handleChange}
+                      />
+                      <label htmlFor="partner">Delivery partner</label>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="role"
+                        id="customer"
+                        checked={formData.role === "customer"}
+                        value={"customer"}
+                        onChange={handleChange}
+                      />
+                      <label htmlFor="customer">Customer</label>
+                    </div>
+                  </div>
+
+                  </div>
+
                   <div>
                     <input
                       type="text"
@@ -116,7 +173,8 @@ const Register = () => {
                        border-gray-300 rounded-lg focus:outline-none
                        focus:border-indigo-500 hover:border-indigo-300 
                        transition duration-300 transform hover:scale-102 disabled:cursor-not-allowed
-                       disabled:scale-100 disabled:bg-gray-200 "/>
+                       disabled:scale-100 disabled:bg-gray-200 "
+                    />
                     {validationError.fullName && (
                       <span className="text-xs text-red-500">
                         {validationError.fullName}
@@ -135,7 +193,8 @@ const Register = () => {
                      border-gray-300 rounded-lg focus:outline-none
                      focus:border-indigo-500 hover:border-indigo-300
                      transition duration-300 transform hover:scale-102 disabled:cursor-not-allowed
-                     disabled:scale-100 disabled:bg-gray-200"/>
+                     disabled:scale-100 disabled:bg-gray-200"
+                  />
                   <input
                     type="tel"
                     name="mobileNumber"
@@ -149,7 +208,8 @@ const Register = () => {
                      border-gray-300 rounded-lg focus:outline-none
                      focus:border-indigo-500 hover:border-indigo-300
                      transition duration-300 transform hover:scale-102 disabled:cursor-not-allowed
-                     disabled:scale-100 disabled:bg-gray-200"/>
+                     disabled:scale-100 disabled:bg-gray-200"
+                  />
                   <input
                     type="password"
                     name="password"
@@ -162,7 +222,8 @@ const Register = () => {
                      border-gray-300 rounded-lg focus:outline-none
                      focus:border-indigo-500 hover:border-indigo-300
                      transition duration-300 transform hover:scale-102 disabled:cursor-not-allowed
-                     disabled:scale-100 disabled:bg-gray-200"/>
+                     disabled:scale-100 disabled:bg-gray-200"
+                  />
                   <input
                     type="password"
                     name="confirmPassword"
@@ -175,21 +236,21 @@ const Register = () => {
                      border-gray-300 rounded-lg focus:outline-none
                      focus:border-indigo-500 hover:border-indigo-300
                      transition duration-300 transform hover:scale-102 disabled:cursor-not-allowed
-                     disabled:scale-100 disabled:bg-gray-200"/>
-
+                     disabled:scale-100 disabled:bg-gray-200"
+                  />
                 </div>
               </div>
 
               {/* Submit Button */}
               <div className="flex gap-4 pt-8 border-t-2 border-gray-200">
-                
                 <button
                   type="reset"
                   disabled={isLoading}
                   className="flex-1 bg-gray-300 text-gray-800 font-bold py-4 px-6 rounded-lg
                    hover:text-white hover:bg-gray-400 transition
                     duration-300 transform hover:scale-105 disabled:cursor-not-allowed
-                     disabled:scale-100 disabled:bg-gray-300 disabled:text-white">
+                     disabled:scale-100 disabled:bg-gray-300 disabled:text-white"
+                >
                   Clear Form
                 </button>
 
@@ -199,10 +260,10 @@ const Register = () => {
                   className="flex-1 bg-linear-to-r from-indigo-600 to-indigo-700
                   text-white font-bold py-4 px-6 rounded-lg hover:from-indigo-700
                   hover:to-indigo-800 transition duration-300 transform hover:scale-105
-                    shadow-lg disabled:cursor-not-allowed disabled:scale-100 disabled:bg-indigo-600">
-                  {isLoading?"Submitting":"Submit"}
+                    shadow-lg disabled:cursor-not-allowed disabled:scale-100 disabled:bg-indigo-600"
+                >
+                  {isLoading ? "Submitting" : "Submit"}
                 </button>
-
               </div>
             </form>
           </div>

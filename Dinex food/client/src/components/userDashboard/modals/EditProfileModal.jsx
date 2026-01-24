@@ -3,82 +3,110 @@ import { useAuth } from "../../../context/AuthContext";
 import api from "../../../config/Api";
 
 const EditProfileModal = ({ onClose }) => {
-  const { user } = useAuth();
-
+  const { user, setUser } = useAuth();
   const [formData, setFormData] = useState({
-    fullName: user?.fullName || "",
-    mobileNumber: user?.mobileNumber || "",
+    fullName: user.fullName,
+    email: user.email,
+    mobileNumber: user.mobileNumber,
   });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Updated Profile Data:", formData);
-    onClose();
+    console.log("form Submitted");
+    console.log(formData);
+
+    try {
+      const res = await api.put("/user/update", formData);
+      sessionStorage.setItem("DineXUser", JSON.stringify(res.data.data));
+      setUser(res.data.data);
+      setIsLogin(true);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      onClose();
+    }
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-100">
-      <div className="bg-white w-5xl max-h-[85vh] overflow-y-auto ">
-        <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100 py-6 px-4">
-          <div className="flex justify-end">
+    <>
+      <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-100">
+        <div className="bg-white w-5xl max-h-[85vh] overflow-y-auto">
+          <div className="flex justify-between px-5 py-3 border-b border-gray-300 items-center">
+            <div>EditProfileModal</div>
             <button
-              onClick={onClose}
-              className="bg-red-400 p-2 px-5 rounded-3xl text-white m-4"
+              onClick={() => onClose()}
+              className="text-red-600 hover:text-red-900 text-2xl"
             >
-              X
+              ⊗
             </button>
           </div>
-
-          <div className="max-w-xl mx-auto">
-            <div className="text-center mb-8">
-              <h1 className="text-4xl font-bold italic text-gray-900 mb-2">
-                Edit Profile
-              </h1>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
-              <form className="p-8" onSubmit={handleSubmit}>
-                <div className="mb-10 space-y-4">
+          <div>
+            <form onSubmit={handleSubmit}>
+              <div className="p-6 space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Full Name
+                  </label>
                   <input
                     type="text"
                     name="fullName"
                     value={formData.fullName}
-                    onChange={handleChange}
-                    placeholder="Full Name"
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition"
+                    onChange={(e) =>
+                      setFormData({ ...formData, fullName: e.target.value })
+                    }
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                   />
-
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Email
+                  </label>
                   <input
-                    type="tel"
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 cursor-not-allowed "
+                    disabled
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Mobile Number
+                  </label>
+                  <input
+                    type="text"
                     name="mobileNumber"
                     value={formData.mobileNumber}
-                    onChange={handleChange}
-                    placeholder="Mobile Number"
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition"
+                    onChange={(e) =>
+                      setFormData({ ...formData, mobileNumber: e.target.value })
+                    }
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                   />
                 </div>
-                <div className="flex gap-4 pt-8 border-t-2 border-gray-200">
-                  <button
-                    type="submit"
-                    className="flex-1 bg-linear-to-r from-indigo-600 to-indigo-700 text-white font-bold py-4 px-6 rounded-lg hover:from-indigo-700 hover:to-indigo-800 transition shadow-lg"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </form>
-            </div>
+              </div>
+              <div className="px-6 py-6 flex justify-end space-x-4 border-t border-gray-300">
+                <button
+                  type="button"
+                  onClick={() => onClose()}
+                  className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 transition"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

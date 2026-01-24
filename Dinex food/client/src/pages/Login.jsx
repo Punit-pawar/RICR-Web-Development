@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-  const { setUser, setIslogin } = useAuth();
+  const { setUser, setIslogin, setRole } = useAuth();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -30,7 +30,13 @@ const Login = () => {
       setUser(res.data.data);
       setIslogin(true);
       sessionStorage.setItem("DinXUser", JSON.stringify(res.data.data));
-      navigate("/UserDashboard");
+      switch(res.data.data.role){
+        case "manager":{
+          setRole("mamager");
+          navigate("/resturent-dashboard");
+        }
+      }
+      navigate("/user-dashboard");
     } catch (error) {
       toast.error(error?.response?.data?.message || "Login failed");
     } finally {

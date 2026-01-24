@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 
 const Header = () => {
 
-  const { user , islogin } = useAuth();
+  const { user , isLogin } = useAuth();
 
   const navigate = useNavigate();
 
@@ -34,9 +34,33 @@ const Header = () => {
         </div>
 
         <div className="flex gap-4">
+          {isLogin ? (
+            <div
+              className="text-red-500 cursor-pointer"
+              onClick={() => navigate("/UserDashboard")}
+            >
+              {user.fullName}
+            </div>
+          ) : (
+            <>
+              <button
+                onClick={() => navigate("/login")}
+                className="bg-(--color-secondary) py-2 px-4 font-bold hover:bg-(--color-secondary-hover) hover:text-white rounded "
+              >
+                Login
+              </button>
+              <button
+                onClick={() => navigate("/register")}
+                className="bg-(--color-secondary) py-2 px-4 font-bold hover:bg-(--color-secondary-hover) hover:text-white rounded "
+              >
+                Register
+              </button>
+            </>
+          )}
+        </div>
 
+        {/* <div className="flex gap-4">
           
-        
           <button onClick={()=>navigate("/login")} 
           className="bg-(--color-secondary) py-2 px-4 font-bold hover:bg-(--color-secondary-hover) hover:text-white rounded-3xl">
             Login
@@ -47,7 +71,7 @@ const Header = () => {
             Register
           </button>
 
-        </div>
+        </div> */}
         
       </div>
     </>
