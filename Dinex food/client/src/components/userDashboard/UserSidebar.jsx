@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+
+import toast from "react-hot-toast";
+
 import {
   LayoutDashboard,
   UserRound,
@@ -6,14 +9,22 @@ import {
   ArrowLeftRight,
   Info,
   Menu,
+  LogOut,
 } from "lucide-react";
 
 const UserSidebar = ({ active, setActive }) => {
   const [expanded, setExpanded] = useState(true);
 
-  const menuItem = {
-    
-  }
+  const handleLogout = () => {
+    try {
+      UserLogout();
+      toast.success("Logged out successfully!");
+      navigate("/");
+    } catch (error) {
+      console.error("Logout Error:", error);
+      toast.error("Something went wrong during logout.");
+    }
+  };
 
   return (
     <div
@@ -139,6 +150,27 @@ const UserSidebar = ({ active, setActive }) => {
             Help Desk
           </span>
         </button>
+
+        <div className="p-2 border-t border-gray-100 shrink-0 flex flex-col gap-1">
+        <button
+          onClick={handleLogout}
+          className="relative flex items-center w-full py-3 rounded-xl text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all duration-200 group cursor-pointer"
+        >
+          <div className="min-w-16 flex justify-center items-center ">
+            <LogOut
+              size={22}
+              className="group-hover:rotate-180 transition-transform duration-300 text-rose-600"
+            />
+          </div>
+          <span
+            className={`overflow-hidden transition-all duration-300 whitespace-nowrap font-medium text-rose-600
+              ${expanded ? "w-40 opacity-100" : "w-0 opacity-0"}
+            `}
+          >
+            Log Out
+          </span>
+        </button>
+      </div>
       </nav>
     </div>
   );

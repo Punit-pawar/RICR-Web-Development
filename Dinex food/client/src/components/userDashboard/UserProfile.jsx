@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import EditProfileModal from "./modals/EditProfileModal";
+import { useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
+  const { user, islogin } = useAuth();
+  const navigate = useNavigate();
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
-  const { user } = useAuth();
+
+  
+  
 
   return (
     <>
@@ -24,21 +29,27 @@ const UserProfile = () => {
             <label className="text-sm font-semibold text-gray-600 mb-2 uppercase tracking-wide">
               Full Name
             </label>
-            <span className="text-lg text-gray-800 font-medium">{user.fullName}</span>
+            <span className="text-lg text-gray-800 font-medium">
+              {user.fullName}
+            </span>
           </div>
 
           <div className="flex flex-col">
             <label className="text-sm font-semibold text-gray-600 mb-2 uppercase tracking-wide">
               Email
             </label>
-            <span className="text-lg text-gray-800 font-medium break-all">{user.email}</span>
+            <span className="text-lg text-gray-800 font-medium break-all">
+              {user.email}
+            </span>
           </div>
 
           <div className="flex flex-col">
             <label className="text-sm font-semibold text-gray-600 mb-2 uppercase tracking-wide">
               Phone Number
             </label>
-            <span className="text-lg text-gray-800 font-medium">{user.mobileNumber}</span>
+            <span className="text-lg text-gray-800 font-medium">
+              {user.mobileNumber}
+            </span>
           </div>
         </div>
       </div>
