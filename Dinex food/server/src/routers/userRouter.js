@@ -5,7 +5,6 @@ import {multer} from "multer";
 
 const router = express.Router();
 
-
 router.put("/update", Protect, UserUpdate);
 
 export default router;
