@@ -1,55 +1,91 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import EditProfileModal from "./modals/EditProfileModal";
-import { useNavigate } from "react-router-dom";
+import UserImage from "../../assets/userImage.jpg";
+import { FaCamera } from "react-icons/fa";
+import api from "../../config/Api";
+import toast from "react-hot-toast";
 
 const UserProfile = () => {
-  const { user, islogin } = useAuth();
-  const navigate = useNavigate();
+  const { user } = useAuth();
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
+  const [preview, setPreview] = useState("");
+  const [photo, setPhoto] = useState("");
 
-  
-  
+  const changePhoto = async () => {
+    const form_Data = new FormData();
+
+    form_Data.append("image", photo);
+    form_Data.append("imageURL", preview);
+
+    try {
+      const res = await api.patch("/user/changePhoto", form_Data);
+
+      toast.success(res.data.message);
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Unknown Error");
+    }
+  };
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    const newPhotoURL = URL.createObjectURL(file);
+    //console.log(newPhotoURL);
+    setPreview(newPhotoURL);
+    setTimeout(() => {
+      setPhoto(file);
+      changePhoto();
+    }, 5000);
+  };
 
   return (
     <>
-      <div className="bg-white rounded-lg shadow-md p-6 md:p-8">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-800">My Profile</h2>
-          <button
-            className="px-6 py-2 bg-amber-400 hover:bg-amber-500 text-gray-900 font-semibold rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-sm"
-            onClick={() => setIsEditProfileModalOpen(true)}
-          >
-            Edit Profile
-          </button>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 border-t pt-6">
-          <div className="flex flex-col">
-            <label className="text-sm font-semibold text-gray-600 mb-2 uppercase tracking-wide">
-              Full Name
-            </label>
-            <span className="text-lg text-gray-800 font-medium">
-              {user.fullName}
-            </span>
+      <div className="bg-(--color-primary)/10 rounded-lg shadow-md p-6 md:p-8 h-full">
+        <div className="flex justify-between border p-3 rounded-3xl items-center border-gray-300 bg-white">
+          <div className="flex gap-5 items-center">
+            <div className="relative">
+              <div className=" border rounded-full w-36 h-36 overflow-hidden">
+                <img
+                  src={preview || user.photo.url || UserImage}
+                  alt=""
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="absolute bottom-2 left-[75%] border bg-white p-2 rounded-full hover:scale-105 group flex gap-3">
+                <label
+                  htmlFor="imageUpload"
+                  className="text-(--color-primary) group-hover:text-(--color-secondary)"
+                >
+                  <FaCamera />
+                </label>
+                <input
+                  type="file"
+                  id="imageUpload"
+                  className="hidden"
+                  accept="image/*"
+                  onChange={handlePhotoChange}
+                />
+              </div>
+            </div>
+            <div>
+              <div className="text-3xl text-(--color-primary) font-bold">
+                {user.fullName}
+              </div>
+              <div className="text-gray-600 text-lg font-semibold">
+                {user.email}
+              </div>
+              <div className="text-gray-600 text-lg font-semibold">
+                {user.mobileNumber}
+              </div>
+            </div>
           </div>
-
-          <div className="flex flex-col">
-            <label className="text-sm font-semibold text-gray-600 mb-2 uppercase tracking-wide">
-              Email
-            </label>
-            <span className="text-lg text-gray-800 font-medium break-all">
-              {user.email}
-            </span>
-          </div>
-
-          <div className="flex flex-col">
-            <label className="text-sm font-semibold text-gray-600 mb-2 uppercase tracking-wide">
-              Phone Number
-            </label>
-            <span className="text-lg text-gray-800 font-medium">
-              {user.mobileNumber}
-            </span>
+          <div className="flex flex-col gap-2 me-10">
+            <button className="px-4 py-2 rounded bg-(--color-secondary) w-35 hover:scale-110 hover:bg-green-500 hover:font-bold text-white">
+              Edit
+            </button>
+            <button className="px-4 py-2 rounded bg-(--color-secondary) w-35 hover:scale-110 hover:bg-red-500 hover:font-bold text-white">
+              Reset
+            </button>
           </div>
         </div>
       </div>

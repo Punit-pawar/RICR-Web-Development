@@ -3,7 +3,7 @@ import { useAuth } from "../../../context/AuthContext";
 import api from "../../../config/Api";
 
 const EditProfileModal = ({ onClose }) => {
-  const { user, setUser } = useAuth();
+  const { user, setUser, setIsLogin } = useAuth();
   const [formData, setFormData] = useState({
     fullName: user.fullName,
     email: user.email,
@@ -17,9 +17,10 @@ const EditProfileModal = ({ onClose }) => {
 
     try {
       const res = await api.put("/user/update", formData);
-      sessionStorage.setItem("DineXUser", JSON.stringify(res.data.data));
+      sessionStorage.setItem("CravingUser", JSON.stringify(res.data.data));
       setUser(res.data.data);
       setIsLogin(true);
+      // sessionStorage.setItem("CravingUser", JSON.stringify(res.data.data));
     } catch (error) {
       console.log(error);
     } finally {

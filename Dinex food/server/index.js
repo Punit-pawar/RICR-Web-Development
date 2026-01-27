@@ -1,8 +1,8 @@
-import dotenv from "dotenv";
-dotenv.config();
+
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
+import cloudinary from "./src/config/cloudinary.js";
 import cookieParser from "cookie-parser";
 import connectDB from "./src/config/db.js";
 import AuthRouter from "./src/routers/authRouter.js";
@@ -36,4 +36,9 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log("Server Started at Port: ", port);
   connectDB();
+  try {
+    
+  } catch (error) {
+    
+  }
 });
