@@ -1,4 +1,3 @@
-
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
@@ -33,12 +32,13 @@ app.use((err, req, res, next) => {
 });
 
 const port = process.env.PORT || 5000;
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log("Server Started at Port: ", port);
   connectDB();
   try {
-    
+    const res = await cloudinary.api.ping();
+    console.log("Cloudinary API is WOrking", res);
   } catch (error) {
-    
+    console.error("Error Connecting Cloudinary API :", error);
   }
 });

@@ -15,17 +15,19 @@ import {
 const UserSidebar = ({ active, setActive }) => {
   const [expanded, setExpanded] = useState(true);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     try {
-      UserLogout();
-      toast.success("Logged out successfully!");
-      navigate("/");
+      const res = await api.get("/auth/logout");
+      toast.success(res.data.message);
+      setUser("");
+      setIsLogin(false);
+      sessionStorage.removeItem("DineXUser");
     } catch (error) {
-      console.error("Logout Error:", error);
-      toast.error("Something went wrong during logout.");
+      toast.error(error?.response?.data?.message || "Unknown Error");
+      console.log(error)
     }
   };
-
+ 
   return (
     <div
       className={`h-full bg-white border-r border-gray-200 shadow-sm transition-all duration-300 ease-in-out flex flex-col
@@ -154,16 +156,16 @@ const UserSidebar = ({ active, setActive }) => {
         <div className="p-2 border-t border-gray-100 shrink-0 flex flex-col gap-1">
         <button
           onClick={handleLogout}
-          className="relative flex items-center w-full py-3 rounded-xl text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all duration-200 group cursor-pointer"
+          className="relative flex items-center w-full py-3 rounded-xl text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 group cursor-pointer"
         >
           <div className="min-w-16 flex justify-center items-center ">
             <LogOut
               size={22}
-              className="group-hover:rotate-180 transition-transform duration-300 text-rose-600"
+              className="group-hover:rotate-180 text-blue-600 transition-transform duration-300 text-blur-600"
             />
           </div>
           <span
-            className={`overflow-hidden transition-all duration-300 whitespace-nowrap font-medium text-rose-600
+            className={`overflow-hidden transition-all duration-300 whitespace-nowrap font-medium text-blue-600
               ${expanded ? "w-40 opacity-100" : "w-0 opacity-0"}
             `}
           >
