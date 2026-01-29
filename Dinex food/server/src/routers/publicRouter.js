@@ -1,7 +1,8 @@
-import express from 'express';
-import {Newcontact} from "../controllers/newContact.js"
-const Router = express.Router();
+import express from "express";
+import {NewContact} from '../controllers/newContact.js'
 
-Router.post('/newcontact', Newcontact);
+const router = express.Router();
 
-export default Router;
+router.post('/new-contact',NewContact);
+
+export default router;

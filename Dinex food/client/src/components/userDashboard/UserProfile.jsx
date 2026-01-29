@@ -41,7 +41,7 @@ const UserProfile = () => {
   return (
     <>
       <div className="bg-(--color-primary)/10 rounded-lg shadow-md p-6 md:p-8 h-full">
-        <div className="flex justify-between border p-3 rounded-3xl items-center border-gray-300 bg-gray-300">
+        <div className="flex justify-between border p-3 rounded-3xl items-center border-gray-300 bg-gray-300 ">
           <div className="flex gap-5 items-center">
             <div className="relative">
               <div className="hover:scale-103 border rounded-full w-36 h-36 overflow-hidden">

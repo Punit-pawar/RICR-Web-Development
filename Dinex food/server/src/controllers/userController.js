@@ -49,32 +49,42 @@ export const UserUpdate = async (req, res, next) => {
 export const UserChangePhoto = async (req, res, next) => {
   try {
     // console.log("body: ", req.body);
-    const CurrentUser = res.user;
-    console.log("file:", req.file);
+    const currentUser = req.user;
+    const dp = req.file;
+
+    console.log("request file: ", req.file);
 
     if (!dp) {
-      const error = new Error("profile picture required");
-      error.statusCode = 401;
+      const error = new Error("Profile Picture required");
+      error.statusCode = 400;
       return next(error);
     }
 
-    if (CurrentUser.photo.publicID) {
-      await cloudinary.uploader.destroy(CurrentUser.photo.publicID);
+    console.log("DP:", dp);
+
+    if (currentUser.photo.publicID) {
+      await cloudinary.uploader.destroy(currentUser.photo.publicID);
     }
 
-    const b64 = Buffer.from(dp.buffer).tostring("base64");
-    // console.log(b64.slice(0.100));
-    const dataURI = `data:${dp.minetype};base64,${b64}`;
+    const b64 = Buffer.from(dp.buffer).toString("base64");
+    // console.log(b64.slice(0,100));
+    const dataURI = `data:${dp.mimetype};base64,${b64}`;
     console.log("DataURI", dataURI.slice(0, 100));
 
     const result = await cloudinary.uploader.upload(dataURI, {
-      folder: "DineX/User",
+      folder: "Cravings/User",
       width: 500,
       height: 500,
       crop: "fill",
     });
 
-    res.status(200).json({ message: "Photo Updated" });
+    console.log("Image Uplaoded successfully: ", result);
+    currentUser.photo.url = result.secure_url;
+    currentUser.photo.publicID = result.public_id;
+
+    await currentUser.save();
+
+    res.status(200).json({ message: "Photo Updated", data: currentUser });
   } catch (error) {
     next(error);
   }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import UserSideBar from "../../components/userDashboard/UserSideBar";
-import UserOverview from "../../components/userDashboard/userOverview";
+import UserOverview from "../../components/userDashboard/UserOverview";
 import UserProfile from "../../components/userDashboard/UserProfile";
 import UserOrders from "../../components/userDashboard/UserOrders";
 import UserHelpDesk from "../../components/userDashboard/UserHelpDesk";
