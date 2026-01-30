@@ -40,7 +40,7 @@ const UserDashboard = () => {
     <>
       <div className="w-full h-[90vh] flex">
         <div
-          className={`bg-(--color-background) duration-300 ${isCollapsed ? "w-2/60" : "w-12/60"}`}
+          className={`bg-black duration-300 ${isCollapsed ? "w-4/60" : "w-13/70"}`}
         >
           <UserSideBar
             active={active}
