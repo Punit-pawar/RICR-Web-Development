@@ -32,7 +32,6 @@ const UserProfile = () => {
       toast.error(error?.response?.data?.message || "Unknown Error");
     }
   };
-
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
     const newPhotoURL = URL.createObjectURL(file);
@@ -42,7 +41,6 @@ const UserProfile = () => {
       changePhoto(file);
     }, 5000);
   };
-
   return (
     <>
       <div className="bg-(--color-primary)/10 rounded-lg shadow-md p-6 md:p-8 h-full">
