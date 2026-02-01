@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import api from "../../config/Api"
-
+import { useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   UserRound,
@@ -14,6 +14,7 @@ import {
 
 const UserSidebar = ({ active, setActive }) => {
   const [expanded, setExpanded] = useState(true);
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
@@ -21,6 +22,7 @@ const UserSidebar = ({ active, setActive }) => {
       toast.success(res.data.message);
       setUser("");
       setIsLogin(false);
+      navigate("/");
       sessionStorage.removeItem("DineXUser");
     } catch (error) {
       toast.error(error?.response?.data?.message || "Unknown Error");

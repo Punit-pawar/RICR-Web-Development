@@ -1,15 +1,10 @@
 import nodemailer from "nodemailer";
-import dotenv from "dotenv";
-dotenv.config();
+// import dotenv from "dotenv";
+// dotenv.config();
 
 const sendEmail = async (to, subject, message) => {
   try {
-    console.log("started sending email");
-
-    console.log({
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_PASSCODE,
-    });
+    console.log("Started Sending Email");
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -19,6 +14,8 @@ const sendEmail = async (to, subject, message) => {
       },
     });
 
+    console.log("3....2....1....");
+
     const mailOption = {
       from: process.env.GMAIL_USER,
       to,
@@ -26,9 +23,8 @@ const sendEmail = async (to, subject, message) => {
       html: message,
     };
 
-    console.log(mailOption);
+    console.log("Sending Email");
 
-    
     const res = await transporter.sendMail(mailOption);
     console.log(res);
   } catch (error) {
@@ -36,8 +32,10 @@ const sendEmail = async (to, subject, message) => {
   }
 };
 
-sendEmail(
-  "punitpawar3216@gmail.com",
-  "testemail",
-  "<p style='color:red'>Test message</p>",
-);
+export default sendEmail;
+
+// sendEmail(
+//   "rajvardhan@ricr.in",
+//   "test Email",
+//   "<p style='color:red;'> Test Message</p>",
+// );
