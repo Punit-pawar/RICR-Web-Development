@@ -67,11 +67,7 @@ const Register = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    if (!validate()) {
-      setIsLoading(false);
-      toast.error("Fill the Form Correctly");
-      return;
-    }
+
 
     console.log(formData);
 

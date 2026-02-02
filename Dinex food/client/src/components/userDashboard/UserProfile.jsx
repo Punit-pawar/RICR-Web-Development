@@ -30,7 +30,7 @@ const UserProfile = () => {
       toast.success(res.data.message);
 
       setUser(res.data.data);
-      sessionStorage.setItem("CravingUser", JSON.stringify(res.data.data));
+      sessionStorage.setItem("DineXUser", JSON.stringify(res.data.data));
     } catch (error) {
       toast.error(error?.response?.data?.message || "Unknown Error");
     }

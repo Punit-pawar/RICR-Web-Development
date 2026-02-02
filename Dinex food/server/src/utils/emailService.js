@@ -1,7 +1,7 @@
 import sendEmail from "../config/email.js";
 
 export const sendOTPEmail = async (to, otp) => {
-  const subject = "OTP to reset your Cravings Password";
+  const subject = "OTP to reset your DineXs Password";
 
   const message = `
     <body style="margin:0; padding:0; background-color:#f4f6f8; font-family:Arial, Helvetica, sans-serif;">
@@ -60,7 +60,7 @@ export const sendOTPEmail = async (to, otp) => {
           <tr>
             <td style="padding:15px; text-align:center; background-color:#f8f9fa; border-radius:0 0 8px 8px;">
               <p style="font-size:12px; color:#999999; margin:0;">
-                ©${new Date().getFullYear()} Cravings India Pvt. Ltd. All rights reserved.
+                ©${new Date().getFullYear()} DineX India Pvt. Ltd. All rights reserved.
               </p>
             </td>
           </tr>
