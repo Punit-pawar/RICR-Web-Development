@@ -7,10 +7,11 @@ import {
   LayoutDashboard,
   UserRound,
   CookingPot,
-  ArrowLeftRight,
   Info,
   Menu,
   LogOut,
+  ShoppingBasket, 
+  IndianRupee,
 } from "lucide-react";
 
 const ResturantSidebar = ({
@@ -40,7 +41,7 @@ const ResturantSidebar = ({
       <div className="flex items-center h-20 px-2 border-b border-gray-100">
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="p-2 rounded-lg hover:bg-blue-50 text-gray-600 w-16 flex justify-center"
+          className="p-2 rounded-lg hover:bg-purple-50 text-gray-600 w-16 flex justify-center"
         >
           <Menu size={24} />
         </button>
@@ -57,8 +58,8 @@ const ResturantSidebar = ({
           onClick={() => setActive("overview")}
           className={`flex items-center w-full py-3 rounded-xl ${
             active === "overview"
-              ? "bg-blue-600 text-white"
-              : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+              ? "bg-purple-600 text-white"
+              : "text-gray-600 hover:bg-purple-50 hover:text-purple-600"
           }`}
         >
           <div className="w-16 flex justify-center">
@@ -71,8 +72,8 @@ const ResturantSidebar = ({
           onClick={() => setActive("profile")}
           className={`flex items-center w-full py-3 rounded-xl ${
             active === "profile"
-              ? "bg-blue-600 text-white"
-              : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+              ? "bg-purple-600 text-white"
+              : "text-gray-600 hover:bg-purple-50 hover:text-purple-600"
           }`}
         >
           <div className="w-16 flex justify-center">
@@ -84,9 +85,9 @@ const ResturantSidebar = ({
         <button
           onClick={() => setActive("menuitem")}
           className={`flex items-center w-full py-3 rounded-xl ${
-            active === "orders"
-              ? "bg-blue-600 text-white"
-              : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+            active === "menuitem"
+              ? "bg-purple-600 text-white"
+              : "text-gray-600 hover:bg-purple-50 hover:text-purple-600"
           }`}
         >
           <div className="w-16 flex justify-center">
@@ -96,25 +97,39 @@ const ResturantSidebar = ({
         </button>
 
         <button
-          onClick={() => setActive("transactions")}
+          onClick={() => setActive("orders")}
           className={`flex items-center w-full py-3 rounded-xl ${
-            active === "transactions"
-              ? "bg-blue-600 text-white"
-              : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+            active === "orders"
+              ? "bg-purple-600 text-white"
+              : "text-gray-600 hover:bg-purple-50 hover:text-purple-600"
           }`}
         >
           <div className="w-16 flex justify-center">
-            <ArrowLeftRight size={22} />
+            <ShoppingBasket size={22} />
           </div>
-          {!isCollapsed && <span>Transactions</span>}
+          {!isCollapsed && <span>Orders</span>}
+        </button>
+
+        <button
+          onClick={() => setActive("earnings")}
+          className={`flex items-center w-full py-3 rounded-xl ${
+            active === "earnings"
+              ? "bg-purple-600 text-white"
+              : "text-gray-600 hover:bg-purple-50 hover:text-purple-600"
+          }`}
+        >
+          <div className="w-16 flex justify-center">
+            <IndianRupee size={22} />
+          </div>
+          {!isCollapsed && <span>Earnings</span>}
         </button>
 
         <button
           onClick={() => setActive("helpdesk")}
           className={`flex items-center w-full py-3 rounded-xl ${
             active === "helpdesk"
-              ? "bg-blue-600 text-white"
-              : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+              ? "bg-purple-600 text-white"
+              : "text-gray-600 hover:bg-purple-50 hover:text-purple-600"
           }`}
         >
           <div className="w-16 flex justify-center">
@@ -127,13 +142,13 @@ const ResturantSidebar = ({
       <div className="p-2 border-t">
         <button
           onClick={handleLogout}
-          className="flex items-center w-full py-3 rounded-xl hover:bg-blue-50"
+          className="flex items-center w-full py-3 rounded-xl hover:bg-purple-50"
         >
           <div className="w-16 flex justify-center">
-            <LogOut size={22} className="text-blue-600" />
+            <LogOut size={22} className="text-purple-600" />
           </div>
           {!isCollapsed && (
-            <span className="text-blue-600 font-medium">Log Out</span>
+            <span className="text-purple-600 font-medium">Log Out</span>
           )}
         </button>
       </div>

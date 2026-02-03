@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="bg-blue-300 px-4 py-2 flex justify-between items-center">
+      <div className="bg-purple-300 px-4 py-2 flex justify-between items-center">
 
         <Link to={"/"}>
           <img src={logo} alt="" className="h-12 w-20 object-cover invert-100 hover:scale-105 cursor-pointer"/>
@@ -19,15 +19,15 @@ const Header = () => {
 
         <div className="flex ms-30 gap-4">
 
-          <Link to={"/"} className="text-decoration-none text-black hover:text-blue-800 hover:text-shadow-2xs">
+          <Link to={"/"} className="text-decoration-none text-black hover:text-purple-800 hover:text-shadow-2xs">
             Home
           </Link>
 
-          <Link to={"/about"} className="text-decoration-none text-black hover:text-blue-800 hover:text-shadow-2xs">
+          <Link to={"/about"} className="text-decoration-none text-black hover:text-purple-800 hover:text-shadow-2xs">
             About
           </Link>
 
-          <Link to={"/contact"} className="text-decoration-none text-black hover:text-blue-800 hover:text-shadow-2xs">
+          <Link to={"/contact"} className="text-decoration-none text-black hover:text-purple-800 hover:text-shadow-2xs">
             Contact
           </Link>
 

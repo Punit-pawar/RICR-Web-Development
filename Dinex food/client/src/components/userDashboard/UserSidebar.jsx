@@ -44,7 +44,7 @@ const UserSidebar = ({ active, setActive }) => {
       <div className="flex items-center h-20 px-2 border-b border-gray-100 shrink-0">
         <button
           onClick={() => setExpanded(!expanded)}
-          className="p-2 rounded-lg hover:bg-blue-50 text-gray-600 hover:text-blue-600 transition-colors bg-white  w-16 flex justify-center items-center cursor-pointer"
+          className="p-2 rounded-lg hover:bg-purple-50 text-gray-600 hover:text-purple-600 transition-colors bg-white  w-16 flex justify-center items-center cursor-pointer"
         >
           <Menu size={24} />
         </button>
@@ -64,8 +64,8 @@ const UserSidebar = ({ active, setActive }) => {
           className={`relative flex items-center w-full py-3 rounded-xl transition-all duration-200
             ${
               active === "overview"
-                ? "bg-blue-600 text-white shadow-md shadow-bule-200"
-                : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+                ? "bg-purple-600 text-white shadow-md shadow-bule-200"
+                : "text-gray-600 hover:bg-purple-50 hover:text-purple-600"
             }
           `}
         >
@@ -85,8 +85,8 @@ const UserSidebar = ({ active, setActive }) => {
           className={`relative flex items-center w-full py-3 rounded-xl transition-all duration-200
             ${
               active === "profile"
-                ? "bg-blue-600 text-white shadow-md shadow-blue-200"
-                : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+                ? "bg-purple-600 text-white shadow-md shadow-purple-200"
+                : "text-gray-600 hover:bg-purple-50 hover:text-purple-600"
             }
           `}
         >
@@ -105,8 +105,8 @@ const UserSidebar = ({ active, setActive }) => {
           className={`relative flex items-center w-full py-3 rounded-xl transition-all duration-200
             ${
               active === "orders"
-                ? "bg-blue-600 text-white shadow-md shadow-blue-200"
-                : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+                ? "bg-purple-600 text-white shadow-md shadow-purple-200"
+                : "text-gray-600 hover:bg-purple-50 hover:text-purple-600"
             }
           `}
         >
@@ -125,8 +125,8 @@ const UserSidebar = ({ active, setActive }) => {
           className={`relative flex items-center w-full py-3 rounded-xl transition-all duration-200
             ${
               active === "transections"
-                ? "bg-blue-600 text-white shadow-md shadow-blue-200"
-                : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+                ? "bg-purple-600 text-white shadow-md shadow-purple-200"
+                : "text-gray-600 hover:bg-purple-50 hover:text-purple-600"
             }
           `}
         >
@@ -145,8 +145,8 @@ const UserSidebar = ({ active, setActive }) => {
           className={`relative flex items-center w-full py-3 rounded-xl transition-all duration-200
             ${
               active === "helpdesk"
-                ? "bg-blue-600 text-white shadow-md shadow-blue-200"
-                : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+                ? "bg-purple-600 text-white shadow-md shadow-purple-200"
+                : "text-gray-600 hover:bg-purple-50 hover:text-purple-600"
             }
           `}
         >
@@ -163,16 +163,16 @@ const UserSidebar = ({ active, setActive }) => {
         <div className="p-2 border-t border-gray-100 shrink-0 flex flex-col gap-1">
           <button
             onClick={handleLogout}
-            className="relative flex items-center w-full py-3 rounded-xl hover:bg-blue-50 transition-all duration-200 group cursor-pointer"
+            className="relative flex items-center w-full py-3 rounded-xl hover:bg-purple-50 transition-all duration-200 group cursor-pointer"
           >
             <div className="min-w-16 flex justify-center items-center ">
               <LogOut
                 size={22}
-                className="group-hover:rotate-180 text-blue-600 hover:text-red-600 transition-transform duration-300 text-blur-600"
+                className="group-hover:rotate-180 text-purple-600 hover:text-red-600 transition-transform duration-300 text-blur-600"
               />
             </div>
             <span
-              className={`overflow-hidden transition-all duration-300 whitespace-nowrap font-medium text-blue-600 
+              className={`overflow-hidden transition-all duration-300 whitespace-nowrap font-medium text-purple-600 
               ${expanded ? "w-40 opacity-100" : "w-0 opacity-0"}
             `}
             >

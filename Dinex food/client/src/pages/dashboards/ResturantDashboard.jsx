@@ -3,7 +3,11 @@ import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import ResturantSidebar from "../../components/resturantdashboard/ResturantSidebar";
 import ResturantOverview from "../../components/resturantdashboard/ResturantOverview";
-import ResturantMenuItem from "../../components/resturantdashboard/ResturantMenuItem";
+import RestaurantMenu from "../../components/resturantdashboard/RestaurantMenu";
+import RestaurantProfile from "../../components/resturantdashboard/RestaurantProfile";
+import RestaurantOrders from "../../components/resturantdashboard/RestaurantOrders";
+import RestaurantEarnings from "../../components/resturantdashboard/RestaurantEarnings";
+import RestaurantHelpDesk from "../../components/resturantdashboard/RestaurantHelpDesk";
 
 const ResturantDashboard = () => {
   const { role, isLogin } = useAuth();
@@ -47,7 +51,11 @@ const ResturantDashboard = () => {
 
       <div className="flex-1 p-4 overflow-y-auto">
         {active === "overview" && <ResturantOverview />}
-        {active === "menuitem" && <ResturantMenuItem />}
+        {active === "profile" && <RestaurantProfile />}
+        {active === "menuitem" && <RestaurantMenu />}
+        {active === "orders" && <RestaurantOrders />}
+        {active === "earnings" && <RestaurantEarnings />}
+        {active === "helpdesk" && <RestaurantHelpDesk />}
       </div>
     </div>
   );

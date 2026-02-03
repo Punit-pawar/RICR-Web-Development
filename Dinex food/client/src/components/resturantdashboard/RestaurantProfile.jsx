@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import EditProfileModal from "./modals/EditProfileModal";
+import EditRestaurantProfileModal from "./modals/EditRestaurantProfileModal";
 import UserImage from "../../assets/userImage.jpg";
-import { FaCamera, FaMapLocationDot, FaWallet } from "react-icons/fa6";
+import {
+  FaCamera,
+  FaMapLocationDot,
+  FaWallet,
+} from "react-icons/fa6";
 import { FaFileAlt } from "react-icons/fa";
 import { BiSolidBank } from "react-icons/bi";
 import api from "../../config/Api";
 import toast from "react-hot-toast";
-import ResetPasswordModal from "./modals/ResetPasswordModal";
+import ResetPasswordModal from "../userDashboard/modals/ResetPasswordModal";
 
-const UserProfile = () => {
+const RestaurantProfile = () => {
   const { user, setUser } = useAuth();
-  console.log(user);
-
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
   const [isResetPasswordModalOpen, setIsResetPasswordModalOpen] =
     useState(false);
@@ -97,11 +99,11 @@ const UserProfile = () => {
               <div>
                 <div className="mb-6">
                   <h1 className="text-4xl font-bold text-(--color-primary) mb-2">
-                    {user?.fullName || "User Name"}
+                    {user?.fullName || "Manager Name"}
                   </h1>
                   <div className="flex items-center gap-2 mb-2">
                     <span className="bg-(--color-secondary) text-white px-3 py-1 rounded-full text-sm font-semibold capitalize">
-                      {user?.role || "customer"}
+                      {user?.role || "manager"}
                     </span>
                     <span
                       className={`px-3 py-1 rounded-full text-sm font-semibold ${
@@ -129,33 +131,23 @@ const UserProfile = () => {
                       {user?.mobileNumber || "N/A"}
                     </span>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-gray-600 font-medium">
-                      Member Since:
-                    </span>
-                    <span className="text-gray-900">
-                      {user?.createdAt
-                        ? new Date(user.createdAt).toLocaleDateString("en-IN")
-                        : "N/A"}
-                    </span>
-                  </div>
                 </div>
-              </div>
 
-              {/* Action Buttons */}
-              <div className="flex flex-col justify-center gap-4">
-                <button
-                  onClick={() => setIsEditProfileModalOpen(true)}
-                  className="px-6 py-2 bg-(--color-secondary) text-white rounded-lg hover:bg-(--color-secondary-hover) transition font-semibold"
-                >
-                  Edit Profile
-                </button>
-                <button
-                  onClick={() => setIsResetPasswordModalOpen(true)}
-                  className="px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition font-semibold"
-                >
-                  Reset Password
-                </button>
+                {/* Action Buttons */}
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => setIsEditProfileModalOpen(true)}
+                    className="px-6 py-2 bg-(--color-secondary) text-white rounded-lg hover:bg-(--color-secondary-hover) transition font-semibold"
+                  >
+                    Edit Profile
+                  </button>
+                  <button
+                    onClick={() => setIsResetPasswordModalOpen(true)}
+                    className="px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition font-semibold"
+                  >
+                    Reset Password
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -222,47 +214,7 @@ const UserProfile = () => {
           </div>
         )}
 
-        {/* Documents Section - Customer (UIDAI & PAN) */}
-        {user?.role === "customer" &&
-          (user?.documents?.uidai !== "N/A" ||
-            user?.documents?.pan !== "N/A") && (
-            <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-              <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <FaFileAlt className="text-(--color-secondary)" />
-                Documents
-              </h2>
-              <div className="space-y-1">
-                {renderField("UIDAI", user?.documents?.uidai)}
-                {renderField("PAN", user?.documents?.pan)}
-              </div>
-            </div>
-          )}
-
-        {/* Documents Section - Other Roles */}
-        {user?.role !== "customer" &&
-          Object.values(user?.documents || {}).some((doc) => doc !== "N/A") && (
-            <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-              <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <FaFileAlt className="text-(--color-secondary)" />
-                Documents
-              </h2>
-              <div className="space-y-1">
-                {user?.documents?.gst &&
-                  renderField("GST", user?.documents?.gst)}
-                {user?.documents?.fssai &&
-                  renderField("FSSAI", user?.documents?.fssai)}
-                {user?.documents?.rc && renderField("RC", user?.documents?.rc)}
-                {user?.documents?.dl &&
-                  renderField("Driving License", user?.documents?.dl)}
-                {user?.documents?.uidai &&
-                  renderField("UIDAI", user?.documents?.uidai)}
-                {user?.documents?.pan &&
-                  renderField("PAN", user?.documents?.pan)}
-              </div>
-            </div>
-          )}
-
-        {/* Restaurant Info (for managers) */}
+        {/* Restaurant Information Section */}
         {(user?.restaurantName !== "N/A" || user?.cuisine !== "N/A") && (
           <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
             <h2 className="text-xl font-bold text-gray-800 mb-4">
@@ -274,10 +226,53 @@ const UserProfile = () => {
             </div>
           </div>
         )}
+
+        {/* Business Documents Section */}
+        {Object.values(user?.documents || {}).some((doc) => doc !== "N/A") && (
+          <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+            <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+              <FaFileAlt className="text-(--color-secondary)" />
+              Business Documents
+            </h2>
+            <div className="space-y-1">
+              {renderField("GST Certificate", user?.documents?.gst)}
+              {renderField("FSSAI License", user?.documents?.fssai)}
+              {renderField("RC (Registration)", user?.documents?.rc)}
+              {renderField("Driving License", user?.documents?.dl)}
+              {renderField("UIDAI", user?.documents?.uidai)}
+              {renderField("PAN", user?.documents?.pan)}
+            </div>
+          </div>
+        )}
+
+        {/* Account Metadata */}
+        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200 text-sm">
+          <h2 className="text-lg font-bold text-gray-800 mb-3">
+            Account Details
+          </h2>
+          <div className="grid grid-cols-2 gap-4 text-gray-600">
+            <div>
+              <span className="font-medium">Account ID:</span>
+              <p className="text-gray-500 font-mono text-xs break-all">
+                {user?._id}
+              </p>
+            </div>
+            <div>
+              <span className="font-medium">Member Since:</span>
+              <p className="text-gray-900">
+                {user?.createdAt
+                  ? new Date(user.createdAt).toLocaleDateString("en-IN")
+                  : "N/A"}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {isEditProfileModalOpen && (
-        <EditProfileModal onClose={() => setIsEditProfileModalOpen(false)} />
+        <EditRestaurantProfileModal
+          onClose={() => setIsEditProfileModalOpen(false)}
+        />
       )}
 
       {isResetPasswordModalOpen && (
@@ -289,4 +284,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default RestaurantProfile;

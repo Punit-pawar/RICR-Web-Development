@@ -6,8 +6,12 @@
   --color-primary-hover: #0F163F;
 
   /* Secondary */
-  --color-secondary: #F16D34;
-  --color-secondary-hover: #D85F2E;
+  /* --color-secondary: #F16D34; */
+  /* --color-secondary-hover: #D85F2E; */
+
+  --color-secondary: rgb(221, 94, 221);
+  --color-secondary-hover: rgb(179, 12, 179);  
+  
 
   /* Background & Text */
   --color-background: #BBE0EF;
