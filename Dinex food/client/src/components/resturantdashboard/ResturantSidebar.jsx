@@ -41,7 +41,7 @@ const ResturantSidebar = ({
       <div className="flex items-center h-20 px-2 border-b border-gray-100">
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="p-2 rounded-lg hover:bg-purple-50 text-gray-600 w-16 flex justify-center"
+          className="p-2 rounded-lg hover:bg-purple-100 hover:text-purple-600 text-gray-600 w-16 flex justify-center"
         >
           <Menu size={24} />
         </button>
@@ -142,7 +142,7 @@ const ResturantSidebar = ({
       <div className="p-2 border-t">
         <button
           onClick={handleLogout}
-          className="flex items-center w-full py-3 rounded-xl hover:bg-purple-50"
+          className="flex items-center w-full py-3 rounded-xl hover:bg-purple-200"
         >
           <div className="w-16 flex justify-center">
             <LogOut size={22} className="text-purple-600" />

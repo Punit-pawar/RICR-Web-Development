@@ -141,7 +141,7 @@ const EditRestaurantProfileModal = ({ onClose }) => {
     try {
       const res = await api.put("/user/update", formData);
       if (res.data?.data) {
-        sessionStorage.setItem("CravingUser", JSON.stringify(res.data.data));
+        sessionStorage.setItem("DineXUser", JSON.stringify(res.data.data));
         setUser(res.data.data);
         setIsLogin(true);
         setMessage({ type: "success", text: "Profile updated successfully!" });

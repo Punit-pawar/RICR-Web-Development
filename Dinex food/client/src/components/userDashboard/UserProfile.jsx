@@ -26,7 +26,7 @@ const UserProfile = () => {
       const res = await api.patch("/user/changePhoto", form_Data);
       toast.success(res.data.message);
       setUser(res.data.data);
-      sessionStorage.setItem("CravingUser", JSON.stringify(res.data.data));
+      sessionStorage.setItem("DineXUser", JSON.stringify(res.data.data));
       setPreview("");
     } catch (error) {
       toast.error(error?.response?.data?.message || "Unknown Error");
@@ -60,7 +60,6 @@ const UserProfile = () => {
   return (
     <>
       <div className="bg-gray-50 rounded-lg p-6 h-full overflow-y-auto space-y-6">
-        {/* Header Section with Photo and Basic Info */}
         <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
           <div className="flex gap-6">
             {/* Photo Section */}
@@ -92,7 +91,6 @@ const UserProfile = () => {
               </p>
             </div>
 
-            {/* Basic Info Section */}
             <div className="flex justify-between w-full">
               <div>
                 <div className="mb-6">
@@ -115,7 +113,6 @@ const UserProfile = () => {
                   </div>
                 </div>
 
-                {/* Contact Information */}
                 <div className="space-y-2 mb-6">
                   <div className="flex items-center gap-3">
                     <span className="text-gray-600 font-medium">Email:</span>
@@ -142,7 +139,6 @@ const UserProfile = () => {
                 </div>
               </div>
 
-              {/* Action Buttons */}
               <div className="flex flex-col justify-center gap-4">
                 <button
                   onClick={() => setIsEditProfileModalOpen(true)}
@@ -161,7 +157,6 @@ const UserProfile = () => {
           </div>
         </div>
 
-        {/* Personal Information Section */}
         <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
           <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
             <span className="w-1 h-6 bg-(--color-secondary) rounded"></span>
@@ -176,7 +171,6 @@ const UserProfile = () => {
           </div>
         </div>
 
-        {/* Location Section */}
         {(user?.geoLocation?.lat !== "N/A" ||
           user?.geoLocation?.lon !== "N/A") && (
           <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
@@ -191,7 +185,6 @@ const UserProfile = () => {
           </div>
         )}
 
-        {/* Payment Details - UPI Section */}
         {user?.paymentDetails?.upi !== "N/A" && (
           <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
             <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
@@ -204,7 +197,6 @@ const UserProfile = () => {
           </div>
         )}
 
-        {/* Bank Account Details Section */}
         {(user?.paymentDetails?.account_number !== "N/A" ||
           user?.paymentDetails?.ifs_Code !== "N/A") && (
           <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
@@ -222,7 +214,6 @@ const UserProfile = () => {
           </div>
         )}
 
-        {/* Documents Section - Customer (UIDAI & PAN) */}
         {user?.role === "customer" &&
           (user?.documents?.uidai !== "N/A" ||
             user?.documents?.pan !== "N/A") && (
@@ -238,7 +229,6 @@ const UserProfile = () => {
             </div>
           )}
 
-        {/* Documents Section - Other Roles */}
         {user?.role !== "customer" &&
           Object.values(user?.documents || {}).some((doc) => doc !== "N/A") && (
             <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
@@ -262,7 +252,6 @@ const UserProfile = () => {
             </div>
           )}
 
-        {/* Restaurant Info (for managers) */}
         {(user?.restaurantName !== "N/A" || user?.cuisine !== "N/A") && (
           <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
             <h2 className="text-xl font-bold text-gray-800 mb-4">
