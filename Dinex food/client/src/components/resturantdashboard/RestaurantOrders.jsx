@@ -1,15 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import api from "../../config/Api"
 
 const RestaurantOrders = () => {
+  const [restaurants, setRestaurants] = useState();
+  const [loading, setLoading] = useState(false);
+
+  const fetchAllRestaurant = async () => {
+    setLoading(true);
+    try {
+      const res = await api.get("/public/allRestaurants");
+      setRestaurants(res.data.data);
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.response?.data?.message || "Unknown Error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllRestaurant();
+  }, []);
+
+  console.log(restaurants);
+
   return (
-    <div className="bg-gray-50 rounded-lg p-6 h-full overflow-y-auto">
-      <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Orders</h2>
-        <div className="text-center text-gray-500 py-12">
-          <p className="text-lg">Orders will be displayed and managed here</p>
+    <>
+      <div className="bg-gray-100 p-3">
+        <div className="flex flex-col items-center justify-center">
+          <h1 className="text-3xl font-bold text-gray-800">Order Now</h1>
+          <p className="text-gray-600 mt-2">
+            Browse our menu and place your order now!
+          </p>
         </div>
+
+        {restaurants ? (
+          <div>
+            {restaurants.map((restaurant, idx) => (
+              <div key={idx} className="border">
+                {restaurant.restaurantName}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div></div>
+        )}
       </div>
-    </div>
+    </>
   );
 };
 

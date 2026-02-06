@@ -139,9 +139,9 @@ const EditRestaurantProfileModal = ({ onClose }) => {
     setMessage({ type: "", text: "" });
 
     try {
-      const res = await api.put("/user/update", formData);
+      const res = await api.put("/restaurant/update", formData);
       if (res.data?.data) {
-        sessionStorage.setItem("DineXUser", JSON.stringify(res.data.data));
+        sessionStorage.setItem("CravingUser", JSON.stringify(res.data.data));
         setUser(res.data.data);
         setIsLogin(true);
         setMessage({ type: "success", text: "Profile updated successfully!" });
@@ -262,9 +262,9 @@ const EditRestaurantProfileModal = ({ onClose }) => {
                     className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
                   </select>
                 </div>
 

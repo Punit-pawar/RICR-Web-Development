@@ -1,4 +1,5 @@
 import Contact from "../models/contactModel.js";
+import User from "../models/userModel.js";
 
 export const NewContact = async (req, res, next) => {
   try {
@@ -19,12 +20,25 @@ export const NewContact = async (req, res, next) => {
 
     console.log(newContact);
 
-    res
-      .status(201)
-      .json({
-        message:
-          "Thanks for Contacting us. We will Get Back to you in 24-48 Hours",
-      });
+    res.status(201).json({
+      message:
+        "Thanks for Contacting us. We will Get Back to you in 24-48 Hours",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const GetAllRestaurants = async (req, res, next) => {
+  try {
+    const restaurants = await User
+      .find({ role: "manager" })
+      .select("-password");
+
+    res.status(200).json({
+      message: "Restaurants fetched successfully",
+      data: restaurants,
+    });
   } catch (error) {
     next(error);
   }

@@ -7,7 +7,7 @@ export const UploadMultipleToCloudinary = async (multipleImages) => {
       const dataURI = `data:${imgfile.mimetype};base64,${b64}`;
 
       const result = await cloudinary.uploader.upload(dataURI, {
-        folder: "Cravings/menuItems",
+        folder: "DineX/menuItems",
         width: 500,
         height: 500,
         crop: "fill",
