@@ -67,11 +67,7 @@ const Register = () => {
     e.preventDefault();
     setIsLoading(true);
 
-
-
     console.log(formData);
-
-    
 
     try {
       const res = await api.post("/auth/register", formData);
