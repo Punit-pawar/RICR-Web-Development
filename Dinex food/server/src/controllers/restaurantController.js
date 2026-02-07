@@ -302,7 +302,7 @@ export const RestaurantChangePhoto = async (req, res, next) => {
     console.log("DataURI", dataURI.slice(0, 100));
 
     const result = await cloudinary.uploader.upload(dataURI, {
-      folder: "Cravings/User",
+      folder: "DineX/User",
       width: 500,
       height: 500,
       crop: "fill",
