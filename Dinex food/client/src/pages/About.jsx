@@ -10,7 +10,6 @@ const About = () => {
       <section className="bg-gradient-to-r from-purple-400 to-purple-500 text-white py-20">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            About DineX
           </h1>
           <p className="text-lg md:text-xl text-purple-50 max-w-3xl mx-auto">
             We connect food lovers with the best restaurants around them.
