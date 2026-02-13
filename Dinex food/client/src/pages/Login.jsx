@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import api from "../config/Api";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +9,6 @@ import Loading from "../components/Loading";
 
 const Login = () => {
   const { setUser, setIsLogin, setRole } = useAuth();
-
   const navigate = useNavigate();
 
   const [isForgetPasswordModelOpen, setIsForgetPasswordModelOpen] =
@@ -18,6 +18,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
@@ -26,52 +27,46 @@ const Login = () => {
   };
 
   const handleClearForm = () => {
-    setFormData({
-      email: "",
-      password: "",
-    });
+    setFormData({ email: "", password: "" });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    console.log(formData);
     try {
       const res = await api.post("/auth/login", formData);
+
       toast.success(res.data.message);
       setUser(res.data.data);
       setIsLogin(true);
+
       sessionStorage.setItem("CravingUser", JSON.stringify(res.data.data));
-      handleClearForm();
+
       switch (res.data.data.role) {
-        case "manager": {
+        case "manager":
           setRole("manager");
           navigate("/resturant-dashboard");
           break;
-        }
-        case "partner": {
+        case "partner":
           setRole("partner");
           navigate("/rider-dashboard");
           break;
-        }
-        case "customer": {
+        case "customer":
           setRole("customer");
           navigate("/user-dashboard");
           break;
-        }
-        case "admin": {
+        case "admin":
           setRole("admin");
           navigate("/admin-dashboard");
           break;
-        }
-
         default:
           break;
       }
+
+      handleClearForm();
     } catch (error) {
-      console.log(error);
-      toast.error(error?.response?.data?.message || "Unknown Error");
+      toast.error(error?.response?.data?.message || "Login failed");
     } finally {
       setIsLoading(false);
     }
@@ -79,7 +74,7 @@ const Login = () => {
 
   if (isLoading) {
     return (
-      <div className="w-100 h-100 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <Loading />
       </div>
     );
@@ -87,88 +82,103 @@ const Login = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100 py-6 px-4">
-        <div className="max-w-xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">
-              Welcome Back
-            </h1>
-            {/* <p className="text-lg text-gray-600">
-              You are 1 step away to stop your Cavings
-            </p> */}
-          </div>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-white to-purple-100 px-4 relative overflow-hidden">
+        
+        {/* Animated Background Blobs */}
+        <motion.div
+          className="absolute w-72 h-72 bg-purple-300 rounded-full blur-3xl opacity-30"
+          animate={{ x: [0, 40, 0], y: [0, -40, 0] }}
+          transition={{ repeat: Infinity, duration: 10 }}
+          style={{ top: "10%", left: "10%" }}
+        />
 
-          {/* Form Container */}
-          <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
-            <form
-              onSubmit={handleSubmit}
-              onReset={handleClearForm}
-              className="p-8"
-            >
-              {/* Personal Information */}
-              <div className="mb-5">
-                <div className="space-y-4">
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email Address"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    disabled={isLoading}
-                    className="w-full h-fit px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition disabled:cursor-not-allowed disabled:bg-gray-200"
-                  />
+        <motion.div
+          className="absolute w-72 h-72 bg-purple-300 rounded-full blur-3xl opacity-30"
+          animate={{ x: [0, -50, 0], y: [0, 50, 0] }}
+          transition={{ repeat: Infinity, duration: 12 }}
+          style={{ bottom: "10%", right: "10%" }}
+        />
 
-                  <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    placeholder="Password"
-                    onChange={handleChange}
-                    required
-                    disabled={isLoading}
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition disabled:cursor-not-allowed disabled:bg-gray-200"
-                  />
-                </div>
-                <div className="w-full flex justify-end">
-                  <button
-                    className="text-(--color-primary) hover:text-(--color-secondary) cursor-pointer"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setIsForgetPasswordModelOpen(true);
-                    }}
-                  >
-                    Forget Password?
-                  </button>
-                </div>
-              </div>
+        {/* Login Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 40, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          whileHover={{ y: -4 }}
+          className="w-full max-w-md bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/40"
+        >
+          <form onSubmit={handleSubmit} onReset={handleClearForm} className="p-8">
+            
+            {/* Header */}
+            <div className="text-center mb-8">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-600 bg-clip-text text-transparent">
+                Welcome Back
+              </h1>
+              <p className="text-gray-500 text-sm mt-2">
+                Login to continue 
+              </p>
+            </div>
 
-              {/* Submit Button */}
-              <div className="flex gap-4 pt-8 border-t-2 border-gray-200">
-                <button
-                  type="reset"
-                  disabled={isLoading}
-                  className="flex-1 bg-gray-300 text-gray-800 font-bold py-4 px-6 rounded-lg hover:bg-gray-400 transition duration-300 transform hover:scale-105 disabled:scale-100 disabled:bg-gray-300 disabled:cursor-not-allowed"
-                >
-                  Clear Form
-                </button>
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="flex-1 bg-linear-to-r from-indigo-600 to-indigo-700 text-white font-bold py-4 px-6 rounded-lg hover:from-indigo-700 hover:to-indigo-800 transition duration-300 transform hover:scale-105 shadow-lg disabled:scale-100 disabled:bg-gray-300  disabled:cursor-not-allowed"
-                >
-                  {isLoading ? "loading.." : "Login"}
-                </button>
-              </div>
-            </form>
-          </div>
+            {/* Inputs */}
+            <div className="space-y-4">
+              <motion.div whileFocus={{ scale: 1.02 }}>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+                />
+              </motion.div>
 
-          {/* Footer Note */}
-          <p className="text-center text-gray-600 mt-8 text-sm">
-            All fields marked are mandatory. We respect your privacy.
-          </p>
-        </div>
+              <motion.div whileFocus={{ scale: 1.02 }}>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+                />
+              </motion.div>
+            </div>
+
+            {/* Forget Password */}
+            <div className="flex justify-end mt-2">
+              <button
+                className="text-sm text-purple-600 hover:text-purple-800 transition"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsForgetPasswordModelOpen(true);
+                }}
+              >
+                Forgot Password?
+              </button>
+            </div>
+
+            {/* Buttons */}
+            <div className="flex gap-4 mt-8">
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                type="reset"
+                className="flex-1 py-3 rounded-lg bg-gray-200 hover:bg-gray-300 transition font-semibold"
+              >
+                Clear
+              </motion.button>
+
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                type="submit"
+                className="flex-1 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-purple-600 text-white font-semibold shadow-lg"
+              >
+                Login
+              </motion.button>
+            </div>
+          </form>
+        </motion.div>
       </div>
 
       {isForgetPasswordModelOpen && (

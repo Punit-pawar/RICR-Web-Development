@@ -28,7 +28,7 @@ const RestaurantProfile = () => {
       const res = await api.patch("/restaurant/changePhoto", form_Data);
       toast.success(res.data.message);
       setUser(res.data.data);
-      sessionStorage.setItem("CravingUser", JSON.stringify(res.data.data));
+      sessionStorage.setItem("DineXUSer", JSON.stringify(res.data.data));
       setPreview("");
     } catch (error) {
       toast.error(error?.response?.data?.message || "Unknown Error");
