@@ -200,7 +200,7 @@ const EditProfileModal = ({ onClose }) => {
                     name="fullName"
                     value={formData.fullName}
                     onChange={handleInputChange}
-                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
                       errors.fullName ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="Enter your full name"
@@ -237,7 +237,7 @@ const EditProfileModal = ({ onClose }) => {
                     name="mobileNumber"
                     value={formData.mobileNumber}
                     onChange={handleInputChange}
-                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
                       errors.mobileNumber ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="10-digit mobile number"
@@ -257,7 +257,7 @@ const EditProfileModal = ({ onClose }) => {
                     name="gender"
                     value={formData.gender}
                     onChange={handleInputChange}
-                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                   >
                     <option value="">Select Gender</option>
                     <option value="Male">Male</option>
@@ -275,7 +275,7 @@ const EditProfileModal = ({ onClose }) => {
                     name="dob"
                     value={formData.dob}
                     onChange={handleInputChange}
-                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                   />
                 </div>
               </div>
@@ -296,7 +296,7 @@ const EditProfileModal = ({ onClose }) => {
                     name="address"
                     value={formData.address}
                     onChange={handleInputChange}
-                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                     placeholder="Enter your address"
                   />
                 </div>
@@ -311,7 +311,7 @@ const EditProfileModal = ({ onClose }) => {
                       name="city"
                       value={formData.city}
                       onChange={handleInputChange}
-                      className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
                         errors.city ? "border-red-500" : "border-gray-300"
                       }`}
                       placeholder="Enter city"
@@ -330,7 +330,7 @@ const EditProfileModal = ({ onClose }) => {
                       name="pin"
                       value={formData.pin}
                       onChange={handleInputChange}
-                      className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
                         errors.pin ? "border-red-500" : "border-gray-300"
                       }`}
                       placeholder="6-digit PIN"
@@ -375,7 +375,7 @@ const EditProfileModal = ({ onClose }) => {
                     onChange={(e) =>
                       handleNestedChange("documents", "uidai", e.target.value)
                     }
-                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                     placeholder="12-digit UIDAI number"
                   />
                 </div>
@@ -390,7 +390,7 @@ const EditProfileModal = ({ onClose }) => {
                     onChange={(e) =>
                       handleNestedChange("documents", "pan", e.target.value)
                     }
-                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
                       errors.pan ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="PAN number"
@@ -423,7 +423,7 @@ const EditProfileModal = ({ onClose }) => {
                         e.target.value,
                       )
                     }
-                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
                       errors.upi ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="username@bank"
@@ -447,7 +447,7 @@ const EditProfileModal = ({ onClose }) => {
                         e.target.value,
                       )
                     }
-                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                     placeholder="Bank account number"
                   />
                 </div>
@@ -466,7 +466,7 @@ const EditProfileModal = ({ onClose }) => {
                         e.target.value,
                       )
                     }
-                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                     placeholder="IFS code"
                   />
                 </div>
@@ -486,7 +486,7 @@ const EditProfileModal = ({ onClose }) => {
               <button
                 type="submit"
                 disabled={loading}
-                className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                className="px-6 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
                 {loading ? (
                   <>

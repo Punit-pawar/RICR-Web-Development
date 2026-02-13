@@ -4,6 +4,7 @@ import UserOverview from "../../components/userDashboard/UserOverview";
 import UserProfile from "../../components/userDashboard/UserProfile";
 import UserOrders from "../../components/userDashboard/UserOrders";
 import UserHelpDesk from "../../components/userDashboard/UserHelpDesk";
+import UserTransactions from "../../components/userDashboard/UserTransactions"
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 

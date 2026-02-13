@@ -66,7 +66,7 @@ const ResetPasswordModal = ({ onClose }) => {
                     name="oldPassword"
                     value={formData.oldPassword}
                     onChange={handleInputChange}
-                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
                       errors.oldPassword ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="Enter your old password"
@@ -86,7 +86,7 @@ const ResetPasswordModal = ({ onClose }) => {
                     name="newPassword"
                     value={formData.newPassword}
                     onChange={handleInputChange}
-                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
                       errors.newPassword ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="Enter your new password"
@@ -106,7 +106,7 @@ const ResetPasswordModal = ({ onClose }) => {
                     name="cfNewPassword"
                     value={formData.cfNewPassword}
                     onChange={handleInputChange}
-                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
                       errors.cfNewPassword
                         ? "border-red-500"
                         : "border-gray-300"
@@ -135,7 +135,7 @@ const ResetPasswordModal = ({ onClose }) => {
               <button
                 type="submit"
                 disabled={loading}
-                className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                className="px-6 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
                 {loading ? (
                   <>

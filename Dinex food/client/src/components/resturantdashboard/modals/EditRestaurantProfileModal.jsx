@@ -202,7 +202,7 @@ const EditRestaurantProfileModal = ({ onClose }) => {
                     name="fullName"
                     value={formData.fullName}
                     onChange={handleInputChange}
-                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
                       errors.fullName ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="Enter manager name"
@@ -239,7 +239,7 @@ const EditRestaurantProfileModal = ({ onClose }) => {
                     name="mobileNumber"
                     value={formData.mobileNumber}
                     onChange={handleInputChange}
-                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
                       errors.mobileNumber ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="10-digit mobile number"
@@ -259,7 +259,7 @@ const EditRestaurantProfileModal = ({ onClose }) => {
                     name="gender"
                     value={formData.gender}
                     onChange={handleInputChange}
-                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                   >
                     <option value="">Select Gender</option>
                     <option value="male">Male</option>
@@ -277,7 +277,7 @@ const EditRestaurantProfileModal = ({ onClose }) => {
                     name="dob"
                     value={formData.dob}
                     onChange={handleInputChange}
-                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                   />
                 </div>
               </div>
@@ -298,7 +298,7 @@ const EditRestaurantProfileModal = ({ onClose }) => {
                     name="restaurantName"
                     value={formData.restaurantName}
                     onChange={handleInputChange}
-                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
                       errors.restaurantName ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="Enter restaurant name"
@@ -319,7 +319,7 @@ const EditRestaurantProfileModal = ({ onClose }) => {
                     name="cuisine"
                     value={formData.cuisine}
                     onChange={handleInputChange}
-                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                     placeholder="e.g., Italian, Indian, Chinese"
                   />
                 </div>
@@ -341,7 +341,7 @@ const EditRestaurantProfileModal = ({ onClose }) => {
                     name="address"
                     value={formData.address}
                     onChange={handleInputChange}
-                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                     placeholder="Enter restaurant address"
                   />
                 </div>
@@ -356,7 +356,7 @@ const EditRestaurantProfileModal = ({ onClose }) => {
                       name="city"
                       value={formData.city}
                       onChange={handleInputChange}
-                      className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
                         errors.city ? "border-red-500" : "border-gray-300"
                       }`}
                       placeholder="Enter city"
@@ -375,7 +375,7 @@ const EditRestaurantProfileModal = ({ onClose }) => {
                       name="pin"
                       value={formData.pin}
                       onChange={handleInputChange}
-                      className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
                         errors.pin ? "border-red-500" : "border-gray-300"
                       }`}
                       placeholder="6-digit PIN"
@@ -419,7 +419,7 @@ const EditRestaurantProfileModal = ({ onClose }) => {
                     onChange={(e) =>
                       handleNestedChange("documents", "gst", e.target.value)
                     }
-                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                     placeholder="GST number"
                   />
                 </div>
@@ -434,7 +434,7 @@ const EditRestaurantProfileModal = ({ onClose }) => {
                     onChange={(e) =>
                       handleNestedChange("documents", "fssai", e.target.value)
                     }
-                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                     placeholder="FSSAI registration number"
                   />
                 </div>
@@ -449,7 +449,7 @@ const EditRestaurantProfileModal = ({ onClose }) => {
                     onChange={(e) =>
                       handleNestedChange("documents", "rc", e.target.value)
                     }
-                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                     placeholder="Registration certificate"
                   />
                 </div>
@@ -464,7 +464,7 @@ const EditRestaurantProfileModal = ({ onClose }) => {
                     onChange={(e) =>
                       handleNestedChange("documents", "dl", e.target.value)
                     }
-                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                     placeholder="Driving license number"
                   />
                 </div>
@@ -479,7 +479,7 @@ const EditRestaurantProfileModal = ({ onClose }) => {
                     onChange={(e) =>
                       handleNestedChange("documents", "uidai", e.target.value)
                     }
-                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                     placeholder="12-digit UIDAI number"
                   />
                 </div>
@@ -494,7 +494,7 @@ const EditRestaurantProfileModal = ({ onClose }) => {
                     onChange={(e) =>
                       handleNestedChange("documents", "pan", e.target.value)
                     }
-                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
                       errors.pan ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="PAN number"
@@ -527,7 +527,7 @@ const EditRestaurantProfileModal = ({ onClose }) => {
                         e.target.value,
                       )
                     }
-                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
                       errors.upi ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="username@bank"
@@ -551,7 +551,7 @@ const EditRestaurantProfileModal = ({ onClose }) => {
                         e.target.value,
                       )
                     }
-                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                     placeholder="Bank account number"
                   />
                 </div>
@@ -570,7 +570,7 @@ const EditRestaurantProfileModal = ({ onClose }) => {
                         e.target.value,
                       )
                     }
-                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                     placeholder="IFSC code"
                   />
                 </div>
@@ -590,7 +590,7 @@ const EditRestaurantProfileModal = ({ onClose }) => {
               <button
                 type="submit"
                 disabled={loading}
-                className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                className="px-6 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
                 {loading ? (
                   <>

@@ -100,7 +100,7 @@ const RestaurantMenu = () => {
                           <FaEye />
                         </button>
                         <button
-                          className="text-blue-500  p-2 rounded-lg bg-gray-200 shadow"
+                          className="text-purple-500  p-2 rounded-lg bg-gray-200 shadow"
                           onClick={() => {
                             setSelectedItem(items);
                             setIsEditItemModalOpen(true);

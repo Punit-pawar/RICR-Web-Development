@@ -6,8 +6,8 @@ const RestaurantOverview = () => {
     {
       title: "Total Orders",
       value: "0",
-      icon: <FaShoppingCart className="text-blue-500" />,
-      bgColor: "bg-blue-100",
+      icon: <FaShoppingCart className="text-purple-500" />,
+      bgColor: "bg-purple-100",
     },
     {
       title: "Active Orders",

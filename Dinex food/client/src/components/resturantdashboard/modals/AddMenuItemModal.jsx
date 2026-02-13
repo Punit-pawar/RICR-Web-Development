@@ -182,7 +182,7 @@ const AddMenuItemModal = ({ onClose }) => {
                     name="itemName"
                     value={formData.itemName}
                     onChange={handleInputChange}
-                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
                       errors.itemName ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="e.g., Butter Chicken"
@@ -203,7 +203,7 @@ const AddMenuItemModal = ({ onClose }) => {
                     value={formData.description}
                     onChange={handleInputChange}
                     rows="3"
-                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
                       errors.description ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="Describe the dish, ingredients, and taste"
@@ -234,7 +234,7 @@ const AddMenuItemModal = ({ onClose }) => {
                     onChange={handleInputChange}
                     step="0.01"
                     min="0"
-                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
                       errors.price ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="0.00"
@@ -253,7 +253,7 @@ const AddMenuItemModal = ({ onClose }) => {
                     name="servingSize"
                     value={formData.servingSize}
                     onChange={handleInputChange}
-                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
                       errors.servingSize ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="e.g., Main Course, Appetizer"
@@ -274,7 +274,7 @@ const AddMenuItemModal = ({ onClose }) => {
                     name="cuisine"
                     value={formData.cuisine}
                     onChange={handleInputChange}
-                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                     placeholder="e.g., Indian, Italian"
                   />
                 </div>
@@ -298,7 +298,7 @@ const AddMenuItemModal = ({ onClose }) => {
                     name="type"
                     value={formData.type}
                     onChange={handleInputChange}
-                    className="border w-full border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="border w-full border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                   >
                     <option value="">Select Type</option>
                     <option value="veg">Vegetarian</option>
@@ -321,7 +321,7 @@ const AddMenuItemModal = ({ onClose }) => {
                     value={formData.preparationTime}
                     onChange={handleInputChange}
                     min="0"
-                    className={`border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
                       errors.preparationTime
                         ? "border-red-500"
                         : "border-gray-300"
@@ -367,7 +367,7 @@ const AddMenuItemModal = ({ onClose }) => {
               <button
                 type="submit"
                 disabled={loading}
-                className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                className="px-6 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
                 {loading ? (
                   <>

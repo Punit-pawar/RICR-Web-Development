@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
@@ -90,225 +91,187 @@ const Home = () => {
     },
   ];
 
+  const fadeUp = {
+    hidden: { opacity: 0, y: 40 },
+    show: { opacity: 1, y: 0 },
+  };
+
   return (
-    <>
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-purple-300 to-purple-400 text-white py-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            {/* Left Content */}
-            <div className="space-y-6">
-              <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-                Order Your Favorite Food
-              </h1>
-              <p className="text-lg md:text-xl text-purple-50">
-                Discover delicious meals from the best restaurants in your area.
-                Fast delivery, great quality, amazing taste!
-              </p>
-              <div className="flex flex-wrap gap-4 pt-4">
-                <button
-                  onClick={() => navigate("/order-now")}
-                  className="px-8 py-3 bg-white text-purple-600 cursor-pointer font-semibold rounded-lg hover:bg-purple-50 transition duration-300 transform hover:scale-105"
-                >
-                  Order Now
-                </button>
-                <button
-                  onClick={() => navigate("/contact")}
-                  className="px-8 py-3 bg-purple-300 text-white cursor-pointer font-semibold rounded-lg hover:bg-purple-800 transition duration-300 border-2 border-white"
-                >
-                  Contact Us
-                </button>
-              </div>
+    <div className="bg-gradient-to-br from-purple-50 via-white to-purple-50 overflow-hidden">
+      {/* Floating Background Blobs */}
+      <motion.div
+        className="fixed top-10 left-10 w-72 h-72 bg-purple-300 opacity-20 blur-3xl rounded-full"
+        animate={{ x: [0, 40, 0], y: [0, -40, 0] }}
+        transition={{ repeat: Infinity, duration: 12 }}
+      />
+      <motion.div
+        className="fixed bottom-10 right-10 w-72 h-72 bg-purple-300 opacity-20 blur-3xl rounded-full"
+        animate={{ x: [0, -50, 0], y: [0, 50, 0] }}
+        transition={{ repeat: Infinity, duration: 14 }}
+      />
 
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-4 pt-8">
-                <div>
-                  <p className="text-3xl font-bold">500+</p>
-                  <p className="text-purple-50">Restaurants</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-bold">50K+</p>
-                  <p className="text-purple-50">Happy Customers</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-bold">24/7</p>
-                  <p className="text-purple-50">Support</p>
-                </div>
-              </div>
-            </div>
+      {/* HERO */}
+      <section className="max-w-6xl mx-auto px-4 py-20 grid md:grid-cols-2 gap-10 items-center">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          transition={{ duration: 0.6 }}
+          className="space-y-6"
+        >
+          <h1 className="text-5xl font-bold leading-tight">
+            Delicious Food, <br />
+            <span className="bg-gradient-to-r from-purple-600 to-purple-600 bg-clip-text text-transparent">
+              Delivered Fast
+            </span>
+          </h1>
 
-            {/* Right Visual */}
-            <div className="flex justify-center items-center">
-              <div className="text-8xl animate-bounce">🍽️</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Restaurants Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-              Featured Restaurants
-            </h2>
-            <p className="text-gray-600 text-lg">
-              Explore our top-rated restaurants
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredRestaurants.map((restaurant) => (
-              <div
-                key={restaurant.id}
-                className="bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 overflow-hidden cursor-pointer transform hover:scale-105"
-              >
-                <div className="h-40 bg-gradient-to-br from-purple-400 to-purple-500 flex items-center justify-center">
-                  <span className="text-6xl">{restaurant.image}</span>
-                </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                    {restaurant.name}
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-3">
-                    {restaurant.cuisine}
-                  </p>
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-1">
-                      <span className="text-yellow-500">⭐</span>
-                      <span className="font-semibold text-gray-800">
-                        {restaurant.rating}
-                      </span>
-                    </div>
-                    <p className="text-sm text-gray-600">
-                      {restaurant.deliveryTime}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Popular Dishes Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-              Popular Dishes
-            </h2>
-            <p className="text-gray-600 text-lg">
-              Most loved meals by our customers
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {popularDishes.map((dish) => (
-              <div
-                key={dish.id}
-                className="bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 overflow-hidden cursor-pointer"
-              >
-                <div className="h-48 bg-gradient-to-br from-purple-300 to-purple-400 flex items-center justify-center">
-                  <span className="text-8xl">{dish.image}</span>
-                </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-1">
-                    {dish.name}
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-3">
-                    {dish.restaurant}
-                  </p>
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-3">
-                      <span className="text-2xl font-bold text-purple-600">
-                        ₹{dish.price}
-                      </span>
-                      <div className="flex items-center gap-1">
-                        <span className="text-yellow-500">⭐</span>
-                        <span className="text-sm font-semibold">
-                          {dish.rating}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <button className="w-full mt-3 px-4 py-2 cursor-pointer bg-purple-600 text-white rounded-md hover:bg-purple-700 transition duration-300 font-medium">
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-              Why Choose DineX?
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                icon: "⚡",
-                title: "Fast Delivery",
-                description: "Get your food delivered in minutes",
-              },
-              {
-                icon: "🔒",
-                title: "Safe Payment",
-                description: "Secure and encrypted transactions",
-              },
-              {
-                icon: "🌟",
-                title: "Quality Assured",
-                description: "Only verified restaurants and vendors",
-              },
-              {
-                icon: "💬",
-                title: "24/7 Support",
-                description: "We're always here to help you",
-              },
-            ].map((feature, index) => (
-              <div
-                key={index}
-                className="bg-white p-6 rounded-lg shadow-md text-center"
-              >
-                <span className="text-5xl mb-4 block">{feature.icon}</span>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-purple-500 to-purple-600 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to Order?
-          </h2>
-          <p className="text-lg text-purple-50 mb-8">
-            Join thousands of satisfied customers and enjoy delicious food
-            delivered to your doorstep
+          <p className="text-gray-600 text-lg">
+            Discover the best meals from top-rated restaurants near you. Fresh
+            ingredients, amazing taste, lightning-fast delivery.
           </p>
-          <button
-            onClick={() => navigate("/order-now")}
-            className="px-8 py-3 cursor-pointer bg-white text-purple-600 font-semibold rounded-lg hover:bg-purple-50 transition duration-300 transform hover:scale-105"
+
+          <div className="flex gap-4 pt-4">
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.05 }}
+              onClick={() => navigate("/order-now")}
+              className="px-8 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-purple-600 text-white font-semibold shadow-lg"
+            >
+              Order Now
+            </motion.button>
+
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.05 }}
+              onClick={() => navigate("/contact")}
+              className="px-8 py-3 rounded-xl border border-purple-300 text-purple-700 font-semibold bg-white"
+            >
+              Contact Us
+            </motion.button>
+          </div>
+
+          {/* Stats */}
+          <div className="flex gap-10 pt-8">
+            {["500+ Restaurants", "50K+ Customers", "24/7 Support"].map(
+              (item, i) => (
+                <motion.div key={i} whileHover={{ y: -3 }}>
+                  <p className="font-bold text-xl text-gray-800">
+                    {item.split(" ")[0]}
+                  </p>
+                  <p className="text-gray-500 text-sm">
+                    {item.replace(item.split(" ")[0], "")}
+                  </p>
+                </motion.div>
+              ),
+            )}
+          </div>
+        </motion.div>
+
+        {/* Hero Visual */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="flex justify-center"
+        >
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ repeat: Infinity, duration: 3 }}
+            className="text-9xl"
           >
-            Order Now
-          </button>
-        </div>
+            🍽️
+          </motion.div>
+        </motion.div>
       </section>
-    </>
+
+      {/* FEATURED RESTAURANTS */}
+      <Section title="Featured Restaurants">
+        {featuredRestaurants.map((r, i) => (
+          <Card key={r.id} delay={i * 0.1}>
+            <div className="h-32 flex items-center justify-center text-6xl bg-gradient-to-br from-purple-400 to-purple-400">
+              {r.image}
+            </div>
+            <div className="p-4">
+              <h3 className="font-semibold">{r.name}</h3>
+              <p className="text-sm text-gray-500">{r.cuisine}</p>
+              <div className="flex justify-between text-sm mt-2">
+                <span>⭐ {r.rating}</span>
+                <span>{r.deliveryTime}</span>
+              </div>
+            </div>
+          </Card>
+        ))}
+      </Section>
+
+      {/* POPULAR DISHES */}
+      <Section title="Popular Dishes">
+        {popularDishes.map((d, i) => (
+          <Card key={d.id} delay={i * 0.05}>
+            <div className="h-40 flex items-center justify-center text-7xl bg-gradient-to-br from-purple-300 to-purple-300">
+              {d.image}
+            </div>
+            <div className="p-4">
+              <h3 className="font-semibold">{d.name}</h3>
+              <p className="text-sm text-gray-500">{d.restaurant}</p>
+              <div className="flex justify-between mt-2">
+                <span className="font-bold text-purple-600">₹{d.price}</span>
+                <span>⭐ {d.rating}</span>
+              </div>
+              <button className="w-full mt-3 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition">
+                Add to Cart
+              </button>
+            </div>
+          </Card>
+        ))}
+      </Section>
+
+      {/* CTA */}
+      <section className="py-20 text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          className="text-4xl font-bold"
+        >
+          Ready to Order?
+        </motion.h2>
+
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => navigate("/order-now")}
+          className="mt-6 px-10 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-purple-600 text-white font-semibold shadow-lg"
+        >
+          Start Ordering 🚀
+        </motion.button>
+      </section>
+    </div>
   );
 };
+
+const Section = ({ title, children }) => (
+  <section className="max-w-6xl mx-auto px-4 py-10">
+    <motion.h2
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      className="text-3xl font-bold mb-6"
+    >
+      {title}
+    </motion.h2>
+    <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">{children}</div>
+  </section>
+);
+
+const Card = ({ children, delay }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ delay }}
+    whileHover={{ y: -6 }}
+    className="bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer"
+  >
+    {children}
+  </motion.div>
+);
 
 export default Home;
