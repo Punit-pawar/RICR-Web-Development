@@ -88,7 +88,6 @@ const Register = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-white to-purple-100 px-4 relative overflow-hidden">
       
-      {/* Animated Background Blobs */}
       <motion.div
         className="absolute w-72 h-72 bg-purple-300 rounded-full blur-3xl opacity-30"
         animate={{ x: [0, 40, 0], y: [0, -40, 0] }}
