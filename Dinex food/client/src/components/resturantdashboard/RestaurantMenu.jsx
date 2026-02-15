@@ -18,99 +18,158 @@ const RestaurantMenu = () => {
   const fetchMenuItem = async () => {
     try {
       const res = await api.get("/restaurant/menuItems");
-      toast.success(res.data.message);
       setMenuItems(res.data.data);
     } catch (error) {
-      console.log(error);
-      toast.error(error.response?.data?.message || "Failed to add menu item");
+      toast.error(error.response?.data?.message || "Failed to load menu");
     }
   };
 
   useEffect(() => {
     if (!isAddItemModalOpen && !isEditItemModalOpen) fetchMenuItem();
-  }, [isAddItemModalOpen,isEditItemModalOpen]);
+  }, [isAddItemModalOpen, isEditItemModalOpen]);
+
+  const AvailabilityBadge = ({ status }) => {
+    const styles = {
+      available: "bg-green-50 text-green-600",
+      unavailable: "bg-red-50 text-red-500",
+      removed: "bg-gray-100 text-gray-500",
+    };
+
+    return (
+      <span
+        className={`px-2.5 py-1 text-xs rounded-md font-medium ${
+          styles[status] || styles.removed
+        }`}
+      >
+        {status === "available"
+          ? "Available"
+          : status === "unavailable"
+          ? "Unavailable"
+          : "Removed"}
+      </span>
+    );
+  };
+
   return (
     <>
-      <div className="bg-gray-50 rounded-lg p-6 h-full overflow-y-auto">
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200 ">
-          <div className="flex justify-between">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">
-              Menu Management
-            </h2>
+      <div className="p-6 h-full overflow-y-auto bg-gradient-to-br from-purple-50 via-white to-indigo-50">
+        <div className="bg-white rounded-2xl shadow-xl border border-purple-100 overflow-hidden">
+          
+          {/* Header */}
+          <div className="flex justify-between items-center px-6 py-5 
+          bg-gradient-to-r from-purple-600 to-purple-600 text-white">
+            <div>
+              <h2 className="text-2xl font-bold">
+                Menu Management
+              </h2>
+              <p className="text-sm text-purple-100">
+                Manage your restaurant items & availability
+              </p>
+            </div>
+
             <button
-              className="px-4 py-2 bg-(--color-secondary) text-white rounded-lg hover:bg-(--color-secondary-hover) transition font-semibold"
               onClick={() => setIsAddItemModalOpen(true)}
+              className="px-5 py-2.5 bg-white/20 backdrop-blur-md 
+              hover:bg-white/30 rounded-lg transition font-medium"
             >
-              Add Item
+              + Add Item
             </button>
           </div>
-          <div className="border mt-3" />
 
-          <div>
-            <table className="w-full mt-3">
+          {/* Table */}
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
               <thead>
-                <tr className="grid grid-cols-8 text-lg bg-(--color-secondary) text-white">
-                  <th className="font-semibold">S.no</th>
-                  <th className="font-semibold col-span-2">Item Name</th>
-                  <th className="font-semibold">Price</th>
-                  <th className="font-semibold">Type</th>
-                  <th className="font-semibold">Cuisine</th>
-                  <th className="font-semibold">Availability</th>
-                  <th className="font-semibold">Action</th>
+                <tr className="text-left text-gray-500 border-b border-gray-100 bg-gray-50">
+                  <th className="px-6 py-3">#</th>
+                  <th className="px-6 py-3">Item</th>
+                  <th className="px-6 py-3">Price</th>
+                  <th className="px-6 py-3">Type</th>
+                  <th className="px-6 py-3">Cuisine</th>
+                  <th className="px-6 py-3">Availability</th>
+                  <th className="px-6 py-3 text-center">Actions</th>
                 </tr>
               </thead>
+
               <tbody>
-                {menuItems &&
+                {menuItems?.length > 0 ? (
                   menuItems.map((items, idx) => (
                     <tr
-                      className="grid grid-cols-8 text-center py-2 border-b border-gray-300"
                       key={idx}
+                      className="border-b border-gray-50 hover:bg-purple-50/40 transition"
                     >
-                      <td className="">{idx + 1}</td>
-                      <td className="col-span-2">{items.itemName}</td>
-                      <td className="">{items.price}</td>
-                      <td className="">{items.type.toUpperCase()}</td>
-                      <td className="">{items.cuisine}</td>
-                      <td className="flex justify-center items-center text-2xl">
-                        {items.availability === "available" ? (
-                          <FaToggleOn
-                            className="text-green-500"
-                            title="Available"
-                          />
-                        ) : items.availability === "unavailable" ? (
-                          <FaToggleOff
-                            className="text-red-500"
-                            title="Unavailable"
-                          />
-                        ) : (
-                          <ImBlocked
-                            className="font-bold text-black"
-                            title="Removed form Menu"
-                          />
-                        )}
+                      <td className="px-6 py-4 font-medium text-gray-400">
+                        {idx + 1}
                       </td>
-                      <td className="flex gap-4 justify-center">
-                        <button
-                          className="text-gray-500 p-2 rounded-lg bg-gray-200 shadow"
-                          onClick={() => {
-                            setSelectedItem(items);
-                            setIsViewItemModalOpen(true);
-                          }}
-                        >
-                          <FaEye />
-                        </button>
-                        <button
-                          className="text-purple-500  p-2 rounded-lg bg-gray-200 shadow"
-                          onClick={() => {
-                            setSelectedItem(items);
-                            setIsEditItemModalOpen(true);
-                          }}
-                        >
-                          <FaEdit />
-                        </button>
+
+                      <td className="px-6 py-4 font-semibold text-gray-800">
+                        {items.itemName}
+                      </td>
+
+                      <td className="px-6 py-4 text-gray-700 font-medium">
+                        ₹ {items.price}
+                      </td>
+
+                      <td className="px-6 py-4">
+                        <span className="px-2.5 py-1 text-xs rounded-md 
+                        bg-purple-100 text-purple-700 font-medium">
+                          {items.type.toUpperCase()}
+                        </span>
+                      </td>
+
+                      <td className="px-6 py-4 text-gray-600">
+                        {items.cuisine}
+                      </td>
+
+                      <td className="px-6 py-4 flex items-center gap-3">
+                        {items.availability === "available" ? (
+                          <FaToggleOn className="text-green-500 text-lg" />
+                        ) : items.availability === "unavailable" ? (
+                          <FaToggleOff className="text-red-500 text-lg" />
+                        ) : (
+                          <ImBlocked className="text-gray-400 text-lg" />
+                        )}
+
+                        <AvailabilityBadge status={items.availability} />
+                      </td>
+
+                      <td className="px-6 py-4">
+                        <div className="flex justify-center gap-3">
+                          <button
+                            onClick={() => {
+                              setSelectedItem(items);
+                              setIsViewItemModalOpen(true);
+                            }}
+                            className="p-2.5 rounded-lg bg-blue-50 hover:bg-blue-100 
+                            text-blue-600 transition shadow-sm"
+                          >
+                            <FaEye />
+                          </button>
+
+                          <button
+                            onClick={() => {
+                              setSelectedItem(items);
+                              setIsEditItemModalOpen(true);
+                            }}
+                            className="p-2.5 rounded-lg bg-purple-50 hover:bg-purple-100 
+                            text-purple-600 transition shadow-sm"
+                          >
+                            <FaEdit />
+                          </button>
+                        </div>
                       </td>
                     </tr>
-                  ))}
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan="7"
+                      className="text-center py-12 text-gray-400"
+                    >
+                      No menu items found
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
@@ -120,12 +179,14 @@ const RestaurantMenu = () => {
       {isAddItemModalOpen && (
         <AddMenuItemModal onClose={() => setIsAddItemModalOpen(false)} />
       )}
+
       {isViewItemModalOpen && (
         <ViewItemModal
           onClose={() => setIsViewItemModalOpen(false)}
           selectedItem={selectedItem}
         />
       )}
+
       {isEditItemModalOpen && (
         <EditItemModal
           onClose={() => setIsEditItemModalOpen(false)}
@@ -136,4 +197,4 @@ const RestaurantMenu = () => {
   );
 };
 
-export default RestaurantMenu; 
+export default RestaurantMenu;
