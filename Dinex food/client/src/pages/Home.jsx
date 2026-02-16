@@ -98,7 +98,6 @@ const Home = () => {
 
   return (
     <div className="bg-gradient-to-br from-purple-50 via-white to-purple-50 overflow-hidden">
-      {/* Floating Background Blobs */}
       <motion.div
         className="fixed top-10 left-10 w-72 h-72 bg-purple-300 opacity-20 blur-3xl rounded-full"
         animate={{ x: [0, 40, 0], y: [0, -40, 0] }}
@@ -110,7 +109,6 @@ const Home = () => {
         transition={{ repeat: Infinity, duration: 14 }}
       />
 
-      {/* HERO */}
       <section className="max-w-6xl mx-auto px-4 py-20 grid md:grid-cols-2 gap-10 items-center">
         <motion.div
           variants={fadeUp}
@@ -151,7 +149,6 @@ const Home = () => {
             </motion.button>
           </div>
 
-          {/* Stats */}
           <div className="flex gap-10 pt-8">
             {["500+ Restaurants", "50K+ Customers", "24/7 Support"].map(
               (item, i) => (
@@ -168,7 +165,6 @@ const Home = () => {
           </div>
         </motion.div>
 
-        {/* Hero Visual */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -185,7 +181,6 @@ const Home = () => {
         </motion.div>
       </section>
 
-      {/* FEATURED RESTAURANTS */}
       <Section title="Featured Restaurants">
         {featuredRestaurants.map((r, i) => (
           <Card key={r.id} delay={i * 0.1}>
@@ -204,7 +199,6 @@ const Home = () => {
         ))}
       </Section>
 
-      {/* POPULAR DISHES */}
       <Section title="Popular Dishes">
         {popularDishes.map((d, i) => (
           <Card key={d.id} delay={i * 0.05}>
@@ -226,7 +220,6 @@ const Home = () => {
         ))}
       </Section>
 
-      {/* CTA */}
       <section className="py-20 text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -242,7 +235,7 @@ const Home = () => {
           onClick={() => navigate("/order-now")}
           className="mt-6 px-10 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-purple-600 text-white font-semibold shadow-lg"
         >
-          Start Ordering 🚀
+          Start Ordering 
         </motion.button>
       </section>
     </div>

@@ -5,8 +5,10 @@ import api from "../config/Api";
 import Loading from "../components/Loading";
 import { useEffect } from "react";
 import { FaArrowRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const OrderNow = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [restaurant, setRestaurant] = useState();
 
@@ -27,8 +29,9 @@ const OrderNow = () => {
     fetctAllRestaurants();
   }, []);
 
-  const handleRestaurantClick = () => {
+  const handleRestaurantClick = (restaurantinfo) => {
     console.log("Restaurant Clicked");
+    navigate("/restaurantMenu", { state: restaurantinfo });
   };
 
   if (loading) {
@@ -46,7 +49,7 @@ const OrderNow = () => {
             <div
               className="h-100 border border-gray-100 rounded-xl p-2 group cursor-pointer hover:scale-103 hover:shadow-xl hover:border-(--color-secondary) duration-100"
               key={idx}
-              onClick={handleRestaurantClick}
+              onClick={() => handleRestaurantClick(EachRestaurant)}
             >
               <img
                 src={EachRestaurant.photo.url}

@@ -2,7 +2,7 @@ import React from "react";
 import transparentLogo from "../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
   const { user, isLogin, role } = useAuth();
@@ -27,74 +27,97 @@ const Header = () => {
     }
   };
 
-  const navItemClass =
-    "relative text-white/90 hover:text-white transition font-medium";
-
   return (
-    <header className="sticky top-0 z-50 bg-gradient-to-r from-purple-600 via-purple-600 to-purple-700 shadow-lg">
+    <motion.header
+      initial={{ y: -40, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="sticky top-0 z-50 backdrop-blur-xl
+                 bg-gradient-to-r from-purple-600 via-purple-600 to-indigo-600
+                 shadow-xl border-b border-white/10"
+    >
       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-        
-        {/* LOGO */}
-        <Link to="/" className="flex items-center gap-2">
-          <motion.img
-            whileHover={{ scale: 1.05 }}
-            src={transparentLogo}
-            alt="logo"
-            className="h-12 w-20 object-contain brightness-0 invert"
-          />
-        </Link>
 
-        {/* NAVIGATION */}
-        <nav className="hidden md:flex items-center gap-8">
-          {[
-            { label: "Home", path: "/" },
-            { label: "About", path: "/about" },
-            { label: "Contact", path: "/contact" },
-          ].map((item, i) => (
-            <motion.div key={i} whileHover={{ y: -2 }}>
-              <Link to={item.path} className={navItemClass}>
-                {item.label}
-                <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-white transition-all duration-300 hover:w-full"></span>
-              </Link>
-            </motion.div>
+        {/* LEFT SIDE */}
+        <div className="flex items-center gap-4">
+
+          {/* PROFILE PHOTO */}
+          <AnimatePresence>
+            {isLogin && (
+              <motion.div
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleNavigate}
+                className="relative w-11 h-11 rounded-full cursor-pointer"
+              >
+        
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* LOGO */}
+          <Link to="/">
+            <motion.img
+              whileHover={{ scale: 1.05 }}
+              src={transparentLogo}
+              alt="logo"
+              className="h-12 w-20 object-contain brightness-0 invert"
+            />
+          </Link>
+        </div>
+
+        {/* NAV */}
+        <nav className="hidden md:flex items-center gap-8 text-white">
+          {["Home", "About", "Contact"].map((item) => (
+            <Link
+              key={item}
+              to={`/${item.toLowerCase()}`}
+              className="relative font-medium opacity-90 hover:opacity-100"
+            >
+              {item}
+              <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-white
+                               transition-all duration-300 hover:w-full"></span>
+            </Link>
           ))}
         </nav>
 
-        {/* RIGHT SECTION */}
+        {/* RIGHT */}
         <div className="flex items-center gap-4">
           {isLogin ? (
-            <motion.div
+            <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleNavigate}
-              className="px-4 py-2 rounded-xl bg-white text-purple-700 font-semibold cursor-pointer shadow-md hover:shadow-lg transition"
+              className="px-4 py-2 rounded-xl bg-white/20 text-white
+                         border border-white/30 backdrop-blur-md
+                         shadow-md hover:bg-white/30 transition"
             >
               {user?.fullName}
-            </motion.div>
+            </motion.button>
           ) : (
             <>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <button
                 onClick={() => navigate("/login")}
-                className="px-5 py-2 rounded-xl bg-white/20 text-white border border-white/30 font-medium hover:bg-white/30 transition"
+                className="px-5 py-2 rounded-xl bg-white/20 text-white
+                           border border-white/30 hover:bg-white/30 transition"
               >
                 Login
-              </motion.button>
+              </button>
 
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <button
                 onClick={() => navigate("/register")}
-                className="px-5 py-2 rounded-xl bg-white text-purple-700 font-semibold shadow-md hover:shadow-xl transition"
+                className="px-5 py-2 rounded-xl bg-white text-purple-700
+                           font-semibold shadow-md hover:shadow-xl transition"
               >
                 Register
-              </motion.button>
+              </button>
             </>
           )}
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 };
 
