@@ -14,6 +14,7 @@ import AdminDashboard from "./pages/dashboards/AdminDashboard";
 import OrderNow from "./pages/OrderNow";
 import RestaurantDisplayMenu from "./pages/RestaurantDisplayMenu";
 import NotFound from "./pages/NotFound";
+import CheckoutPage from "./pages/CheckoutPage";
 
 const App = () => {
   return (
@@ -36,6 +37,7 @@ const App = () => {
           <Route path="/restaurantMenu" element={<RestaurantDisplayMenu />} />
           <Route path="/home" element={<Home />} /> 
           <Route path="*" element={<NotFound />} />
+          <Route path="/checkout-page" element={<CheckoutPage />} />
         </Routes>
       </BrowserRouter>
     </>

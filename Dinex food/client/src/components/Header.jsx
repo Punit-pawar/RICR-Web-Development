@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import transparentLogo from "../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
+import { FaShoppingCart } from "react-icons/fa";
 
 const Header = () => {
   const { user, isLogin, role } = useAuth();
   const navigate = useNavigate();
+
+  const [cartCount, setCartCount] = useState(0);
+  const [animateBadge, setAnimateBadge] = useState(false);
 
   const handleNavigate = () => {
     switch (role) {
@@ -27,35 +31,53 @@ const Header = () => {
     }
   };
 
+  /* ✅ Calculate cart quantity */
+  const updateCartCount = () => {
+    try {
+      const cart = JSON.parse(localStorage.getItem("cart"));
+
+      if (cart?.cartItem?.length) {
+        const totalItems = cart.cartItem.reduce(
+          (sum, item) => sum + Number(item.quantity || 0),
+          0
+        );
+
+        setCartCount(totalItems);
+
+        /* Trigger animation */
+        setAnimateBadge(true);
+        setTimeout(() => setAnimateBadge(false), 300);
+      } else {
+        setCartCount(0);
+      }
+    } catch {
+      setCartCount(0);
+    }
+  };
+
+  useEffect(() => {
+    updateCartCount();
+
+    /* Listen for cart updates */
+    window.addEventListener("storage", updateCartCount);
+
+    return () =>
+      window.removeEventListener("storage", updateCartCount);
+  }, []);
+
   return (
     <motion.header
       initial={{ y: -40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
       className="sticky top-0 z-50 backdrop-blur-xl
-                 bg-gradient-to-r from-purple-600 via-purple-600 to-indigo-600
+                 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700
                  shadow-xl border-b border-white/10"
     >
       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
 
-        {/* LEFT SIDE */}
+        {/* LEFT */}
         <div className="flex items-center gap-4">
-
-          {/* PROFILE PHOTO */}
-          <AnimatePresence>
-            {isLogin && (
-              <motion.div
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                whileHover={{ scale: 1.08 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={handleNavigate}
-                className="relative w-11 h-11 rounded-full cursor-pointer"
-              >
-        
-              </motion.div>
-            )}
-          </AnimatePresence>
 
           {/* LOGO */}
           <Link to="/">
@@ -63,7 +85,7 @@ const Header = () => {
               whileHover={{ scale: 1.05 }}
               src={transparentLogo}
               alt="logo"
-              className="h-12 w-20 object-contain brightness-0 invert"
+              className="h-12 w-20 object-contain brightness-0 invert cursor-pointer"
             />
           </Link>
         </div>
@@ -84,7 +106,47 @@ const Header = () => {
         </nav>
 
         {/* RIGHT */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-5">
+
+          {/* 🛒 CART ICON */}
+          <motion.div
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => navigate("/checkout-page")}
+            className="relative cursor-pointer"
+          >
+            <div className="w-11 h-11 rounded-xl bg-white/20
+                            backdrop-blur-md border border-white/30
+                            flex items-center justify-center shadow-md">
+
+              <FaShoppingCart className="text-white text-lg" />
+            </div>
+
+            {/* ✅ BADGE */}
+            <AnimatePresence>
+              {cartCount > 0 && (
+                <motion.div
+                  key={cartCount}
+                  initial={{ scale: 0 }}
+                  animate={{
+                    scale: animateBadge ? 1.25 : 1,
+                  }}
+                  exit={{ scale: 0 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  className="absolute -top-2 -right-2
+                             min-w-[22px] h-[22px]
+                             px-1 rounded-full
+                             bg-red-500 text-white text-xs font-bold
+                             flex items-center justify-center
+                             shadow-lg border-2 border-purple-700"
+                >
+                  {cartCount}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+
+          {/* USER BUTTON */}
           {isLogin ? (
             <motion.button
               whileHover={{ scale: 1.05 }}
