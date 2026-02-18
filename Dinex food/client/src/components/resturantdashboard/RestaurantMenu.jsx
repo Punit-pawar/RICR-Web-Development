@@ -63,7 +63,7 @@ const RestaurantMenu = () => {
                 Menu Management
               </h2>
               <p className="text-sm text-purple-100">
-                Manage your restaurant items & availability
+                Manage your restaurant items & availability.
               </p>
             </div>
 
