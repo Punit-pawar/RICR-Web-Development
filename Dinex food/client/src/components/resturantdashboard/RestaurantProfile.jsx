@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import EditRestaurantProfileModal from "./modals/EditRestaurantProfileModal";
+import ResetPasswordModal from "../userDashboard/modals/ResetPasswordModal";
 import UserImage from "../../assets/userImage.jpg";
+
 import {
   FaCamera,
   FaMapLocationDot,
@@ -9,15 +11,16 @@ import {
 } from "react-icons/fa6";
 import { FaFileAlt } from "react-icons/fa";
 import { BiSolidBank } from "react-icons/bi";
+
+import { motion } from "framer-motion";
 import api from "../../config/Api";
 import toast from "react-hot-toast";
-import ResetPasswordModal from "../userDashboard/modals/ResetPasswordModal";
 
 const RestaurantProfile = () => {
   const { user, setUser } = useAuth();
+
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
-  const [isResetPasswordModalOpen, setIsResetPasswordModalOpen] =
-    useState(false);
+  const [isResetPasswordModalOpen, setIsResetPasswordModalOpen] = useState(false);
   const [preview, setPreview] = useState("");
 
   const changePhoto = async (photo) => {
@@ -40,248 +43,187 @@ const RestaurantProfile = () => {
     if (file) {
       const newPhotoURL = URL.createObjectURL(file);
       setPreview(newPhotoURL);
+
       setTimeout(() => {
         changePhoto(file);
-      }, 1000);
+      }, 800);
     }
   };
 
   const renderField = (label, value) => (
-    <div className="flex justify-between py-2 px-3 border-b border-gray-200 last:border-b-0">
-      <span className="text-gray-600 font-medium">{label}:</span>
-      <span className="text-gray-900 font-semibold">
-        {value && value !== "N/A" ? (
-          value
-        ) : (
-          <span className="text-gray-400">Not provided</span>
-        )}
+    <div className="flex justify-between py-3 border-b border-white/10 last:border-0">
+      <span className="text-black-400">{label}</span>
+      <span className="text-black font-medium">
+        {value && value !== "N/A" ? value : "Not provided"}
       </span>
     </div>
   );
 
   return (
     <>
-      <div className="bg-gray-50 rounded-lg p-6 h-full overflow-y-auto space-y-6">
-        {/* Header Section with Photo and Basic Info */}
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-          <div className="flex gap-6">
-            {/* Photo Section */}
-            <div className="flex flex-col items-center">
-              <div className="relative">
-                <div className="border-4 border-gray-300 rounded-full w-40 h-40 overflow-hidden bg-gray-100">
-                  <img
-                    src={preview || user?.photo?.url || UserImage}
-                    alt="Profile"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+      <div className="min-h-screen p-6 bg-gradient-to-br from-[#ffffff] via-[#ffffff] to-[#ffffff]">
+
+        <div className="max-w-6xl mx-auto space-y-6">
+
+          {/* PROFILE HERO */}
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="backdrop-blur-xl bg-white/10 border border-white/10 
+                       rounded-3xl p-6 shadow-2xl"
+          >
+            <div className="flex flex-col md:flex-row gap-8">
+
+              {/* PHOTO */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="relative w-44 h-44 rounded-3xl overflow-hidden 
+                           border border-white/20 shadow-xl"
+              >
+                <img
+                  src={preview || user?.photo?.url || UserImage}
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
+
                 <label
                   htmlFor="imageUpload"
-                  className="absolute bottom-2 right-2 bg-(--color-secondary) text-white p-3 rounded-full hover:bg-(--color-secondary-hover) cursor-pointer transition transform hover:scale-110"
+                  className="absolute bottom-3 right-3 bg-black/50 backdrop-blur-md 
+                             p-3 rounded-xl cursor-pointer hover:scale-110 transition hover:bg-white"
                 >
-                  <FaCamera size={18} />
+                  <FaCamera className="text-black" />
                 </label>
+
                 <input
-                  type="file"
                   id="imageUpload"
+                  type="file"
                   className="hidden"
                   accept="image/*"
                   onChange={handlePhotoChange}
                 />
-              </div>
-              <p className="text-gray-500 text-sm mt-2">
-                Click camera to change photo
-              </p>
-            </div>
+              </motion.div>
 
-            {/* Basic Info Section */}
-            <div className="flex justify-between w-full">
-              <div>
-                <div className="mb-6">
-                  <h1 className="text-4xl font-bold text-(--color-primary) mb-2">
-                    {user?.fullName || "Manager Name"}
-                  </h1>
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="bg-(--color-secondary) text-white px-3 py-1 rounded-full text-sm font-semibold capitalize">
-                      {user?.role || "manager"}
-                    </span>
-                    <span
-                      className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                        user?.isActive === "active"
-                          ? "bg-green-100 text-green-800"
-                          : "bg-red-100 text-red-800"
-                      }`}
-                    >
-                      {user?.isActive || "active"}
-                    </span>
-                  </div>
+              {/* INFO */}
+              <div className="flex-1">
+                <h1 className="text-4xl font-bold text-black">
+                  {user?.fullName}
+                </h1>
+
+                <div className="flex gap-3 mt-2">
+                  <span className="px-3 py-1 rounded-full text-sm bg-indigo-300 text-indigo-600">
+                    {user?.role}
+                  </span>
+
+                  <span
+                    className={`px-3 py-1 rounded-full text-sm ${
+                      user?.isActive === "active"
+                        ? "bg-green-300 text-green-600"
+                        : "bg-red-500/20 text-red-300"
+                    }`}
+                  >
+                    {user?.isActive}
+                  </span>
                 </div>
 
-                {/* Contact Information */}
-                <div className="space-y-2 mb-6">
-                  <div className="flex items-center gap-3">
-                    <span className="text-gray-600 font-medium">Email:</span>
-                    <span className="text-gray-900">
-                      {user?.email || "N/A"}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-gray-600 font-medium">Phone:</span>
-                    <span className="text-gray-900">
-                      {user?.mobileNumber || "N/A"}
-                    </span>
-                  </div>
+                <div className="mt-5 space-y-1 text-black-300">
+                  <div>Email: {user?.email}</div>
+                  <div>Phone: {user?.mobileNumber}</div>
                 </div>
 
-                {/* Action Buttons */}
-                <div className="flex gap-3">
-                  <button
+                {/* ACTIONS */}
+                <div className="flex gap-4 mt-6">
+                  <motion.button
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => setIsEditProfileModalOpen(true)}
-                    className="px-6 py-2 bg-(--color-secondary) text-white rounded-lg hover:bg-(--color-secondary-hover) transition font-semibold"
+                    className="px-6 py-2 rounded-xl bg-indigo-600 text-white 
+                               shadow-lg hover:bg-indigo-500 transition"
                   >
                     Edit Profile
-                  </button>
-                  <button
+                  </motion.button>
+
+                  <motion.button
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => setIsResetPasswordModalOpen(true)}
-                    className="px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition font-semibold"
+                    className="px-6 py-2 rounded-xl bg-gray-500 text-white 
+                               border border-white/20 hover:bg-gray-400 transition"
                   >
                     Reset Password
-                  </button>
+                  </motion.button>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
 
-        {/* Personal Information Section */}
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-          <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-            <span className="w-1 h-6 bg-(--color-secondary) rounded"></span>
-            Personal Information
-          </h2>
-          <div className="space-y-1">
-            {renderField("Date of Birth", user?.dob)}
-            {renderField("Gender", user?.gender)}
-            {renderField("Address", user?.address)}
-            {renderField("City", user?.city)}
-            {renderField("PIN Code", user?.pin)}
-          </div>
-        </div>
+          {/* GRID SECTIONS */}
+          <div className="grid md:grid-cols-2 gap-6">
 
-        {/* Location Section */}
-        {(user?.geoLocation?.lat !== "N/A" ||
-          user?.geoLocation?.lon !== "N/A") && (
-          <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-            <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <FaMapLocationDot className="text-(--color-secondary)" />
-              Geo Location
-            </h2>
-            <div className="space-y-1">
-              {renderField("Latitude", user?.geoLocation?.lat)}
-              {renderField("Longitude", user?.geoLocation?.lon)}
-            </div>
-          </div>
-        )}
+            {/* PERSONAL */}
+            <GlassCard title="Personal Information">
+              {renderField("Date of Birth", user?.dob)}
+              {renderField("Gender", user?.gender)}
+              {renderField("Address", user?.address)}
+              {renderField("City", user?.city)}
+              {renderField("PIN Code", user?.pin)}
+            </GlassCard>
 
-        {/* Payment Details - UPI Section */}
-        {user?.paymentDetails?.upi !== "N/A" && (
-          <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-            <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <FaWallet className="text-(--color-secondary)" />
-              Payment Details
-            </h2>
-            <div className="space-y-1">
-              {renderField("UPI ID", user?.paymentDetails?.upi)}
-            </div>
-          </div>
-        )}
-
-        {/* Bank Account Details Section */}
-        {(user?.paymentDetails?.account_number !== "N/A" ||
-          user?.paymentDetails?.ifs_Code !== "N/A") && (
-          <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-            <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <BiSolidBank className="text-(--color-secondary)" />
-              Bank Account Details
-            </h2>
-            <div className="space-y-1">
-              {renderField(
-                "Account Number",
-                user?.paymentDetails?.account_number,
-              )}
-              {renderField("IFSC Code", user?.paymentDetails?.ifs_Code)}
-            </div>
-          </div>
-        )}
-
-        {/* Restaurant Information Section */}
-        {(user?.restaurantName !== "N/A" || user?.cuisine !== "N/A") && (
-          <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">
-              Restaurant Information
-            </h2>
-            <div className="space-y-1">
+            {/* RESTAURANT */}
+            <GlassCard title="Restaurant">
               {renderField("Restaurant Name", user?.restaurantName)}
-              {renderField("Cuisine Type", user?.cuisine)}
-            </div>
-          </div>
-        )}
+              {renderField("Cuisine", user?.cuisine)}
+            </GlassCard>
 
-        {/* Business Documents Section */}
-        {Object.values(user?.documents || {}).some((doc) => doc !== "N/A") && (
-          <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-            <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <FaFileAlt className="text-(--color-secondary)" />
-              Business Documents
-            </h2>
-            <div className="space-y-1">
-              {renderField("GST Certificate", user?.documents?.gst)}
-              {renderField("FSSAI License", user?.documents?.fssai)}
-              {renderField("RC (Registration)", user?.documents?.rc)}
-              {renderField("Driving License", user?.documents?.dl)}
-              {renderField("UIDAI", user?.documents?.uidai)}
+            {/* PAYMENT */}
+            <GlassCard title="Payment">
+              <div className="flex items-center gap-2 text-indigo-500 mb-2">
+                <FaWallet />
+                UPI Details
+              </div>
+              {renderField("UPI ID", user?.paymentDetails?.upi)}
+            </GlassCard>
+
+            {/* BANK */}
+            <GlassCard title="Bank Account">
+              <div className="flex items-center gap-2 text-indigo-500 mb-2">
+                <BiSolidBank />
+                Bank Details
+              </div>
+              {renderField("Account Number", user?.paymentDetails?.account_number)}
+              {renderField("IFSC Code", user?.paymentDetails?.ifs_Code)}
+            </GlassCard>
+
+            {/* DOCUMENTS */}
+            <GlassCard title="Documents" full>
+              {renderField("GST", user?.documents?.gst)}
+              {renderField("FSSAI", user?.documents?.fssai)}
               {renderField("PAN", user?.documents?.pan)}
-            </div>
-          </div>
-        )}
-
-        {/* Account Metadata */}
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200 text-sm">
-          <h2 className="text-lg font-bold text-gray-800 mb-3">
-            Account Details
-          </h2>
-          <div className="grid grid-cols-2 gap-4 text-gray-600">
-            <div>
-              <span className="font-medium">Account ID:</span>
-              <p className="text-gray-500 font-mono text-xs break-all">
-                {user?._id}
-              </p>
-            </div>
-            <div>
-              <span className="font-medium">Member Since:</span>
-              <p className="text-gray-900">
-                {user?.createdAt
-                  ? new Date(user.createdAt).toLocaleDateString("en-IN")
-                  : "N/A"}
-              </p>
-            </div>
+            </GlassCard>
           </div>
         </div>
       </div>
 
       {isEditProfileModalOpen && (
-        <EditRestaurantProfileModal
-          onClose={() => setIsEditProfileModalOpen(false)}
-        />
+        <EditRestaurantProfileModal onClose={() => setIsEditProfileModalOpen(false)} />
       )}
 
       {isResetPasswordModalOpen && (
-        <ResetPasswordModal
-          onClose={() => setIsResetPasswordModalOpen(false)}
-        />
+        <ResetPasswordModal onClose={() => setIsResetPasswordModalOpen(false)} />
       )}
     </>
   );
 };
+
+const GlassCard = ({ title, children, full }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    className={`backdrop-blur-xl bg-white/10 border border-white/10 
+                rounded-3xl p-5 shadow-xl ${full ? "md:col-span-2" : ""}`}
+  >
+    <h2 className="text-lg font-semibold text-black mb-4">
+      {title}
+    </h2>
+    {children}
+  </motion.div>
+);
 
 export default RestaurantProfile;
