@@ -1,270 +1,200 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { Clock, Star, Flame, ArrowRight, ShieldCheck, Truck, ChefHat } from "lucide-react";
+
+// ✨ Animation Variants for Staggered Loading
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+};
+
+const fadeUpItem = {
+  hidden: { opacity: 0, y: 30 },
+  show: { 
+    opacity: 1, 
+    y: 0,
+    transition: { type: "spring", stiffness: 100, damping: 15 }
+  }
+};
 
 const Home = () => {
   const navigate = useNavigate();
+  const [activeCategory, setActiveCategory] = useState("All");
 
-  const featuredRestaurants = [
-    {
-      id: 1,
-      name: "Spice Kingdom",
-      cuisine: "Indian",
-      rating: 4.5,
-      deliveryTime: "30-40 mins",
-      image: "🏪",
-    },
-    {
-      id: 2,
-      name: "Pizza Paradise",
-      cuisine: "Italian",
-      rating: 4.3,
-      deliveryTime: "25-35 mins",
-      image: "🍕",
-    },
-    {
-      id: 3,
-      name: "Dragon Wok",
-      cuisine: "Chinese",
-      rating: 4.6,
-      deliveryTime: "35-45 mins",
-      image: "🥢",
-    },
-    {
-      id: 4,
-      name: "Burger Haven",
-      cuisine: "American",
-      rating: 4.4,
-      deliveryTime: "20-30 mins",
-      image: "🍔",
-    },
+  const categories = ["All", "Indian", "Italian", "Chinese", "American"];
+
+  const restaurants = [
+    { id: 1, name: "Spice Kingdom", cuisine: "Indian", rating: 4.8, time: "30 mins", trending: true, badge: "Chef’s Choice", emoji: "🍛" },
+    { id: 2, name: "Pizza Paradise", cuisine: "Italian", rating: 4.6, time: "25 mins", trending: false, badge: "Awarded", emoji: "🍕" },
+    { id: 3, name: "Dragon Wok", cuisine: "Chinese", rating: 4.9, time: "35 mins", trending: true, badge: "Exclusive", emoji: "🍜" },
+    { id: 4, name: "Burger Haven", cuisine: "American", rating: 4.7, time: "20 mins", trending: false, badge: "Premium", emoji: "🍔" },
   ];
 
-  const popularDishes = [
-    {
-      id: 1,
-      name: "Butter Chicken",
-      restaurant: "Spice Kingdom",
-      price: 299,
-      rating: 4.7,
-      image: "🍛",
-    },
-    {
-      id: 2,
-      name: "Margherita Pizza",
-      restaurant: "Pizza Paradise",
-      price: 349,
-      rating: 4.5,
-      image: "🍕",
-    },
-    {
-      id: 3,
-      name: "Hakka Noodles",
-      restaurant: "Dragon Wok",
-      price: 249,
-      rating: 4.6,
-      image: "🍜",
-    },
-    {
-      id: 4,
-      name: "Classic Burger",
-      restaurant: "Burger Haven",
-      price: 199,
-      rating: 4.4,
-      image: "🍔",
-    },
-    {
-      id: 5,
-      name: "Tandoori Chicken",
-      restaurant: "Spice Kingdom",
-      price: 279,
-      rating: 4.8,
-      image: "🍖",
-    },
-    {
-      id: 6,
-      name: "Garlic Bread",
-      restaurant: "Pizza Paradise",
-      price: 99,
-      rating: 4.3,
-      image: "🥖",
-    },
-  ];
-
-  const fadeUp = {
-    hidden: { opacity: 0, y: 40 },
-    show: { opacity: 1, y: 0 },
-  };
+  const filtered =
+    activeCategory === "All"
+      ? restaurants
+      : restaurants.filter(r => r.cuisine === activeCategory);
 
   return (
-    <div className="bg-gradient-to-br from-purple-50 via-white to-purple-50 overflow-hidden">
-      <motion.div
-        className="fixed top-10 left-10 w-72 h-72 bg-purple-300 opacity-20 blur-3xl rounded-full"
-        animate={{ x: [0, 40, 0], y: [0, -40, 0] }}
-        transition={{ repeat: Infinity, duration: 12 }}
-      />
-      <motion.div
-        className="fixed bottom-10 right-10 w-72 h-72 bg-purple-300 opacity-20 blur-3xl rounded-full"
-        animate={{ x: [0, -50, 0], y: [0, 50, 0] }}
-        transition={{ repeat: Infinity, duration: 14 }}
-      />
+    <div className="bg-[#FCF8F3] text-gray-900 min-h-screen font-sans selection:bg-orange-200 selection:text-orange-900 overflow-hidden relative">
 
-      <section className="max-w-6xl mx-auto px-4 py-20 grid md:grid-cols-2 gap-10 items-center">
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          transition={{ duration: 0.6 }}
-          className="space-y-6"
-        >
-          <h1 className="text-5xl font-bold leading-tight">
-            Delicious Food, <br />
-            <span className="bg-gradient-to-r from-purple-600 to-purple-600 bg-clip-text text-transparent">
-              Delivered Fast
-            </span>
-          </h1>
+      {/* Decorative Warm Background Blurs */}
+      <div className="absolute w-[600px] h-[600px] bg-orange-300/20 blur-[120px] rounded-full -top-40 -right-20 pointer-events-none" />
+      <div className="absolute w-[500px] h-[500px] bg-yellow-300/20 blur-[120px] rounded-full top-1/2 -left-40 pointer-events-none" />
 
-          <p className="text-gray-600 text-lg">
-            Discover the best meals from top-rated restaurants near you. Fresh
-            ingredients, amazing taste, lightning-fast delivery.
-          </p>
-
-          <div className="flex gap-4 pt-4">
-            <motion.button
-              whileTap={{ scale: 0.95 }}
-              whileHover={{ scale: 1.05 }}
-              onClick={() => navigate("/order-now")}
-              className="px-8 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-purple-600 text-white font-semibold shadow-lg"
-            >
-              Order Now
-            </motion.button>
-
-            <motion.button
-              whileTap={{ scale: 0.95 }}
-              whileHover={{ scale: 1.05 }}
-              onClick={() => navigate("/contact")}
-              className="px-8 py-3 rounded-xl border border-purple-300 text-purple-700 font-semibold bg-white"
-            >
-              Contact Us
-            </motion.button>
-          </div>
-
-          <div className="flex gap-10 pt-8">
-            {["500+ Restaurants", "50K+ Customers", "24/7 Support"].map(
-              (item, i) => (
-                <motion.div key={i} whileHover={{ y: -3 }}>
-                  <p className="font-bold text-xl text-gray-800">
-                    {item.split(" ")[0]}
-                  </p>
-                  <p className="text-gray-500 text-sm">
-                    {item.replace(item.split(" ")[0], "")}
-                  </p>
-                </motion.div>
-              ),
-            )}
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-          className="flex justify-center"
-        >
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ repeat: Infinity, duration: 3 }}
-            className="text-9xl"
-          >
-            🍽️
+      <motion.div 
+        initial="hidden" 
+        animate="show" 
+        variants={staggerContainer} 
+        className="relative z-10"
+      >
+        {/* ---------------- HERO SECTION ---------------- */}
+        <section className="max-w-7xl mx-auto px-6 pt-32 pb-24 text-center">
+          <motion.div variants={fadeUpItem} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-orange-600 font-bold text-xs uppercase tracking-widest mb-6">
+            <Flame size={14} /> The New Standard of Delivery
           </motion.div>
-        </motion.div>
-      </section>
+          
+          <motion.h1 variants={fadeUpItem} className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.05] text-gray-900 mb-6">
+            Crave It. <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-500">
+              We Deliver It.
+            </span>
+          </motion.h1>
 
-      <Section title="Featured Restaurants">
-        {featuredRestaurants.map((r, i) => (
-          <Card key={r.id} delay={i * 0.1}>
-            <div className="h-32 flex items-center justify-center text-6xl bg-gradient-to-br from-purple-400 to-purple-400">
-              {r.image}
-            </div>
-            <div className="p-4">
-              <h3 className="font-semibold">{r.name}</h3>
-              <p className="text-sm text-gray-500">{r.cuisine}</p>
-              <div className="flex justify-between text-sm mt-2">
-                <span>⭐ {r.rating}</span>
-                <span>{r.deliveryTime}</span>
-              </div>
-            </div>
-          </Card>
-        ))}
-      </Section>
+          <motion.p variants={fadeUpItem} className="text-gray-500 md:text-lg max-w-2xl mx-auto font-medium leading-relaxed mb-10">
+            Discover handpicked local favorites and world-class kitchens, delivered hot and fresh directly to your door.
+          </motion.p>
 
-      <Section title="Popular Dishes">
-        {popularDishes.map((d, i) => (
-          <Card key={d.id} delay={i * 0.05}>
-            <div className="h-40 flex items-center justify-center text-7xl bg-gradient-to-br from-purple-300 to-purple-300">
-              {d.image}
-            </div>
-            <div className="p-4">
-              <h3 className="font-semibold">{d.name}</h3>
-              <p className="text-sm text-gray-500">{d.restaurant}</p>
-              <div className="flex justify-between mt-2">
-                <span className="font-bold text-purple-600">₹{d.price}</span>
-                <span>⭐ {d.rating}</span>
-              </div>
-              <button className="w-full mt-3 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition">
-                Add to Cart
+          <motion.button
+            variants={fadeUpItem}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => navigate("/order-now")}
+            className="px-10 py-5 rounded-[2rem] bg-orange-600 text-white font-black uppercase tracking-widest text-sm shadow-[0_10px_30px_rgba(234,88,12,0.3)] hover:bg-orange-500 transition-colors inline-flex items-center gap-3"
+          >
+            Explore Restaurants
+            <ArrowRight size={18} />
+          </motion.button>
+        </section>
+
+        {/* ---------------- FEATURE STRIP ---------------- */}
+        <section className="max-w-7xl mx-auto px-6 mb-24">
+          <motion.div variants={staggerContainer} className="grid md:grid-cols-3 gap-6">
+            {[
+              { icon: ChefHat, title: "Elite Kitchens", desc: "Handpicked top-rated chefs." },
+              { icon: ShieldCheck, title: "Quality Assured", desc: "Every meal passes our strict standards." },
+              { icon: Truck, title: "Lightning Fast", desc: "Hot food delivered in minutes." },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                variants={fadeUpItem}
+                className="bg-white rounded-[2rem] p-8 shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-gray-100 flex flex-col items-center text-center hover:border-orange-100 hover:shadow-[0_20px_40px_rgba(234,88,12,0.05)] transition-all duration-300"
+              >
+                <div className="w-14 h-14 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center mb-5">
+                  <item.icon size={24} strokeWidth={2.5} />
+                </div>
+                <h3 className="font-bold text-xl text-gray-900 mb-2">{item.title}</h3>
+                <p className="text-gray-500 text-sm font-medium leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </section>
+
+        {/* ---------------- CATEGORY FILTER ---------------- */}
+        <section className="max-w-7xl mx-auto px-6 mb-12">
+          <div className="flex flex-wrap justify-center md:justify-start gap-3">
+            {categories.map(cat => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-8 py-3 rounded-2xl font-bold tracking-wide transition-all duration-300 ${
+                  activeCategory === cat
+                    ? "bg-orange-600 text-white shadow-lg shadow-orange-600/20"
+                    : "bg-white text-gray-500 border border-gray-200 hover:border-orange-300 hover:text-orange-600 shadow-sm"
+                }`}
+              >
+                {cat}
               </button>
-            </div>
-          </Card>
-        ))}
-      </Section>
+            ))}
+          </div>
+        </section>
 
-      <section className="py-20 text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="text-4xl font-bold"
-        >
-          Ready to Order?
-        </motion.h2>
+        {/* ---------------- RESTAURANT GRID ---------------- */}
+        <section className="max-w-7xl mx-auto px-6 pb-24">
+          <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <AnimatePresence mode="popLayout">
+              {filtered.map((r, i) => (
+                <motion.div
+                  key={r.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.3, delay: i * 0.05 }}
+                  whileHover={{ y: -8 }}
+                  className="bg-white rounded-[2rem] p-5 shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-gray-100 hover:border-orange-200 hover:shadow-xl transition-all group flex flex-col cursor-pointer"
+                  onClick={() => navigate("/order-now")}
+                >
+                  {/* Emoji Placeholder / Image Area */}
+                  <div className="relative h-48 bg-orange-50/50 rounded-[1.5rem] flex items-center justify-center mb-5 overflow-hidden group-hover:bg-orange-100/50 transition-colors">
+                    {r.trending && (
+                      <span className="absolute top-3 right-3 bg-white text-orange-600 font-bold text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm">
+                        <Flame size={12} /> Trending
+                      </span>
+                    )}
+                    <span className="text-7xl group-hover:scale-110 transition-transform duration-500">{r.emoji}</span>
+                  </div>
 
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => navigate("/order-now")}
-          className="mt-6 px-10 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-purple-600 text-white font-semibold shadow-lg"
-        >
-          Start Ordering 
-        </motion.button>
-      </section>
+                  <div className="flex flex-col flex-grow">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-orange-500 mb-1">
+                      {r.badge}
+                    </p>
+                    <h3 className="font-bold text-xl text-gray-900 mb-1 group-hover:text-orange-600 transition-colors truncate">
+                      {r.name}
+                    </h3>
+                    <p className="text-gray-500 text-sm font-medium mb-5">{r.cuisine}</p>
+
+                    <div className="flex justify-between items-center text-sm font-bold mt-auto pt-4 border-t border-gray-50">
+                      <span className="flex items-center gap-1.5 text-gray-900 bg-gray-50 px-2 py-1 rounded-lg">
+                        <Star size={14} className="text-yellow-500 fill-yellow-500" /> {r.rating}
+                      </span>
+                      <span className="flex items-center gap-1.5 text-gray-500">
+                        <Clock size={14} className="text-orange-400" /> {r.time}
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        </section>
+
+        {/* ---------------- BRAND STATS ---------------- */}
+        <section className="border-t border-gray-200/60 py-20 bg-white/50 backdrop-blur-md">
+          <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
+            {[
+              { number: "500+", label: "Curated Kitchens" },
+              { number: "180K", label: "Happy Foodies" },
+              { number: "4.9", label: "Average Rating" },
+              { number: "24/7", label: "Fast Delivery" },
+            ].map((stat, i) => (
+              <motion.div key={i} variants={fadeUpItem}>
+                <h3 className="text-4xl md:text-5xl font-black text-gray-900 tracking-tighter mb-2">
+                  {stat.number}
+                </h3>
+                <p className="text-gray-500 text-sm font-bold uppercase tracking-widest">{stat.label}</p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+      </motion.div>
     </div>
   );
 };
-
-const Section = ({ title, children }) => (
-  <section className="max-w-6xl mx-auto px-4 py-10">
-    <motion.h2
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      className="text-3xl font-bold mb-6"
-    >
-      {title}
-    </motion.h2>
-    <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">{children}</div>
-  </section>
-);
-
-const Card = ({ children, delay }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ delay }}
-    whileHover={{ y: -6 }}
-    className="bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer"
-  >
-    {children}
-  </motion.div>
-);
 
 export default Home;

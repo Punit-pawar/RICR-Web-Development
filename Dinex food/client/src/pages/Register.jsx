@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import api from "../config/Api";
+import { Link, useNavigate } from "react-router-dom";
+import { User, Mail, Phone, Lock, ChevronRight } from "lucide-react";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -19,18 +22,10 @@ const Register = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleClearForm = () => {
-    setFormData({
-      fullName: "",
-      email: "",
-      mobileNumber: "",
-      password: "",
-      confirmPassword: "",
-      role: "",
-    });
-    setValidationError({});
+    // Clear specific field error when user starts typing
+    if (validationError[name]) {
+      setValidationError((prev) => ({ ...prev, [name]: null }));
+    }
   };
 
   const validate = () => {
@@ -42,22 +37,20 @@ const Register = () => {
       Error.fullName = "Only letters and spaces allowed";
     }
 
-    if (
-      !/^[\w.]+@(gmail|outlook|yahoo)\.(com|in|co.in)$/.test(formData.email)
-    ) {
-      Error.email = "Enter a valid email";
+    if (!/^[\w.]+@(gmail|outlook|yahoo)\.(com|in|co.in)$/.test(formData.email)) {
+      Error.email = "Enter a valid email address";
     }
 
     if (!/^[6-9]\d{9}$/.test(formData.mobileNumber)) {
-      Error.mobileNumber = "Enter valid Indian mobile number";
+      Error.mobileNumber = "Enter a valid 10-digit mobile number";
     }
 
     if (!formData.role) {
-      Error.role = "Please select a role";
+      Error.role = "Please select your account type";
     }
 
     if (formData.password.length < 6) {
-      Error.password = "Password must be 6+ characters";
+      Error.password = "Password must be at least 6 characters";
     }
 
     if (formData.password !== formData.confirmPassword) {
@@ -77,7 +70,7 @@ const Register = () => {
     try {
       const res = await api.post("/auth/register", formData);
       toast.success(res.data.message);
-      handleClearForm();
+      navigate("/login"); // Automatically send to login on success
     } catch (error) {
       toast.error(error?.response?.data?.message || "Registration failed");
     } finally {
@@ -85,130 +78,142 @@ const Register = () => {
     }
   };
 
+  // Helper for Input icons
+  const getIconForField = (name) => {
+    switch (name) {
+      case "fullName": return <User size={18} />;
+      case "email": return <Mail size={18} />;
+      case "mobileNumber": return <Phone size={18} />;
+      case "password":
+      case "confirmPassword": return <Lock size={18} />;
+      default: return null;
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-white to-purple-100 px-4 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-[#FCF8F3] text-gray-900 font-sans selection:bg-orange-200 selection:text-orange-900 px-4 py-12 relative overflow-hidden">
       
-      <motion.div
-        className="absolute w-72 h-72 bg-purple-300 rounded-full blur-3xl opacity-30"
-        animate={{ x: [0, 40, 0], y: [0, -40, 0] }}
-        transition={{ repeat: Infinity, duration: 10 }}
-        style={{ top: "10%", left: "10%" }}
-      />
-      <motion.div
-        className="absolute w-72 h-72 bg-purple-300 rounded-full blur-3xl opacity-30"
-        animate={{ x: [0, -50, 0], y: [0, 50, 0] }}
-        transition={{ repeat: Infinity, duration: 12 }}
-        style={{ bottom: "10%", right: "10%" }}
-      />
+      {/* 🎨 Ambient Background & Grid Texture */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+      <div className="absolute w-[600px] h-[600px] bg-orange-400/10 blur-[100px] rounded-full top-10 -left-20 pointer-events-none" />
+      <div className="absolute w-[500px] h-[500px] bg-amber-400/10 blur-[100px] rounded-full bottom-0 right-0 pointer-events-none" />
 
-      {/* Main Card */}
+      {/* ---------------- REGISTER CARD ---------------- */}
       <motion.div
-        initial={{ opacity: 0, y: 40, scale: 0.95 }}
+        initial={{ opacity: 0, y: 30, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        whileHover={{ y: -4 }}
-        className="w-full max-w-xl bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/40"
+        transition={{ type: "spring", stiffness: 100, damping: 20 }}
+        className="w-full max-w-xl bg-white rounded-[2.5rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-gray-100 relative z-10"
       >
-        <form onSubmit={handleSubmit} onReset={handleClearForm} className="p-8">
-
+        <div className="p-8 md:p-10">
+          
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-600 bg-clip-text text-transparent">
-              Create Account
+          <div className="text-center mb-10">
+            <h1 className="text-3xl font-black tracking-tight text-gray-900 mb-2">
+              Create an Account
             </h1>
-            <p className="text-gray-500 text-sm mt-2">
-              Join us and start your journey 
+            <p className="text-gray-500 font-medium text-sm">
+              Join DineX and start your journey today.
             </p>
           </div>
 
-          {/* Role Selection */}
-          <div className="mb-6">
-            <label className="text-sm font-semibold text-gray-700 block mb-2">
-              I am a:
-            </label>
+          <form onSubmit={handleSubmit} className="space-y-6">
 
-            <div className="flex gap-4 flex-wrap">
-              {["manager", "partner", "customer"].map((role) => (
-                <label
-                  key={role}
-                  className={`px-4 py-2 rounded-lg border cursor-pointer transition ${
-                    formData.role === role
-                      ? "bg-purple-600 text-white border-purple-600"
-                      : "bg-white hover:bg-gray-50"
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="role"
-                    value={role}
-                    onChange={handleChange}
-                    checked={formData.role === role}
-                    className="hidden"
-                  />
-                  {role === "manager" && "Restaurant Manager"}
-                  {role === "partner" && "Delivery Partner"}
-                  {role === "customer" && "Customer"}
-                </label>
+            {/* Role Selection */}
+            <div>
+              <label className="text-xs font-bold uppercase tracking-widest text-gray-400 block mb-3 pl-1">
+                I am signing up as a:
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {[
+                  { id: "customer", label: "Customer" },
+                  { id: "partner", label: "Delivery Partner" },
+                  { id: "manager", label: "Restaurant" }
+                ].map((role) => (
+                  <label
+                    key={role.id}
+                    className={`flex items-center justify-center text-center px-4 py-3.5 rounded-2xl border-2 cursor-pointer transition-all duration-300 ${
+                      formData.role === role.id
+                        ? "border-orange-500 bg-orange-50 text-orange-700 font-bold shadow-sm"
+                        : "border-gray-100 bg-gray-50 text-gray-500 hover:border-orange-200 font-medium"
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="role"
+                      value={role.id}
+                      onChange={handleChange}
+                      checked={formData.role === role.id}
+                      className="hidden"
+                    />
+                    <span className="text-sm">{role.label}</span>
+                  </label>
+                ))}
+              </div>
+              {validationError.role && (
+                <p className="text-xs font-bold text-red-500 mt-2 pl-1">{validationError.role}</p>
+              )}
+            </div>
+
+            {/* Input Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {[
+                { name: "fullName", type: "text", placeholder: "Full Name", fullWidth: true },
+                { name: "email", type: "email", placeholder: "Email Address", fullWidth: true },
+                { name: "mobileNumber", type: "tel", placeholder: "Mobile Number", fullWidth: false },
+                { name: "password", type: "password", placeholder: "Password", fullWidth: false },
+                { name: "confirmPassword", type: "password", placeholder: "Confirm Password", fullWidth: true },
+              ].map((field) => (
+                <div key={field.name} className={field.fullWidth ? "sm:col-span-2" : "col-span-1"}>
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-orange-500 transition-colors">
+                      {getIconForField(field.name)}
+                    </div>
+                    <input
+                      type={field.type}
+                      name={field.name}
+                      value={formData[field.name]}
+                      onChange={handleChange}
+                      disabled={isLoading}
+                      maxLength={field.name === "mobileNumber" ? 10 : undefined}
+                      placeholder={field.placeholder}
+                      className={`w-full bg-gray-50 border rounded-2xl pl-12 pr-4 py-4 focus:outline-none transition-all font-medium placeholder:text-gray-400 ${
+                        validationError[field.name] 
+                          ? "border-red-300 focus:ring-2 focus:ring-red-500/20 bg-red-50/50 text-red-900" 
+                          : "border-gray-100 focus:ring-2 focus:ring-orange-500/50 focus:bg-white text-gray-900"
+                      }`}
+                    />
+                  </div>
+                  {validationError[field.name] && (
+                    <p className="text-[11px] font-bold text-red-500 mt-1.5 pl-1">
+                      {validationError[field.name]}
+                    </p>
+                  )}
+                </div>
               ))}
             </div>
 
-            {validationError.role && (
-              <p className="text-xs text-red-500 mt-1">
-                {validationError.role}
-              </p>
-            )}
-          </div>
-
-          {/* Inputs */}
-          <div className="space-y-4">
-            {[
-              { name: "fullName", type: "text", placeholder: "Full Name" },
-              { name: "email", type: "email", placeholder: "Email Address" },
-              { name: "mobileNumber", type: "tel", placeholder: "Mobile Number" },
-              { name: "password", type: "password", placeholder: "Password" },
-              { name: "confirmPassword", type: "password", placeholder: "Confirm Password" },
-            ].map((field) => (
-              <motion.div whileFocus={{ scale: 1.02 }} key={field.name}>
-                <input
-                  {...field}
-                  name={field.name}
-                  value={formData[field.name]}
-                  onChange={handleChange}
-                  disabled={isLoading}
-                  maxLength={field.name === "mobileNumber" ? 10 : undefined}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
-                  placeholder={field.placeholder}
-                />
-                {validationError[field.name] && (
-                  <p className="text-xs text-red-500 mt-1">
-                    {validationError[field.name]}
-                  </p>
-                )}
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Buttons */}
-          <div className="flex gap-4 mt-8">
+            {/* Submit Button */}
             <motion.button
-              whileTap={{ scale: 0.95 }}
-              type="reset"
-              disabled={isLoading}
-              className="flex-1 py-3 rounded-lg bg-gray-200 hover:bg-gray-300 transition font-semibold"
-            >
-              Clear
-            </motion.button>
-
-            <motion.button
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={isLoading}
-              className="flex-1 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-purple-600 text-white font-semibold shadow-lg"
+              className="w-full py-4 mt-6 rounded-2xl bg-gray-900 text-white font-black uppercase tracking-widest text-sm shadow-[0_10px_30px_rgba(0,0,0,0.1)] hover:bg-orange-600 hover:shadow-[0_10px_30px_rgba(234,88,12,0.3)] transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              {isLoading ? "Creating..." : "Register"}
+              {isLoading ? "Creating Account..." : "Create Account"}
+              {!isLoading && <ChevronRight size={18} />}
             </motion.button>
-          </div>
-        </form>
+          </form>
+
+          {/* Login Link */}
+          <p className="text-center text-sm text-gray-500 font-medium mt-8">
+            Already have an account?{" "}
+            <Link to="/login" className="text-gray-900 font-bold hover:text-orange-600 transition-colors">
+              Sign In
+            </Link>
+          </p>
+        </div>
       </motion.div>
     </div>
   );

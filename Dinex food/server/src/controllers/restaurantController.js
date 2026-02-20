@@ -1,5 +1,4 @@
 import Menu from "../models/menuSchema.js";
-import cloudinary from "../config/cloudinary.js";
 import { UploadMultipleToCloudinary } from "../utils/imageUploader.js";
 
 export const RestaurantAddMenuItem = async (req, res, next) => {
@@ -133,8 +132,6 @@ export const GetRestaurantMenuItem = async (req, res, next) => {
   }
 };
 
-
-
 export const RestaurantUpdate = async (req, res, next) => {
   try {
     const {
@@ -156,7 +153,9 @@ export const RestaurantUpdate = async (req, res, next) => {
 
     // Validation for required fields
     if (!fullName || !email || !mobileNumber) {
-      const error = new Error("Full Name, Email, and Mobile Number are required");
+      const error = new Error(
+        "Full Name, Email, and Mobile Number are required",
+      );
       error.statusCode = 400;
       return next(error);
     }
@@ -303,7 +302,7 @@ export const RestaurantChangePhoto = async (req, res, next) => {
     console.log("DataURI", dataURI.slice(0, 100));
 
     const result = await cloudinary.uploader.upload(dataURI, {
-      folder: "DineX/User",
+      folder: "Cravings/User",
       width: 500,
       height: 500,
       crop: "fill",
@@ -347,6 +346,24 @@ export const RestaurantResetPassword = async (req, res, next) => {
     await currentUser.save();
 
     res.status(200).json({ message: "Password Reset Successful" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const GetAllPlacedOrder = async (req, res, next) => {
+  try {
+    const currentUser = req.user;
+
+    const allOrders = await Order.find({ restaurantId: currentUser._id })
+      .populate("userId")
+      .populate("riderId")
+      .sort({ createdAt: -1 });
+      
+    res.status(200).json({
+      message: "All Placed Orders Fetched Successfully",
+      data: allOrders,
+    });
   } catch (error) {
     next(error);
   }

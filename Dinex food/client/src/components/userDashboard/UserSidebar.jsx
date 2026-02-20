@@ -26,7 +26,7 @@ const containerVariants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.07,
+      staggerChildren: 0.05,
     },
   },
 };
@@ -56,51 +56,53 @@ const UserSidebar = ({ active, setActive, isCollapsed, setIsCollapsed }) => {
   return (
     <motion.div
       initial={{ x: -40, opacity: 0 }}
-      animate={{ x: 0, opacity: 1, width: isCollapsed ? 85 : 260 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="h-full relative flex flex-col
-                 bg-gradient-to-b from-[#ffffffcc] to-[#f5f3ffcc]
-                 backdrop-blur-xl border-r border-purple-100 shadow-2xl"
+      animate={{ x: 0, opacity: 1, width: isCollapsed ? 88 : 280 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="h-full relative flex flex-col bg-white/90 backdrop-blur-2xl border-r border-gray-100 shadow-[4px_0_40px_rgba(0,0,0,0.02)] z-40"
     >
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-20 -left-20 w-40 h-40 bg-purple-300 rounded-full blur-3xl opacity-20" />
-        <div className="absolute bottom-10 -right-10 w-32 h-32 bg-indigo-300 rounded-full blur-3xl opacity-20" />
+      {/* 🎨 Subtle Ambient Background Blurs */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute -top-20 -left-20 w-40 h-40 bg-orange-400 rounded-full blur-[80px] opacity-10" />
+        <div className="absolute bottom-10 -right-10 w-40 h-40 bg-amber-400 rounded-full blur-[80px] opacity-10" />
       </div>
 
-      <div className="flex items-center h-20 px-3 border-b border-purple-100">
+      {/* ---------------- HEADER ---------------- */}
+      <div className="flex items-center h-24 px-5 border-b border-gray-100 relative z-10">
         <motion.button
-          whileHover={{ rotate: 90, scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="p-2 rounded-xl bg-white shadow hover:shadow-md text-gray-700"
+          className="p-2.5 rounded-2xl bg-gray-50 text-gray-600 hover:bg-orange-50 hover:text-orange-600 transition-colors shadow-sm border border-gray-100 shrink-0"
         >
-          <Menu size={20} />
+          <Menu size={22} />
         </motion.button>
 
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           {!isCollapsed && (
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className="ml-3"
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -10 }}
+              transition={{ duration: 0.2 }}
+              className="ml-4 whitespace-nowrap overflow-hidden"
             >
-              <div className="text-lg font-semibold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                User Dashborad
+              <div className="text-lg font-black text-gray-900 tracking-tight">
+                Dashboard
               </div>
-              <div className="text-xs text-gray-400">
-                Welcome back
+              <div className="text-xs font-bold uppercase tracking-widest text-orange-500">
+                Welcome Back
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
+      {/* ---------------- NAVIGATION ---------------- */}
       <motion.nav
         variants={containerVariants}
         initial="hidden"
         animate="show"
-        className="flex-1 px-2 py-6 space-y-3"
+        className="flex-1 px-4 py-8 space-y-2 relative z-10 overflow-y-auto overflow-x-hidden scrollbar-hide"
       >
         {menuItems.map((item) => {
           const Icon = item.icon;
@@ -110,49 +112,44 @@ const UserSidebar = ({ active, setActive, isCollapsed, setIsCollapsed }) => {
             <motion.button
               key={item.id}
               variants={itemVariants}
-              whileHover={{ scale: 1.04, x: 6 }}
-              whileTap={{ scale: 0.96 }}
               onClick={() => setActive(item.id)}
-              className="relative w-full flex items-center py-3 rounded-xl group overflow-hidden"
+              className="relative w-full flex items-center py-3.5 rounded-2xl group outline-none"
             >
-              <AnimatePresence>
-                {isActive && (
-                  <motion.div
-                    layoutId="liquid"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ type: "spring", stiffness: 120 }}
-                    className="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600"
-                  />
-                )}
-              </AnimatePresence>
-
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-purple-500" />
-
-              <div className="relative w-16 flex justify-center">
+              {/* Active State Background (Gliding Pill) */}
+              {isActive && (
                 <motion.div
-                  animate={{
-                    scale: isActive ? [1, 1.25, 1] : 1,
-                  }}
-                  transition={{
-                    duration: 1.2,
-                    repeat: isActive ? Infinity : 0,
-                  }}
-                  className={isActive ? "text-white" : "text-gray-600"}
-                >
-                  <Icon size={20} />
-                </motion.div>
+                  layoutId="activeSidebarTab"
+                  className="absolute inset-0 bg-orange-600 rounded-2xl shadow-[0_8px_20px_rgba(234,88,12,0.25)]"
+                  initial={false}
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                />
+              )}
+
+              {/* Hover State Background (For inactive items) */}
+              {!isActive && (
+                <div className="absolute inset-0 bg-gray-50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+              )}
+
+              {/* Icon Container */}
+              <div className="relative z-10 w-[60px] flex justify-center shrink-0">
+                <Icon 
+                  size={20} 
+                  strokeWidth={isActive ? 2.5 : 2}
+                  className={`transition-colors duration-300 ${
+                    isActive ? "text-white" : "text-gray-400 group-hover:text-orange-500"
+                  }`} 
+                />
               </div>
 
-              <AnimatePresence>
+              {/* Label Text */}
+              <AnimatePresence mode="wait">
                 {!isCollapsed && (
                   <motion.span
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className={`relative text-sm font-medium ${
-                      isActive ? "text-white" : "text-gray-700"
+                    initial={{ opacity: 0, width: 0 }}
+                    animate={{ opacity: 1, width: "auto" }}
+                    exit={{ opacity: 0, width: 0 }}
+                    className={`relative z-10 text-sm font-bold tracking-wide whitespace-nowrap transition-colors duration-300 ${
+                      isActive ? "text-white" : "text-gray-500 group-hover:text-gray-900"
                     }`}
                   >
                     {item.label}
@@ -160,25 +157,34 @@ const UserSidebar = ({ active, setActive, isCollapsed, setIsCollapsed }) => {
                 )}
               </AnimatePresence>
 
-              {isCollapsed && (
-                <span className="absolute left-20 bg-black text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100">
-                  {item.label}
-                </span>
-              )}
+              {/* Collapsed Tooltip */}
+              <AnimatePresence>
+                {isCollapsed && (
+                  <motion.div
+                    initial={{ opacity: 0, x: -5 }}
+                    animate={{ opacity: 0, x: 0 }} // stays hidden normally
+                    whileHover={{ opacity: 1, x: 5 }} // shows on hover
+                    className="absolute left-[85px] bg-gray-900 text-white text-xs font-bold uppercase tracking-widest px-3 py-2 rounded-xl whitespace-nowrap z-50 shadow-lg pointer-events-none"
+                  >
+                    {item.label}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.button>
           );
         })}
       </motion.nav>
 
-      <div className="p-2 border-t border-purple-100">
+      {/* ---------------- FOOTER (LOGOUT) ---------------- */}
+      <div className="p-4 border-t border-gray-100 relative z-10">
         <motion.button
-          whileHover={{ scale: 1.05 }}
+          whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleLogout}
-          className="w-full flex items-center py-3 rounded-xl text-purple-600 hover:bg-purple-50 transition"
+          className="w-full flex items-center py-3.5 rounded-2xl group transition-colors hover:bg-red-50 text-gray-500 hover:text-red-500 relative"
         >
-          <div className="w-16 flex justify-center">
-            <LogOut size={20} />
+          <div className="w-[60px] flex justify-center shrink-0">
+            <LogOut size={20} className="transition-transform group-hover:-translate-x-1" />
           </div>
 
           <AnimatePresence>
@@ -187,10 +193,24 @@ const UserSidebar = ({ active, setActive, isCollapsed, setIsCollapsed }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="text-sm font-medium"
+                className="text-sm font-bold tracking-wide whitespace-nowrap"
               >
                 Log Out
               </motion.span>
+            )}
+          </AnimatePresence>
+
+          {/* Collapsed Tooltip for Logout */}
+          <AnimatePresence>
+            {isCollapsed && (
+              <motion.div
+                initial={{ opacity: 0, x: -5 }}
+                animate={{ opacity: 0, x: 0 }}
+                whileHover={{ opacity: 1, x: 5 }}
+                className="absolute left-[85px] bg-red-500 text-white text-xs font-bold uppercase tracking-widest px-3 py-2 rounded-xl whitespace-nowrap z-50 shadow-lg pointer-events-none"
+              >
+                Log Out
+              </motion.div>
             )}
           </AnimatePresence>
         </motion.button>

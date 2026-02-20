@@ -9,6 +9,7 @@ import PublicRouter from "./src/routers/publicRouter.js";
 import UserRouter from "./src/routers/userRouter.js";
 import RestaurantRouter from "./src/routers/restaurantRouter.js";
 
+
 const app = express();
 
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
