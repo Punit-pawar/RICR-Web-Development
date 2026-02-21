@@ -275,7 +275,7 @@ const UserProfile = () => {
             <motion.div variants={fadeUpItem} className="bg-white rounded-[2.5rem] p-8 border border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.02)] xl:col-span-3">
               <h2 className="text-xl font-black text-gray-900 mb-6 flex items-center gap-3 tracking-tight">
                 <div className="p-2.5 bg-orange-50 text-orange-600 rounded-[1rem]"><Store size={20} /></div>
-                Business Information
+                Business Information.
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {renderField("Restaurant Name", user?.restaurantName, Store)}
