@@ -62,8 +62,8 @@ const UserSidebar = ({ active, setActive, isCollapsed, setIsCollapsed }) => {
     >
       {/* 🎨 Subtle Ambient Background Blurs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-20 -left-20 w-40 h-40 bg-orange-400 rounded-full blur-[80px] opacity-10" />
-        <div className="absolute bottom-10 -right-10 w-40 h-40 bg-amber-400 rounded-full blur-[80px] opacity-10" />
+        <div className="absolute -top-20 -left-20 w-40 h-40 bg-purple-400 rounded-full blur-[80px] opacity-10" />
+        <div className="absolute bottom-10 -right-10 w-40 h-40 bg-blue-400 rounded-full blur-[80px] opacity-10" />
       </div>
 
       {/* ---------------- HEADER ---------------- */}
@@ -72,7 +72,7 @@ const UserSidebar = ({ active, setActive, isCollapsed, setIsCollapsed }) => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="p-2.5 rounded-2xl bg-gray-50 text-gray-600 hover:bg-orange-50 hover:text-orange-600 transition-colors shadow-sm border border-gray-100 shrink-0"
+          className="p-2.5 rounded-2xl bg-gray-50 text-gray-600 hover:bg-purple-50 hover:text-purple-600 transition-colors shadow-sm border border-gray-100 shrink-0"
         >
           <Menu size={22} />
         </motion.button>
@@ -89,7 +89,7 @@ const UserSidebar = ({ active, setActive, isCollapsed, setIsCollapsed }) => {
               <div className="text-lg font-black text-gray-900 tracking-tight">
                 Dashboard
               </div>
-              <div className="text-xs font-bold uppercase tracking-widest text-orange-500">
+              <div className="text-xs font-bold uppercase tracking-widest text-purple-500">
                 Welcome Back
               </div>
             </motion.div>
@@ -119,7 +119,7 @@ const UserSidebar = ({ active, setActive, isCollapsed, setIsCollapsed }) => {
               {isActive && (
                 <motion.div
                   layoutId="activeSidebarTab"
-                  className="absolute inset-0 bg-orange-600 rounded-2xl shadow-[0_8px_20px_rgba(234,88,12,0.25)]"
+                  className="absolute inset-0 bg-purple-600 rounded-2xl shadow-[0_8px_20px_rgba(234,88,12,0.25)]"
                   initial={false}
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
                 />
@@ -136,7 +136,7 @@ const UserSidebar = ({ active, setActive, isCollapsed, setIsCollapsed }) => {
                   size={20} 
                   strokeWidth={isActive ? 2.5 : 2}
                   className={`transition-colors duration-300 ${
-                    isActive ? "text-white" : "text-gray-400 group-hover:text-orange-500"
+                    isActive ? "text-white" : "text-gray-400 group-hover:text-purple-500"
                   }`} 
                 />
               </div>

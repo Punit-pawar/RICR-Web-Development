@@ -35,7 +35,7 @@ const UserDashboard = () => {
           </p>
           <button 
             onClick={() => navigate("/login")}
-            className="w-full py-4 bg-gray-900 text-white rounded-2xl font-bold hover:bg-orange-600 transition-colors shadow-lg"
+            className="w-full py-4 bg-gray-900 text-white rounded-2xl font-bold hover:bg-purple-600 transition-colors shadow-lg"
           >
             Go to Login
           </button>

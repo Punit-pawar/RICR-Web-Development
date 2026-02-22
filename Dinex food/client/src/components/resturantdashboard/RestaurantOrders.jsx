@@ -27,7 +27,7 @@ const RestaurantOrders = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-purple-50 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50 p-6">
       
       {/* Header */}
       <div className="text-center mb-10">
@@ -62,7 +62,7 @@ const RestaurantOrders = () => {
                   className="h-40 w-full object-cover rounded-t-2xl"
                 />
               ) : (
-                <div className="h-40 w-full bg-gradient-to-r from-orange-200 to-pink-200 rounded-t-2xl" />
+                <div className="h-40 w-full bg-gradient-to-r from-purple-200 to-pink-200 rounded-t-2xl" />
               )}
 
               {/* Content */}

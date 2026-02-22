@@ -62,12 +62,12 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FCF8F3] text-gray-900 font-sans selection:bg-orange-200 selection:text-orange-900 relative overflow-hidden pt-32 pb-24">
+    <div className="min-h-screen bg-[#FCF8F3] text-gray-900 font-sans selection:bg-purple-200 selection:text-purple-900 relative overflow-hidden pt-32 pb-24">
       
       {/* 🎨 Ambient Background & Subtle Grid Texture */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
-      <div className="absolute w-[600px] h-[600px] bg-orange-400/10 blur-[120px] rounded-full -top-40 -left-20 pointer-events-none" />
-      <div className="absolute w-[500px] h-[500px] bg-amber-400/10 blur-[120px] rounded-full bottom-0 -right-40 pointer-events-none" />
+      <div className="absolute w-[600px] h-[600px] bg-purple-400/10 blur-[120px] rounded-full -top-40 -left-20 pointer-events-none" />
+      <div className="absolute w-[500px] h-[500px] bg-blue-400/10 blur-[120px] rounded-full bottom-0 -right-40 pointer-events-none" />
 
       <motion.div
         initial="hidden"
@@ -78,11 +78,11 @@ const Contact = () => {
         {/* ---------------- HEADER ---------------- */}
         <div className="text-center mb-16 max-w-2xl mx-auto">
           <motion.div variants={fadeUpItem} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-gray-200 shadow-sm text-sm font-bold text-gray-700 mb-6">
-            <div className="bg-orange-100 p-1.5 rounded-full text-orange-600"><Mail size={14} /></div>
+            <div className="bg-purple-100 p-1.5 rounded-full text-purple-600"><Mail size={14} /></div>
             Get in Touch
           </motion.div>
           <motion.h1 variants={fadeUpItem} className="text-5xl md:text-6xl font-black tracking-tight text-gray-900 mb-4">
-            We're Here to <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-500">Help.</span>
+            We're Here to <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">Help.</span>
           </motion.h1>
           <motion.p variants={fadeUpItem} className="text-gray-500 text-lg font-medium leading-relaxed">
             Have a question, feedback, or need support with an order? Drop us a message and our team will get back to you swiftly.
@@ -95,7 +95,7 @@ const Contact = () => {
           {/* LEFT: FORM CARD */}
           <motion.div variants={fadeUpItem} className="lg:col-span-7 bg-white rounded-[2.5rem] shadow-[0_20px_40px_rgba(0,0,0,0.04)] border border-gray-100 p-8 md:p-12 relative overflow-hidden">
             {/* Decorative corner accent */}
-            <div className="absolute -top-10 -right-10 w-32 h-32 bg-orange-50 rounded-full blur-2xl pointer-events-none" />
+            <div className="absolute -top-10 -right-10 w-32 h-32 bg-purple-50 rounded-full blur-2xl pointer-events-none" />
 
             <h2 className="text-2xl font-black text-gray-900 mb-8 tracking-tight">Send a Message</h2>
 
@@ -110,7 +110,7 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     disabled={isLoading}
-                    className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-orange-500/50 focus:bg-white outline-none transition-all font-medium text-gray-900 placeholder:text-gray-400"
+                    className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-purple-500/50 focus:bg-white outline-none transition-all font-medium text-gray-900 placeholder:text-gray-400"
                   />
                 </motion.div>
 
@@ -124,7 +124,7 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     disabled={isLoading}
-                    className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-orange-500/50 focus:bg-white outline-none transition-all font-medium text-gray-900 placeholder:text-gray-400"
+                    className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-purple-500/50 focus:bg-white outline-none transition-all font-medium text-gray-900 placeholder:text-gray-400"
                   />
                 </motion.div>
               </div>
@@ -138,7 +138,7 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   disabled={isLoading}
-                  className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-orange-500/50 focus:bg-white outline-none transition-all font-medium text-gray-900 placeholder:text-gray-400"
+                  className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-purple-500/50 focus:bg-white outline-none transition-all font-medium text-gray-900 placeholder:text-gray-400"
                 />
               </motion.div>
 
@@ -151,7 +151,7 @@ const Contact = () => {
                   required
                   disabled={isLoading}
                   rows="5"
-                  className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-orange-500/50 focus:bg-white outline-none transition-all font-medium text-gray-900 placeholder:text-gray-400 resize-none"
+                  className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-purple-500/50 focus:bg-white outline-none transition-all font-medium text-gray-900 placeholder:text-gray-400 resize-none"
                 />
               </motion.div>
 
@@ -172,7 +172,7 @@ const Contact = () => {
                   whileTap={{ scale: 0.95 }}
                   type="submit"
                   disabled={isLoading}
-                  className="flex-1 py-4 rounded-2xl bg-orange-600 text-white font-black uppercase tracking-widest text-sm shadow-[0_10px_30px_rgba(234,88,12,0.3)] hover:bg-orange-500 transition-colors flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="flex-1 py-4 rounded-2xl bg-purple-600 text-white font-black uppercase tracking-widest text-sm shadow-[0_10px_30px_rgba(234,88,12,0.3)] hover:bg-purple-500 transition-colors flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   {isLoading ? "Submitting..." : "Send Message"}
                   {!isLoading && <Send size={16} />}
@@ -190,7 +190,7 @@ const Contact = () => {
               
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
                     <Phone size={20} />
                   </div>
                   <div>
@@ -200,7 +200,7 @@ const Contact = () => {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
                     <Mail size={20} />
                   </div>
                   <div>
@@ -210,7 +210,7 @@ const Contact = () => {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
                     <MapPin size={20} />
                   </div>
                   <div>

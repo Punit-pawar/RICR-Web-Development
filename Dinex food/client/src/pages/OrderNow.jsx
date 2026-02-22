@@ -146,7 +146,7 @@ const OrderNow = () => {
                       
                       {/* Rating Badge */}
                       <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-2xl flex items-center gap-1 shadow-sm">
-                        <FaStar className="text-amber-400" size={12} />
+                        <FaStar className="text-blue-400" size={12} />
                         <span className="text-xs font-bold text-slate-800">4.8</span>
                       </div>
                     </div>

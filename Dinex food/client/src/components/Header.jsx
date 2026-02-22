@@ -68,7 +68,7 @@ const Header = () => {
       initial={{ y: -40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="sticky top-0 z-50 bg-orange-500 backdrop-blur-2xl shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-b border-gray-100"
+      className="sticky top-0 z-50 bg-purple-500 backdrop-blur-2xl shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-b border-gray-100"
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
@@ -96,7 +96,7 @@ const Header = () => {
                 key={item}
                 to={path}
                 className={`relative font-bold text-sm tracking-wide transition-colors duration-300 group
-                  ${isActive ? "text-orange-600" : "text-black hover:text-white"}
+                  ${isActive ? "text-purple-600" : "text-black hover:text-white"}
                 `}
               >
                 {item}
@@ -120,7 +120,7 @@ const Header = () => {
               onClick={() => navigate("/checkout-page")}
               className="relative cursor-pointer group"
             >
-              <div className="w-11 h-11 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-600 group-hover:border-orange-200 group-hover:bg-orange-50 group-hover:text-orange-600 transition-colors shadow-sm">
+              <div className="w-11 h-11 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-600 group-hover:border-purple-200 group-hover:bg-purple-50 group-hover:text-purple-600 transition-colors shadow-sm">
                 <ShoppingCart size={18} strokeWidth={2.5} />
               </div>
 
@@ -133,7 +133,7 @@ const Header = () => {
                     animate={{ scale: animateBadge ? 1.3 : 1 }}
                     exit={{ scale: 0 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    className="absolute -top-1 -right-1 min-w-[20px] h-[20px] px-1.5 rounded-full bg-orange-600 text-white text-[10px] font-black tracking-tighter flex items-center justify-center shadow-md border-2 border-white"
+                    className="absolute -top-1 -right-1 min-w-[20px] h-[20px] px-1.5 rounded-full bg-purple-600 text-white text-[10px] font-black tracking-tighter flex items-center justify-center shadow-md border-2 border-white"
                   >
                     {cartCount}
                   </motion.div>
@@ -149,7 +149,7 @@ const Header = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={handleNavigate}
-                className="px-4 py-2.5 rounded-full bg-orange-50 text-orange-600 border border-orange-100 shadow-sm hover:bg-orange-100 transition-colors flex items-center gap-2 font-bold text-sm tracking-wide"
+                className="px-4 py-2.5 rounded-full bg-purple-50 text-purple-600 border border-purple-100 shadow-sm hover:bg-purple-100 transition-colors flex items-center gap-2 font-bold text-sm tracking-wide"
               >
                 <User size={16} strokeWidth={2.5} />
                 <span className="hidden sm:inline">{user?.fullName?.split(" ")[0]}</span>
@@ -167,7 +167,7 @@ const Header = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => navigate("/register")}
-                  className="px-6 py-2.5 rounded-full bg-gray-900 text-white font-bold text-sm shadow-[0_10px_20px_rgba(0,0,0,0.1)] hover:bg-orange-600 transition-colors"
+                  className="px-6 py-2.5 rounded-full bg-gray-900 text-white font-bold text-sm shadow-[0_10px_20px_rgba(0,0,0,0.1)] hover:bg-purple-600 transition-colors"
                 >
                   Sign Up
                 </motion.button>

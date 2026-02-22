@@ -25,12 +25,12 @@ const About = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-[#FCF8F3] text-gray-900 min-h-screen font-sans selection:bg-orange-200 selection:text-orange-900 overflow-hidden relative">
+    <div className="bg-[#FCF8F3] text-gray-900 min-h-screen font-sans selection:bg-purple-200 selection:text-purple-900 overflow-hidden relative">
       
       {/* 🎨 Ambient Background Blurs */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
-      <div className="absolute w-[600px] h-[600px] bg-orange-400/10 blur-[120px] rounded-full -top-40 -left-20 pointer-events-none" />
-      <div className="absolute w-[500px] h-[500px] bg-amber-400/10 blur-[120px] rounded-full top-[40%] -right-40 pointer-events-none" />
+      <div className="absolute w-[600px] h-[600px] bg-purple-400/10 blur-[120px] rounded-full -top-40 -left-20 pointer-events-none" />
+      <div className="absolute w-[500px] h-[500px] bg-blue-400/10 blur-[120px] rounded-full top-[40%] -right-40 pointer-events-none" />
 
       <motion.div initial="hidden" animate="show" variants={staggerContainer} className="relative z-10">
         
@@ -38,13 +38,13 @@ const About = () => {
         <section className="max-w-7xl mx-auto px-6 pt-32 pb-24 text-center flex flex-col items-center">
           
           <motion.div variants={fadeUpItem} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-gray-200 shadow-sm text-sm font-bold text-gray-700 mb-8">
-            <div className="bg-orange-100 p-1.5 rounded-full text-orange-600"><Info size={14} /></div>
+            <div className="bg-purple-100 p-1.5 rounded-full text-purple-600"><Info size={14} /></div>
             Our Story
           </motion.div>
 
           <motion.h1 variants={fadeUpItem} className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[1.05] text-gray-900 mb-6">
             Redefining the <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">
               Dining Experience.
             </span>
           </motion.h1>
@@ -85,7 +85,7 @@ const About = () => {
               whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, type: "spring" }}
-              className="relative flex justify-center items-center h-[400px] bg-gradient-to-br from-orange-50 to-amber-100 rounded-[3rem] shadow-inner overflow-hidden border border-orange-100/50"
+              className="relative flex justify-center items-center h-[400px] bg-gradient-to-br from-purple-50 to-blue-100 rounded-[3rem] shadow-inner overflow-hidden border border-purple-100/50"
             >
               {/* Optional: You can replace this emoji with an actual image in your project */}
               
@@ -118,9 +118,9 @@ const About = () => {
                 whileInView="show"
                 viewport={{ once: true }}
                 whileHover={{ y: -10 }}
-                className="bg-white p-10 md:p-12 rounded-[2.5rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-gray-100 hover:border-orange-200 hover:shadow-[0_20px_40px_rgba(234,88,12,0.08)] transition-all duration-300 group"
+                className="bg-white p-10 md:p-12 rounded-[2.5rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-gray-100 hover:border-purple-200 hover:shadow-[0_20px_40px_rgba(234,88,12,0.08)] transition-all duration-300 group"
               >
-                <div className="w-16 h-16 bg-orange-50 text-orange-600 rounded-[1.5rem] flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-orange-600 group-hover:text-white transition-all duration-300">
+                <div className="w-16 h-16 bg-purple-50 text-purple-600 rounded-[1.5rem] flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition-all duration-300">
                   <item.icon size={28} strokeWidth={2.5} />
                 </div>
                 <h3 className="text-3xl font-black text-gray-900 mb-4 tracking-tight">
@@ -145,7 +145,7 @@ const About = () => {
               viewport={{ once: true }}
               className="text-4xl md:text-5xl font-black text-center mb-16 tracking-tight"
             >
-              Why People Love <span className="text-orange-500">DineX</span>
+              Why People Love <span className="text-purple-500">DineX</span>
             </motion.h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -164,7 +164,7 @@ const About = () => {
                   whileHover={{ y: -8 }}
                   className="bg-white/5 backdrop-blur-sm rounded-[2rem] p-8 border border-white/10 text-center hover:bg-white/10 transition-colors"
                 >
-                  <div className="w-14 h-14 mx-auto bg-orange-500/20 text-orange-400 rounded-full flex items-center justify-center mb-6">
+                  <div className="w-14 h-14 mx-auto bg-purple-500/20 text-purple-400 rounded-full flex items-center justify-center mb-6">
                     <item.icon size={24} />
                   </div>
                   <h3 className="font-bold text-xl mb-3 tracking-tight">
@@ -222,7 +222,7 @@ const About = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => navigate("/order-now")}
-              className="px-10 py-5 bg-orange-600 text-white rounded-[2rem] font-black uppercase tracking-widest text-sm shadow-[0_10px_30px_rgba(234,88,12,0.3)] hover:bg-orange-500 transition-colors inline-flex items-center gap-3"
+              className="px-10 py-5 bg-purple-600 text-white rounded-[2rem] font-black uppercase tracking-widest text-sm shadow-[0_10px_30px_rgba(234,88,12,0.3)] hover:bg-purple-500 transition-colors inline-flex items-center gap-3"
             >
               Order Now
               <ArrowRight size={18} />

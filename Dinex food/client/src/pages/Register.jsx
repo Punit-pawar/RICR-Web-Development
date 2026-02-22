@@ -91,12 +91,12 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#FCF8F3] text-gray-900 font-sans selection:bg-orange-200 selection:text-orange-900 px-4 py-12 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-[#FCF8F3] text-gray-900 font-sans selection:bg-purple-200 selection:text-purple-900 px-4 py-12 relative overflow-hidden">
       
       {/* 🎨 Ambient Background & Grid Texture */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
-      <div className="absolute w-[600px] h-[600px] bg-orange-400/10 blur-[100px] rounded-full top-10 -left-20 pointer-events-none" />
-      <div className="absolute w-[500px] h-[500px] bg-amber-400/10 blur-[100px] rounded-full bottom-0 right-0 pointer-events-none" />
+      <div className="absolute w-[600px] h-[600px] bg-purple-400/10 blur-[100px] rounded-full top-10 -left-20 pointer-events-none" />
+      <div className="absolute w-[500px] h-[500px] bg-blue-400/10 blur-[100px] rounded-full bottom-0 right-0 pointer-events-none" />
 
       {/* ---------------- REGISTER CARD ---------------- */}
       <motion.div
@@ -134,8 +134,8 @@ const Register = () => {
                     key={role.id}
                     className={`flex items-center justify-center text-center px-4 py-3.5 rounded-2xl border-2 cursor-pointer transition-all duration-300 ${
                       formData.role === role.id
-                        ? "border-orange-500 bg-orange-50 text-orange-700 font-bold shadow-sm"
-                        : "border-gray-100 bg-gray-50 text-gray-500 hover:border-orange-200 font-medium"
+                        ? "border-purple-500 bg-purple-50 text-purple-700 font-bold shadow-sm"
+                        : "border-gray-100 bg-gray-50 text-gray-500 hover:border-purple-200 font-medium"
                     }`}
                   >
                     <input
@@ -166,7 +166,7 @@ const Register = () => {
               ].map((field) => (
                 <div key={field.name} className={field.fullWidth ? "sm:col-span-2" : "col-span-1"}>
                   <div className="relative group">
-                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-orange-500 transition-colors">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-purple-500 transition-colors">
                       {getIconForField(field.name)}
                     </div>
                     <input
@@ -180,7 +180,7 @@ const Register = () => {
                       className={`w-full bg-gray-50 border rounded-2xl pl-12 pr-4 py-4 focus:outline-none transition-all font-medium placeholder:text-gray-400 ${
                         validationError[field.name] 
                           ? "border-red-300 focus:ring-2 focus:ring-red-500/20 bg-red-50/50 text-red-900" 
-                          : "border-gray-100 focus:ring-2 focus:ring-orange-500/50 focus:bg-white text-gray-900"
+                          : "border-gray-100 focus:ring-2 focus:ring-purple-500/50 focus:bg-white text-gray-900"
                       }`}
                     />
                   </div>
@@ -199,7 +199,7 @@ const Register = () => {
               whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={isLoading}
-              className="w-full py-4 mt-6 rounded-2xl bg-gray-900 text-white font-black uppercase tracking-widest text-sm shadow-[0_10px_30px_rgba(0,0,0,0.1)] hover:bg-orange-600 hover:shadow-[0_10px_30px_rgba(234,88,12,0.3)] transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+              className="w-full py-4 mt-6 rounded-2xl bg-gray-900 text-white font-black uppercase tracking-widest text-sm shadow-[0_10px_30px_rgba(0,0,0,0.1)] hover:bg-purple-600 hover:shadow-[0_10px_30px_rgba(234,88,12,0.3)] transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {isLoading ? "Creating Account..." : "Create Account"}
               {!isLoading && <ChevronRight size={18} />}
@@ -209,7 +209,7 @@ const Register = () => {
           {/* Login Link */}
           <p className="text-center text-sm text-gray-500 font-medium mt-8">
             Already have an account?{" "}
-            <Link to="/login" className="text-gray-900 font-bold hover:text-orange-600 transition-colors">
+            <Link to="/login" className="text-gray-900 font-bold hover:text-purple-600 transition-colors">
               Sign In
             </Link>
           </p>

@@ -47,8 +47,8 @@ const UserOverview = () => {
       title: "Total Orders",
       value: "12",
       icon: ShoppingBag,
-      color: "text-orange-600",
-      bg: "bg-orange-50",
+      color: "text-purple-600",
+      bg: "bg-purple-50",
       trend: "+2 this week"
     },
     {
@@ -71,8 +71,8 @@ const UserOverview = () => {
       title: "Reviews",
       value: "5",
       icon: Star,
-      color: "text-amber-500",
-      bg: "bg-amber-50",
+      color: "text-blue-500",
+      bg: "bg-blue-50",
       trend: "4.8 avg rating"
     },
   ];
@@ -83,8 +83,8 @@ const UserOverview = () => {
       
       {/* 🎨 Subtle Ambient Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-300/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-amber-300/10 rounded-full blur-[100px]" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-300/10 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-300/10 rounded-full blur-[100px]" />
       </div>
 
       <motion.div 
@@ -151,7 +151,7 @@ const UserOverview = () => {
               <h2 className="text-xl font-black text-gray-900 tracking-tight">Spending Overview</h2>
               <p className="text-sm font-medium text-gray-500">Your order expenses over the last 7 days</p>
             </div>
-            <h3 className="text-3xl font-black text-orange-600">₹4,800</h3>
+            <h3 className="text-3xl font-black text-purple-600">₹4,800</h3>
           </div>
 
           <div className="h-[280px] w-full">
@@ -209,7 +209,7 @@ const UserOverview = () => {
           <motion.div variants={fadeUpItem} className="bg-white rounded-[2.5rem] p-6 md:p-8 border border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.02)] flex flex-col">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-black text-gray-900 tracking-tight">Recent Orders</h2>
-              <button className="text-sm font-bold text-orange-600 flex items-center hover:text-orange-700 transition-colors">
+              <button className="text-sm font-bold text-purple-600 flex items-center hover:text-purple-700 transition-colors">
                 View All <ChevronRight size={16} />
               </button>
             </div>
@@ -222,7 +222,7 @@ const UserOverview = () => {
               <p className="text-sm font-medium text-gray-500 max-w-[250px]">
                 Looks like you haven't ordered anything yet. Time to treat yourself!
               </p>
-              <button className="mt-6 px-6 py-3 bg-gray-900 text-white rounded-xl font-bold text-sm hover:bg-orange-600 transition-colors shadow-lg">
+              <button className="mt-6 px-6 py-3 bg-gray-900 text-white rounded-xl font-bold text-sm hover:bg-purple-600 transition-colors shadow-lg">
                 Explore Menu
               </button>
             </div>
