@@ -78,7 +78,7 @@ const RestaurantProfile = () => {
           <div className="relative z-10 flex flex-col lg:flex-row items-center lg:items-end gap-10">
             {/* Profile Avatar with Halo Effect */}
             <div className="relative group">
-              <div className="absolute inset-0 bg-orange-400/20 rounded-[3rem] blur-2xl group-hover:bg-orange-400/30 transition-colors" />
+              <div className="absolute inset-0 bg-purple-400/20 rounded-[3rem] blur-2xl group-hover:bg-purple-400/30 transition-colors" />
               <motion.div 
                 whileHover={{ scale: 1.02 }}
                 className="relative w-44 h-44 rounded-[2.8rem] bg-white p-1 shadow-2xl border border-slate-100 overflow-hidden"
@@ -88,9 +88,9 @@ const RestaurantProfile = () => {
                   alt="Profile" 
                   className={`w-full h-full object-cover rounded-[2.5rem] ${isUploading ? 'opacity-30 blur-sm' : ''}`} 
                 />
-                {isUploading && <Loader2 className="absolute inset-0 m-auto animate-spin text-orange-500" />}
+                {isUploading && <Loader2 className="absolute inset-0 m-auto animate-spin text-purple-500" />}
               </motion.div>
-              <label htmlFor="imageUpload" className="absolute -bottom-2 -right-2 bg-slate-900 text-white p-3 rounded-2xl hover:bg-orange-600 transition-all cursor-pointer shadow-xl border-4 border-white">
+              <label htmlFor="imageUpload" className="absolute -bottom-2 -right-2 bg-slate-900 text-white p-3 rounded-2xl hover:bg-purple-600 transition-all cursor-pointer shadow-xl border-4 border-white">
                 <Camera size={20} />
               </label>
               <input type="file" id="imageUpload" className="hidden" accept="image/*" onChange={handlePhotoChange} />
@@ -99,7 +99,7 @@ const RestaurantProfile = () => {
             {/* Identity Info */}
             <div className="flex-1 text-center lg:text-left">
               <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-4">
-                <span className="px-4 py-1.5 rounded-full bg-orange-50 text-orange-600 text-[10px] font-black uppercase tracking-widest border border-orange-100">
+                <span className="px-4 py-1.5 rounded-full bg-purple-50 text-purple-600 text-[10px] font-black uppercase tracking-widest border border-purple-100">
                   {user?.role || "Manager"}
                 </span>
                 <span className="px-4 py-1.5 rounded-full bg-slate-900 text-white text-[10px] font-black uppercase tracking-widest border border-slate-900">
@@ -110,17 +110,17 @@ const RestaurantProfile = () => {
                 {user?.fullName || "Manager Name"}
               </h1>
               <div className="flex flex-wrap justify-center lg:justify-start gap-6 text-slate-500 font-bold text-sm">
-                <span className="flex items-center gap-2"><Mail size={16} className="text-orange-500" /> {user?.email}</span>
-                <span className="flex items-center gap-2"><Phone size={16} className="text-orange-500" /> {user?.mobileNumber}</span>
+                <span className="flex items-center gap-2"><Mail size={16} className="text-purple-500" /> {user?.email}</span>
+                <span className="flex items-center gap-2"><Phone size={16} className="text-purple-500" /> {user?.mobileNumber}</span>
               </div>
             </div>
 
             {/* Quick Actions Panel */}
             <div className="flex flex-row lg:flex-col gap-3 shrink-0">
-              <button onClick={() => setIsEditProfileModalOpen(true)} className="p-4 bg-slate-50 text-slate-900 rounded-3xl hover:bg-orange-50 hover:text-orange-600 transition-all border border-slate-200 group">
+              <button onClick={() => setIsEditProfileModalOpen(true)} className="p-4 bg-slate-50 text-slate-900 rounded-3xl hover:bg-purple-50 hover:text-purple-600 transition-all border border-slate-200 group">
                 <Edit3 size={24} className="group-hover:rotate-12 transition-transform" />
               </button>
-              <button onClick={() => setIsResetPasswordModalOpen(true)} className="p-4 bg-slate-50 text-slate-900 rounded-3xl hover:bg-orange-50 hover:text-orange-600 transition-all border border-slate-200 group">
+              <button onClick={() => setIsResetPasswordModalOpen(true)} className="p-4 bg-slate-50 text-slate-900 rounded-3xl hover:bg-purple-50 hover:text-purple-600 transition-all border border-slate-200 group">
                 <Lock size={24} className="group-hover:scale-110 transition-transform" />
               </button>
             </div>
@@ -131,14 +131,14 @@ const RestaurantProfile = () => {
         <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
           
           {/* Restaurant Card (Large) */}
-          <div className="md:col-span-4 bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm flex flex-col justify-between group hover:border-orange-200 transition-colors">
+          <div className="md:col-span-4 bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm flex flex-col justify-between group hover:border-purple-200 transition-colors">
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Business Unit</p>
                 <h3 className="text-3xl font-black text-slate-900">{user?.restaurantName || "Spice Route"}</h3>
                 <p className="text-slate-500 font-bold mt-1">{user?.cuisine || "Indian Specialty"}</p>
               </div>
-              <div className="w-16 h-16 bg-orange-50 text-orange-600 rounded-3xl flex items-center justify-center">
+              <div className="w-16 h-16 bg-purple-50 text-purple-600 rounded-3xl flex items-center justify-center">
                 <Store size={32} />
               </div>
             </div>
@@ -149,7 +149,7 @@ const RestaurantProfile = () => {
                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" /> Live on DineX
                  </span>
                </div>
-               <div className="p-4 bg-orange-600 text-white rounded-2xl flex items-center justify-center group-hover:bg-slate-900 transition-colors cursor-pointer">
+               <div className="p-4 bg-purple-600 text-white rounded-2xl flex items-center justify-center group-hover:bg-slate-900 transition-colors cursor-pointer">
                  <ArrowUpRight size={24} />
                </div>
             </div>
@@ -233,8 +233,8 @@ const RestaurantProfile = () => {
                 { label: "Vehicle RC", value: user?.documents?.rc, icon: FileText },
                 { label: "Driving License", value: user?.documents?.dl, icon: FileText },
               ].map((doc, idx) => (
-                <div key={idx} className="flex items-center gap-4 p-5 rounded-3xl bg-slate-50/50 border border-slate-100 hover:border-orange-100 hover:bg-white transition-all group">
-                   <doc.icon className="text-slate-300 group-hover:text-orange-500 transition-colors" size={20} />
+                <div key={idx} className="flex items-center gap-4 p-5 rounded-3xl bg-slate-50/50 border border-slate-100 hover:border-purple-100 hover:bg-white transition-all group">
+                   <doc.icon className="text-slate-300 group-hover:text-purple-500 transition-colors" size={20} />
                    <div>
                      <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest">{doc.label}</span>
                      <span className="text-sm font-black text-slate-900">{doc.value && doc.value !== "N/A" ? doc.value : "Missing"}</span>

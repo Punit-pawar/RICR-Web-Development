@@ -31,7 +31,7 @@ const Login = () => {
       setUser(res.data.data);
       setIsLogin(true);
 
-      sessionStorage.setItem("CravingUser", JSON.stringify(res.data.data));
+      sessionStorage.setItem("DineXUser", JSON.stringify(res.data.data));
 
       switch (res.data.data.role) {
         case "manager":

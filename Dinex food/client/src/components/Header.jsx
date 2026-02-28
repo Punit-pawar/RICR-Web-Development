@@ -3,7 +3,7 @@ import transparentLogo from "../assets/logo.png";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingCart, User } from "lucide-react";
+import { ShoppingCart, User, Bell } from "lucide-react"; // Import Bell icon
 
 const Header = () => {
   const { user, isLogin, role } = useAuth();
@@ -11,24 +11,16 @@ const Header = () => {
   const location = useLocation();
 
   const [cartCount, setCartCount] = useState(0);
+  const [notificationCount, setNotificationCount] = useState(2); // Mock notification count
   const [animateBadge, setAnimateBadge] = useState(false);
 
   const handleNavigate = () => {
     switch (role) {
-      case "manager":
-        navigate("/resturant-dashboard");
-        break;
-      case "partner":
-        navigate("/rider-dashboard");
-        break;
-      case "customer":
-        navigate("/user-dashboard");
-        break;
-      case "admin":
-        navigate("/admin-dashboard");
-        break;
-      default:
-        break;
+      case "manager": navigate("/resturant-dashboard"); break;
+      case "partner": navigate("/rider-dashboard"); break;
+      case "customer": navigate("/user-dashboard"); break;
+      case "admin": navigate("/admin-dashboard"); break;
+      default: break;
     }
   };
 
@@ -36,16 +28,10 @@ const Header = () => {
   const updateCartCount = () => {
     try {
       const cart = JSON.parse(localStorage.getItem("cart"));
-
       if (cart?.cartItem?.length) {
-        const totalItems = cart.cartItem.reduce(
-          (sum, item) => sum + Number(item.quantity || 0),
-          0
-        );
-
+        const totalItems = cart.cartItem.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
         if (totalItems !== cartCount) {
           setCartCount(totalItems);
-          /* Trigger animation only if count changes */
           setAnimateBadge(true);
           setTimeout(() => setAnimateBadge(false), 300);
         }
@@ -96,11 +82,10 @@ const Header = () => {
                 key={item}
                 to={path}
                 className={`relative font-bold text-sm tracking-wide transition-colors duration-300 group
-                  ${isActive ? "text-purple-600" : "text-black hover:text-white"}
+                  ${isActive ? "text-white" : "text-black hover:text-white"}
                 `}
               >
                 {item}
-                {/* Animated Underline */}
                 <span className={`absolute left-0 -bottom-1.5 h-[3px] rounded-full bg-white transition-all duration-300 ease-out
                   ${isActive ? "w-full" : "w-0 group-hover:w-full"}
                 `} />
@@ -112,30 +97,36 @@ const Header = () => {
         {/* ---------------- RIGHT: ACTIONS ---------------- */}
         <div className="flex items-center gap-4 md:gap-6">
 
-          {/* 🛒 CART ICON - ONLY VISIBLE WHEN LOGGED IN */}
+          {/* 🔔 NOTIFICATION OR 🛒 CART ICON */}
           {isLogin && (
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => navigate("/checkout-page")}
+              // Navigate to different pages based on role
+              onClick={() => role === "partner" ? navigate("/rider-dashboard") : navigate("/checkout-page")}
               className="relative cursor-pointer group"
             >
               <div className="w-11 h-11 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-600 group-hover:border-purple-200 group-hover:bg-purple-50 group-hover:text-purple-600 transition-colors shadow-sm">
-                <ShoppingCart size={18} strokeWidth={2.5} />
+                {role === "partner" ? (
+                  <Bell size={18} strokeWidth={2.5} />
+                ) : (
+                  <ShoppingCart size={18} strokeWidth={2.5} />
+                )}
               </div>
 
-              {/* ✅ BADGE */}
-              <AnimatePresence>
-                {cartCount > 0 && (
+              {/* ✅ DYNAMIC BADGE (Notifications for Partner, Cart for others) */}
+              <AnimatePresence shadow-sm>
+                {((role === "partner" && notificationCount > 0) || (role !== "partner" && cartCount > 0)) && (
                   <motion.div
-                    key="cart-badge"
+                    key="badge"
                     initial={{ scale: 0 }}
                     animate={{ scale: animateBadge ? 1.3 : 1 }}
                     exit={{ scale: 0 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    className="absolute -top-1 -right-1 min-w-[20px] h-[20px] px-1.5 rounded-full bg-purple-600 text-white text-[10px] font-black tracking-tighter flex items-center justify-center shadow-md border-2 border-white"
+                    className={`absolute -top-1 -right-1 min-w-[20px] h-[20px] px-1.5 rounded-full text-white text-[10px] font-black tracking-tighter flex items-center justify-center shadow-md border-2 border-white
+                      ${role === "partner" ? "bg-amber-500" : "bg-purple-600"}`}
                   >
-                    {cartCount}
+                    {role === "partner" ? notificationCount : cartCount}
                   </motion.div>
                 )}
               </AnimatePresence>
