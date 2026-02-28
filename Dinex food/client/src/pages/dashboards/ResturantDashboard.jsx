@@ -35,28 +35,38 @@ const ResturantDashboard = () => {
   }
 
   return (
-    <div className="w-full h-[90vh] flex">
-      <div
-        className={`bg-white duration-300 ${
+    // Changed: Removed h-[90vh] and overflow-hidden to allow default scrolling
+    <div className="w-full flex min-h-screen bg-[#FCF8F3]">
+      
+      {/* Sidebar Container */}
+      <aside
+        className={`bg-white duration-300 relative z-20 shadow-sm ${
           isCollapsed ? "w-20" : "w-72"
         }`}
       >
-        <ResturantSidebar
-          active={active}
-          setActive={setActive}
-          isCollapsed={isCollapsed}
-          setIsCollapsed={setIsCollapsed}
-        />
-      </div>
+        {/* Changed: Made the actual Sidebar component sticky so it stays fixed while you scroll */}
+        <div className="sticky top-0 h-screen">
+          <ResturantSidebar
+            active={active}
+            setActive={setActive}
+            isCollapsed={isCollapsed}
+            setIsCollapsed={setIsCollapsed}
+          />
+        </div>
+      </aside>
 
-      <div className="flex-1 p-4 overflow-y-auto">
-        {active === "overview" && <ResturantOverview />}
-        {active === "profile" && <RestaurantProfile />}
-        {active === "menuitem" && <RestaurantMenu />}
-        {active === "orders" && <RestaurantOrders />}
-        {active === "earnings" && <RestaurantEarnings />}
-        {active === "helpdesk" && <RestaurantHelpDesk />}
-      </div>
+      {/* Main Content Area */}
+      {/* Changed: Removed overflow-y-auto so it uses the browser's default scroller */}
+      <main className="flex-1 p-4 md:p-8">
+        <div className="max-w-7xl mx-auto">
+          {active === "overview" && <ResturantOverview />}
+          {active === "profile" && <RestaurantProfile />}
+          {active === "menuitem" && <RestaurantMenu />}
+          {active === "orders" && <RestaurantOrders />}
+          {active === "earnings" && <RestaurantEarnings />}
+          {active === "helpdesk" && <RestaurantHelpDesk />}
+        </div>
+      </main>
     </div>
   );
 };

@@ -5,7 +5,7 @@ import Loading from "../Loading";
 import ViewDetailsModal from "./modals/ViewDetailsModal";
 import { useAuth } from "../../context/AuthContext";
 
-const RiderCurrentOrder = () => {
+const RiderOrder = () => {
   const { user } = useAuth();
   const [currentOrder, setCurrentOrder] = useState([]);
   const [availableOrder, setAvailableOrder] = useState([]);
@@ -277,4 +277,4 @@ const RiderCurrentOrder = () => {
   );
 };
 
-export default RiderCurrentOrder;
+export default RiderOrder;
