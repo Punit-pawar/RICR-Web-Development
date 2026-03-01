@@ -16,6 +16,7 @@ const PromoCode = {
 const TAX_RATE = 0.05;
 const DELIVERY_CHARGE = 40;
 
+
 // ✨ Animation Variants for Staggered Loading
 const staggerContainer = {
   hidden: { opacity: 0 },
@@ -36,7 +37,7 @@ const fadeUpItem = {
 
 const CheckoutPage = () => {
   const { user } = useAuth();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   const [cart, setCart] = useState(
     JSON.parse(localStorage.getItem("cart")) || null

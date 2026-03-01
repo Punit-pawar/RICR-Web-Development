@@ -10,15 +10,32 @@ import {
   MapPin,
   Clock
 } from "lucide-react";
-import { 
-  AreaChart, 
-  Area, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer 
-} from "recharts";
+
+// 1. Import Chart.js components instead of Recharts
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip as ChartTooltip,
+  Filler,
+  Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+
+// 2. Register ChartJS components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  ChartTooltip,
+  Filler,
+  Legend
+);
 
 // Mock Data for the Rider Earnings Chart
 const earningsData = [
@@ -43,6 +60,77 @@ const fadeUpItem = {
 };
 
 const RiderOverview = () => {
+  // 3. Prepare Chart.js Data and Options to match the Recharts design exactly
+  const chartData = {
+    labels: earningsData.map(d => d.day),
+    datasets: [
+      {
+        fill: true,
+        label: 'Income',
+        data: earningsData.map(d => d.income),
+        borderColor: '#10B981', // Emerald 500
+        borderWidth: 4,
+        backgroundColor: (context) => {
+          const ctx = context.chart.ctx;
+          const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+          gradient.addColorStop(0, 'rgba(16, 185, 129, 0.2)'); // Recharts stopOpacity={0.2}
+          gradient.addColorStop(1, 'rgba(16, 185, 129, 0)');   // Recharts stopOpacity={0}
+          return gradient;
+        },
+        tension: 0.4, // Simulates Recharts type="monotone"
+        pointRadius: 0, // Hidden by default like Recharts activeDot
+        pointHoverRadius: 6,
+        pointHoverBackgroundColor: '#10B981',
+        pointHoverBorderColor: '#fff',
+        pointHoverBorderWidth: 3,
+      }
+    ]
+  };
+
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#fff',
+        titleColor: '#6B7280',
+        bodyColor: '#111827',
+        bodyFont: { weight: 'bold', size: 14 },
+        padding: 12,
+        cornerRadius: 16,
+        displayColors: false,
+        callbacks: {
+          label: (context) => `₹${context.raw}`
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { display: false },
+        border: { display: false },
+        ticks: { color: '#9CA3AF', font: { size: 12, weight: '700' }, padding: 10 }
+      },
+      y: {
+        grid: {
+          color: '#F3F4F6',
+          borderDash: [3, 3], // Simulates Recharts strokeDasharray="3 3"
+          drawBorder: false,
+        },
+        border: { display: false },
+        ticks: {
+          color: '#9CA3AF',
+          font: { size: 12, weight: '700' },
+          callback: (value) => `₹${value}`
+        }
+      }
+    },
+    interaction: {
+      intersect: false,
+      mode: 'index',
+    },
+  };
+
   const stats = [
     {
       title: "Active Orders",
@@ -161,48 +249,8 @@ const RiderOverview = () => {
           </div>
 
           <div className="h-[300px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={earningsData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="colorIncome" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#10B981" stopOpacity={0.2} />
-                    <stop offset="95%" stopColor="#10B981" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F3F4F6" />
-                <XAxis 
-                  dataKey="day" 
-                  axisLine={false} 
-                  tickLine={false} 
-                  tick={{ fill: '#9CA3AF', fontSize: 12, fontWeight: 700 }} 
-                  dy={10} 
-                />
-                <YAxis 
-                  axisLine={false} 
-                  tickLine={false} 
-                  tick={{ fill: '#9CA3AF', fontSize: 12, fontWeight: 700 }} 
-                  tickFormatter={(value) => `₹${value}`}
-                />
-                <Tooltip 
-                  cursor={{ stroke: '#10B981', strokeWidth: 1, strokeDasharray: '4 4' }}
-                  contentStyle={{ 
-                    borderRadius: '16px', 
-                    border: 'none', 
-                    boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
-                    fontWeight: 'bold'
-                  }}
-                />
-                <Area 
-                  type="monotone" 
-                  dataKey="income" 
-                  stroke="#10B981" 
-                  strokeWidth={4} 
-                  fillOpacity={1} 
-                  fill="url(#colorIncome)" 
-                  activeDot={{ r: 6, fill: '#10B981', stroke: '#fff', strokeWidth: 3 }}
-                />
-              </AreaChart>
-            </ResponsiveContainer>
+            {/* 4. Use Chart.js Line Component */}
+            <Line data={chartData} options={chartOptions} />
           </div>
         </motion.div>
 

@@ -46,4 +46,11 @@ app.listen(port, async () => {
   } catch (error) {
     console.error("Error Connecting Clodinary API :", error);
   }
+
+  try {
+    await verifyRazorPayConnect();
+    console.log("RazorPay API is Working");
+  } catch (error) {
+    console.error("Error Connecting RazorPay API :", error);
+  }
 });

@@ -257,7 +257,7 @@ const RiderOrder = () => {
               </table>
             </div>
           </div>
-        )}
+        )} 
 
         {currentOrder.length === 0 && availableOrder.length === 0 && (
           <div className="text-center text-gray-500 py-12">

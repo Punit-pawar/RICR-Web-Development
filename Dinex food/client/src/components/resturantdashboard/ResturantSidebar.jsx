@@ -59,7 +59,7 @@ const ResturantSidebar = ({
   };
 
   return (
-    <aside className="fixed left-0 top-0 h-screen mt-18  z-50">
+    <aside className="fixed left-0 top-1 h-[90vh] mt-18  z-50">
       <motion.div
         initial={{ x: -40, opacity: 0 }}
         animate={{ x: 0, opacity: 1, width: isCollapsed ? 88 : 280 }}
@@ -191,7 +191,7 @@ const ResturantSidebar = ({
             className="w-full flex items-center py-3.5 rounded-2xl group transition-colors hover:bg-red-50 text-gray-500 hover:text-red-500 relative"
           >
             <div className="w-[60px] flex justify-center shrink-0">
-              <LogOut size={20} className="transition-transform group-hover:-translate-x-1" />
+              <LogOut size={20} className="transition-transform group-hover:rotate-180" />
             </div>
 
             <AnimatePresence>
