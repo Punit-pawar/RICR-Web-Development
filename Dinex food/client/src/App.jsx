@@ -15,6 +15,7 @@ import OrderNow from "./pages/OrderNow";
 import RestaurantDisplayMenu from "./pages/RestaurantDisplayMenu";
 import NotFound from "./pages/NotFound";
 import CheckoutPage from "./pages/CheckoutPage";
+import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 
 const App = () => {
   return (
@@ -38,6 +39,8 @@ const App = () => {
           <Route path="/home" element={<Home />} /> 
           <Route path="*" element={<NotFound />} />
           <Route path="/checkout-page" element={<CheckoutPage />} />
+          <Route path="/paymentSuccess" element={<PaymentSuccessPage />} />
+          
         </Routes>
       </BrowserRouter>
     </>

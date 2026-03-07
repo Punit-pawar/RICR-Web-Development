@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { motion, AnimatePresence } from "framer-motion";
+import { FaTrash, FaPlus, FaMinus } from "react-icons/fa";
 import api from "../config/Api";
-import { FiTrash2, FiPlus, FiMinus, FiMapPin, FiTag, FiCreditCard, FiSmartphone, FiDollarSign, FiArrowRight, FiCheckCircle } from "react-icons/fi";
-import Loading from "../components/Loading";
+import logo from "../assets/logo.png";
 
 const PromoCode = {
   NEW50: 50,
@@ -13,42 +12,26 @@ const PromoCode = {
   CRAVE10: 10,
 };
 
-const TAX_RATE = 0.05;
-const DELIVERY_CHARGE = 40;
-
-
-// ✨ Animation Variants for Staggered Loading
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.12 }
-  }
-};
-
-const fadeUpItem = {
-  hidden: { opacity: 0, y: 30 },
-  show: { 
-    opacity: 1, 
-    y: 0,
-    transition: { type: "spring", stiffness: 100, damping: 15 }
-  }
-};
-
+const AvailablePaymentMethod = [
+  { id: "razorPay", label: "Pay Online" },
+  { id: "cod", label: "Cash on Delivery" },
+];
 const CheckoutPage = () => {
   const { user } = useAuth();
-  const navigate = useNavigate(); 
-
-  const [cart, setCart] = useState(
-    JSON.parse(localStorage.getItem("cart")) || null
-  );
-  const [paymentMethod, setPaymentMethod] = useState("credit-card");
-  const [promoCode, setPromoCode] = useState("");
-  const [appliedPromo, setAppliedPromo] = useState(null);
+  const navigate = useNavigate();
+  const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")));
+  const [paymentMethod, setPaymentMethod] = useState("razorpay");
   const [isProcessing, setIsProcessing] = useState(false);
+  const [promoCode, setPromoCode] = useState("");
+  const [appliedPromo, setAppliedPromo] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState("pending");
+
+  // Tax and charges calculation
+  const TAX_RATE = 0.05; // 5% tax
+  const DELIVERY_CHARGE = 50;
 
   useEffect(() => {
-    if (!user || !cart || !cart.cartItem || cart.cartItem.length === 0) {
+    if (!user || !cart || cart.cartItem.length === 0) {
       toast.error("Cart is empty or session expired");
       navigate("/order-now");
     }
@@ -63,354 +46,486 @@ const CheckoutPage = () => {
         }
         return item;
       });
-      const newTotal = updatedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      const updatedCart = { ...prev, cartItem: updatedItems, cartValue: newTotal };
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-      return updatedCart;
+
+      const newTotal = updatedItems.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0,
+      );
+
+      return { ...prev, cartItem: updatedItems, cartValue: newTotal };
     });
   };
 
   const handleRemoveItem = (itemId) => {
     setCart((prev) => {
+      const itemToRemove = prev.cartItem.find((item) => item._id === itemId);
+      const newTotal =
+        prev.cartValue - itemToRemove.price * itemToRemove.quantity;
       const updatedItems = prev.cartItem.filter((item) => item._id !== itemId);
+
       if (updatedItems.length === 0) {
         toast.error("Cart is now empty!");
-        localStorage.removeItem("cart");
         navigate("/order-now");
         return prev;
       }
-      const newTotal = updatedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      const updatedCart = { ...prev, cartItem: updatedItems, cartValue: newTotal };
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-      return updatedCart;
+
+      return { ...prev, cartItem: updatedItems, cartValue: newTotal };
     });
   };
 
   const calculatePrices = () => {
     const subtotal = cart?.cartValue || 0;
-    const discountPercent = appliedPromo ? PromoCode[appliedPromo] : 0;
-    const discountAmount = (subtotal * discountPercent) / 100;
-    const discountedSubtotal = subtotal - discountAmount;
-    const tax = discountedSubtotal * TAX_RATE;
-    const total = discountedSubtotal + tax + DELIVERY_CHARGE;
-    return { subtotal, discountAmount, tax, total };
+    const tax = subtotal * TAX_RATE;
+    const total = subtotal + tax + DELIVERY_CHARGE;
+    return { subtotal, tax, total };
   };
 
   const handlePromoCodeApply = () => {
-    const code = promoCode.toUpperCase();
-    const discountPercent = PromoCode[code];
-    if (!discountPercent) {
+    const discountPercent = PromoCode[promoCode.toUpperCase()];
+    if (discountPercent) {
+      const { subtotal } = calculatePrices();
+      const discountAmount = (subtotal * discountPercent) / 100;
+      const newSubTotal = subtotal - discountAmount;
+
+      console.log("Applying promo code:", {
+        promoCode,
+        discountPercent,
+        discountAmount,
+        oldSubTotal: subtotal,
+        newSubTotal: newSubTotal,
+      });
+      setCart((prev) => ({
+        ...prev,
+        cartValue: newSubTotal,
+      }));
+      toast.success(
+        `Promo code applied! You saved ₹${discountAmount.toFixed(2)}`,
+      );
+      setAppliedPromo(true);
+    } else {
       toast.error("Invalid promo code");
-      return;
     }
-    setAppliedPromo(code);
-    toast.success(`Promo applied! ${discountPercent}% discount`);
   };
 
-  const generatePayload = () => {
-    const { subtotal, discountAmount, tax, total } = calculatePrices();
+  const GeneratePayload = () => {
+    const { subtotal, tax, total } = calculatePrices();
     return {
       restaurantId: cart.resturantID,
       userId: user._id,
       items: [...cart.cartItem],
       orderValue: {
-        subtotal, discountAmount, tax, total,
-        deliveryFee: DELIVERY_CHARGE,
-        discountType: appliedPromo,
-        discountPercentage: PromoCode[appliedPromo],
+        subtotal,
+        tax,
+        total,
+        promoCode,
+        deliveryFee: 50,
+        discountPercentage: PromoCode[promoCode.toUpperCase()],
         paymentMethod,
+        paymentStatus,
       },
       status: "pending",
       review: {},
     };
   };
 
-  const handlePlaceOrder = async () => {
-    if (!user || !cart) return navigate("/login");
-    setIsProcessing(true);
+  const handlePayment = async () => {
     try {
-      const payload = generatePayload();
-      const res = await api.post("/user/placeorder", payload);
-      toast.success(res.data.message);
-      localStorage.removeItem("cart");
-      navigate("/user-dashboard", { state: { tab: "orders" } });
+      //call Payment gateway API
+      setPaymentStatus("paid");
     } catch (error) {
-      toast.error(error?.response?.data?.message || "Order failed");
-    } finally {
-      setIsProcessing(false);
+      setPaymentStatus("failed");
     }
+  };
+
+  const handleRazorpayPayment = async () => {
+    const { total } = calculatePrices();
+    try {
+      const keyRes = await api.get("/payment/getRazorpayKey");
+      const key = keyRes.data.key;
+
+      const orderRes = await api.post("/payment/createOrder", {
+        amount: total,
+      });
+
+      const orderdata = orderRes.data;
+
+      const option = {
+        key,
+        amount: orderdata.amount,
+        currency: orderdata.currency,
+        name: "Cravings", //your business name
+        description: "Test Transaction",
+        image: "https://placehold.co/600x400?text=CR",
+        order_id: orderdata.id, // This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        callback_url: `${import.meta.env.VITE_FRONTEND_URL}/paymentSuccess`,
+        prefill: {
+          name: user.fullName, //your customer's name
+          email: user.email,
+          contact: user.mobileNumber, //Provide the customer's phone number for better conversion rates
+        },
+        notes: {
+          address: "Razorpay Corporate Office",
+        },
+        theme: {
+          color: "#F16D34",
+        },
+      };
+
+      const razorpay = new window.Razorpay(option);
+      razorpay.open();
+
+      razorpay.on("payment.failed", function (response) {
+        console.log("Payment Failed");
+        toast.error("Payment Failed");
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.response?.data?.message || "Unknown Error");
+    }
+  };
+
+  const handlePlaceOrder = async () => {
+    if (!user || !cart) {
+      toast.error("Session expired. Please login again.");
+      navigate("/login");
+      return;
+    }
+
+    setIsProcessing(true);
+
+    console.log("Lets Start Payment");
+
+    if (paymentMethod === "razorPay") {
+      console.log("Calling RazorPay");
+
+      handleRazorpayPayment();
+    }
+
+    // handlePayment();
+
+    // const payload = GeneratePayload();
+    // console.log(payload);
+
+    // try {
+    //   const res = await api.post("/user/placeorder", payload);
+    //   toast.success(res.data.message);
+    //   localStorage.removeItem("cart");
+    //   navigate("/user-dashboard", { state: { tab: "orders" } });
+    // } catch (error) {
+    //   console.error("Order placement error:", error);
+    //   toast.error(error?.response?.data?.message || "Failed to place order");
+    // } finally {
+    //   setIsProcessing(false);
+    // }
   };
 
   if (!user || !cart) {
     return (
-      <div className="h-screen flex flex-col items-center justify-center bg-[#FCF8F3]">
-        <Loading />
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-xl text-gray-600">Loading...</div>
       </div>
     );
   }
 
-  const { subtotal, discountAmount, tax, total } = calculatePrices();
-
-  const paymentOptions = [
-    { id: "credit-card", label: "Credit / Debit Card", icon: FiCreditCard },
-    { id: "upi", label: "UPI Transfer", icon: FiSmartphone },
-    { id: "cod", label: "Cash on Delivery", icon: FiDollarSign },
-  ];
+  const { subtotal, tax, total } = calculatePrices();
 
   return (
-    <div className="min-h-screen bg-[#FCF8F3] pt-12 pb-32 px-4 sm:px-6 font-sans text-gray-900 selection:bg-blue-200 selection:text-blue-900">
-      
-      <motion.div 
-        initial="hidden" 
-        animate="show" 
-        variants={staggerContainer} 
-        className="max-w-7xl mx-auto"
-      >
-        {/* HEADER */}
-        <motion.div variants={fadeUpItem} className="mb-12 text-center md:text-left">
-          <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-3 text-gray-900">
-            Secure <span className="text-blue-600">Checkout</span>
+    <div className="min-h-screen bg-gray-50 py-8 px-4">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="mb-8">
+          <h1
+            className="text-4xl font-bold"
+            style={{ color: "var(--color-primary)" }}
+          >
+            Order Checkout
           </h1>
-          <p className="text-gray-500 font-medium text-lg">Just a few steps away from a delicious meal.</p>
-        </motion.div>
+          <p className="text-gray-600 mt-2">
+            Review your order and complete the payment
+          </p>
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left Section - Order Items */}
+          <div className="lg:col-span-2">
+            {/* Order Items Card */}
+            <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+              <h2
+                className="text-2xl font-bold mb-6"
+                style={{ color: "var(--color-primary)" }}
+              >
+                Order Summary
+              </h2>
 
-          {/* ---------------- LEFT SECTION (CART & ADDRESS) ---------------- */}
-          <div className="lg:col-span-7 xl:col-span-8 space-y-8">
-
-            {/* DELIVERY ADDRESS */}
-            <motion.div variants={fadeUpItem} className="bg-white rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-gray-100 p-8">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold flex items-center gap-3">
-                  <span className="bg-blue-100 text-blue-600 p-2.5 rounded-2xl"><FiMapPin size={22} /></span>
-                  Delivery Destination
-                </h2>
-              </div>
-              <div className="bg-[#FCF8F3] border border-blue-100/50 p-5 rounded-2xl">
-                <p className="text-lg font-bold text-gray-900 mb-1">{user.fullName}</p>
-                <p className="text-gray-600 font-medium leading-relaxed">{user.address}</p>
-              </div>
-            </motion.div>
-
-            {/* ORDER ITEMS */}
-            <motion.div variants={fadeUpItem} className="bg-white rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-gray-100 p-8">
-              <h2 className="text-2xl font-bold mb-8">Review Order</h2>
-
-              <div className="space-y-5">
-                <AnimatePresence>
-                  {cart.cartItem.map((item) => (
-                    <motion.div
-                      key={item._id}
-                      layout
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9, height: 0, marginBottom: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="flex flex-col sm:flex-row gap-6 items-center p-4 rounded-[1.5rem] border border-gray-100 hover:border-blue-200 transition-colors group"
+              {/* Items List */}
+              <div className="space-y-4">
+                {cart.cartItem && cart.cartItem.length > 0 ? (
+                  cart.cartItem.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="flex gap-4 border-b pb-4 hover:bg-gray-50 p-3 rounded transition"
                     >
-                      <img
-                        src={item.images?.[0]?.url}
-                        alt={item.itemName}
-                        className="w-full sm:w-28 h-32 sm:h-28 rounded-2xl object-cover shadow-sm group-hover:shadow-md transition-shadow"
-                      />
+                      {/* Item Image */}
+                      <div className="shrink-0">
+                        <img
+                          src={item.images?.[0]?.url || "🍔"}
+                          alt={item.itemName}
+                          className="w-24 h-24 object-cover rounded-lg"
+                        />
+                      </div>
 
-                      <div className="flex-1 text-center sm:text-left w-full">
-                        <h3 className="text-xl font-bold text-gray-900 mb-1">{item.itemName}</h3>
-                        <p className="text-sm text-gray-500 font-medium mb-4">
-                          <span className="text-blue-600 font-bold text-base">₹{item.price}</span> • {item.cuisine}
+                      {/* Item Details */}
+                      <div className="flex-1">
+                        <h3
+                          className="text-lg font-bold"
+                          style={{ color: "var(--color-primary)" }}
+                        >
+                          {item.itemName}
+                        </h3>
+                        <p className="text-sm text-gray-600 mt-1">
+                          {item.cuisine} • {item.type}
                         </p>
-                        
-                        {/* Quantity Controls */}
-                        <div className="flex items-center justify-center sm:justify-start gap-4">
-                          <div className="flex items-center bg-gray-50 rounded-full p-1 border border-gray-200">
-                            <button 
-                              onClick={() => handleQuantityChange(item._id, -1)}
-                              className="w-9 h-9 flex items-center justify-center rounded-full bg-white text-gray-600 hover:text-blue-600 shadow-sm transition-colors active:scale-90"
-                            >
-                              <FiMinus size={16} />
-                            </button>
-                            <span className="w-10 text-center font-black text-gray-900">{item.quantity}</span>
-                            <button 
-                              onClick={() => handleQuantityChange(item._id, 1)}
-                              className="w-9 h-9 flex items-center justify-center rounded-full bg-white text-gray-600 hover:text-blue-600 shadow-sm transition-colors active:scale-90"
-                            >
-                              <FiPlus size={16} />
-                            </button>
-                          </div>
-
-                          <button
-                            onClick={() => handleRemoveItem(item._id)}
-                            className="w-11 h-11 flex items-center justify-center rounded-full text-gray-400 hover:bg-red-50 hover:text-red-500 transition-all active:scale-90"
-                          >
-                            <FiTrash2 size={20} />
-                          </button>
+                        <div className="flex gap-2 mt-2">
+                          <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                            {item.servingSize}
+                          </span>
+                          <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">
+                            {item.preparationTime}
+                          </span>
+                        </div>
+                        <div className="text-lg font-semibold text-green-600 mt-2">
+                          ₹{item.price}
                         </div>
                       </div>
 
-                      <div className="hidden sm:block text-right pr-4">
-                        <p className="text-xs uppercase font-bold text-gray-400 mb-1">Item Total</p>
-                        <p className="text-2xl font-black text-gray-900">₹{item.price * item.quantity}</p>
-                      </div>
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
-              </div>
-            </motion.div>
+                      {/* Quantity Controls */}
+                      <div className="flex flex-col items-end justify-between">
+                        <button
+                          onClick={() => handleRemoveItem(item._id)}
+                          className="text-red-500 hover:text-red-700 transition p-2"
+                          title="Remove item"
+                        >
+                          <FaTrash />
+                        </button>
 
-          </div>
+                        <div
+                          className="flex items-center border rounded-lg overflow-hidden"
+                          style={{
+                            borderColor: "var(--color-secondary)",
+                          }}
+                        >
+                          <button
+                            onClick={() => handleQuantityChange(item._id, -1)}
+                            className="p-2 hover:bg-gray-100 transition"
+                            style={{
+                              backgroundColor:
+                                item.quantity === 1 ? "#f3f4f6" : "white",
+                            }}
+                            disabled={item.quantity === 1}
+                          >
+                            <FaMinus size={12} />
+                          </button>
+                          <span className="px-4 font-bold text-lg w-12 text-center">
+                            {item.quantity}
+                          </span>
+                          <button
+                            onClick={() => handleQuantityChange(item._id, 1)}
+                            className="p-2 hover:bg-gray-100 transition"
+                          >
+                            <FaPlus size={12} />
+                          </button>
+                        </div>
 
-          {/* ---------------- RIGHT SECTION (SUMMARY & PAYMENT) ---------------- */}
-          {/* Using sticky positioning so it stays on screen when scrolling down a long cart */}
-          <div className="lg:col-span-5 xl:col-span-4 space-y-8 lg:sticky lg:top-8">
-
-            {/* PROMO CODE */}
-            <motion.div variants={fadeUpItem} className="bg-white rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-gray-100 p-8">
-              <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="text-blue-600"><FiTag size={20} /></span> Apply Promo Code
-              </h3>
-              
-              <AnimatePresence mode="wait">
-                {appliedPromo ? (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
-                    className="flex items-center justify-between bg-green-50 border border-green-200 p-4 rounded-2xl"
-                  >
-                    <div className="flex items-center gap-3">
-                      <FiCheckCircle className="text-green-600" size={24} />
-                      <div className="flex flex-col">
-                        <span className="text-green-800 font-bold uppercase tracking-wide">{appliedPromo}</span>
-                        <span className="text-green-600 text-xs font-semibold">Code applied successfully!</span>
+                        {/* Item Total */}
+                        <div className="text-right mt-2">
+                          <p className="text-sm text-gray-600">Subtotal</p>
+                          <p
+                            className="text-lg font-bold"
+                            style={{ color: "var(--color-secondary)" }}
+                          >
+                            ₹{(item.price * item.quantity).toFixed(2)}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                    <button 
-                      onClick={() => setAppliedPromo(null)}
-                      className="text-green-700 hover:text-red-500 text-sm font-bold transition-colors p-2"
-                    >
-                      Remove
-                    </button>
-                  </motion.div>
+                  ))
                 ) : (
-                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex gap-3">
-                    <input
-                      value={promoCode}
-                      onChange={(e) => setPromoCode(e.target.value)}
-                      placeholder="e.g. SAVE20"
-                      className="flex-1 bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none transition-all font-medium text-gray-900 uppercase placeholder:normal-case placeholder:font-normal"
-                    />
-                    <button
-                      onClick={handlePromoCodeApply}
-                      className="bg-gray-900 text-white px-7 rounded-2xl font-bold hover:bg-blue-600 transition-colors shadow-lg active:scale-95"
-                    >
-                      Apply
-                    </button>
-                  </motion.div>
+                  <div className="text-center py-8">
+                    <p className="text-gray-600 text-lg">Your cart is empty</p>
+                  </div>
                 )}
-              </AnimatePresence>
-            </motion.div>
+              </div>
+            </div>
 
-            {/* PAYMENT METHOD */}
-            <motion.div variants={fadeUpItem} className="bg-white rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-gray-100 p-8">
-              <h3 className="text-lg font-bold text-gray-900 mb-5">Select Payment Method</h3>
-              <div className="space-y-4">
-                {paymentOptions.map((method) => {
-                  const Icon = method.icon;
-                  const isSelected = paymentMethod === method.id;
-                  return (
-                    <label 
-                      key={method.id} 
-                      className={`flex items-center gap-4 p-4 rounded-2xl border-2 cursor-pointer transition-all duration-300 ${
-                        isSelected ? "border-blue-500 bg-blue-50/50" : "border-gray-100 hover:border-blue-200 bg-white"
-                      }`}
-                    >
-                      <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-colors ${
-                        isSelected ? "bg-blue-500 text-white shadow-lg shadow-blue-200" : "bg-gray-100 text-gray-500"
-                      }`}>
-                        <Icon size={20} />
-                      </div>
-                      <span className={`font-bold text-lg flex-1 ${isSelected ? "text-blue-900" : "text-gray-700"}`}>
-                        {method.label}
-                      </span>
+            {/* Delivery Address Card */}
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <h2
+                className="text-2xl font-bold mb-6"
+                style={{ color: "var(--color-primary)" }}
+              >
+                Delivery Address
+              </h2>
+
+              <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+                <p
+                  className="font-bold text-lg"
+                  style={{ color: "var(--color-primary)" }}
+                >
+                  {user.fullName}
+                </p>
+                <p className="text-gray-700 mt-2">{user.address}</p>
+                <p className="text-gray-700">
+                  {user.city}, {user.pin}
+                </p>
+                <p className="text-gray-700 mt-2">📞 {user.mobileNumber}</p>
+              </div>
+
+              <button
+                onClick={() =>
+                  navigate("/user-dashboard", { state: { tab: "profile" } })
+                }
+                className="mt-4 px-4 py-2 text-blue-600 hover:text-blue-800 font-semibold transition"
+              >
+                ✎ Edit Address
+              </button>
+            </div>
+          </div>
+
+          {/* Right Section - Price Summary & Payment */}
+          <div className="lg:col-span-1">
+            {/* Price Summary */}
+            <div className="bg-white rounded-lg shadow-md p-6 sticky top-8">
+              <h2
+                className="text-xl font-bold mb-6"
+                style={{ color: "var(--color-primary)" }}
+              >
+                Price Details
+              </h2>
+
+              <div className="space-y-4 mb-6">
+                <div className="flex justify-between">
+                  <span className="text-gray-700">Subtotal</span>
+                  <span className="font-semibold">₹{subtotal.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-700">Tax (5%)</span>
+                  <span className="font-semibold">₹{tax.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-700">Delivery Charge</span>
+                  <span className="font-semibold">
+                    ₹{DELIVERY_CHARGE.toFixed(2)}
+                  </span>
+                </div>
+
+                <div className="border-t pt-4 flex justify-between">
+                  <span
+                    className="text-lg font-bold"
+                    style={{ color: "var(--color-primary)" }}
+                  >
+                    Total Amount
+                  </span>
+                  <span
+                    className="text-2xl font-bold"
+                    style={{ color: "var(--color-secondary)" }}
+                  >
+                    ₹{total.toFixed(2)}
+                  </span>
+                </div>
+              </div>
+
+              {/* Promo Code Section */}
+              <div className="bg-white rounded-lg shadow-md p-6">
+                <h3
+                  className="font-bold mb-3"
+                  style={{ color: "var(--color-primary)" }}
+                >
+                  Promo Code
+                </h3>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    placeholder="Enter code"
+                    name="promo"
+                    value={promoCode}
+                    onChange={(e) => setPromoCode(e.target.value)}
+                    className="flex-1 border border-gray-300 rounded px-3 py-2 focus:outline-none disabled:bg-gray-100"
+                    style={{ borderColor: "var(--color-secondary)" }}
+                    disabled={appliedPromo}
+                  />
+                  <button
+                    style={{ backgroundColor: "var(--color-secondary)" }}
+                    className="text-white px-4 py-2 rounded hover:opacity-90 transition disabled:opacity-50"
+                    onClick={handlePromoCodeApply}
+                    disabled={appliedPromo}
+                  >
+                    Apply
+                  </button>
+                </div>
+              </div>
+
+              {/* Payment Method Selection */}
+              <div className="mb-6 border-t pt-6 mt-6">
+                <h3
+                  className="font-bold mb-4"
+                  style={{ color: "var(--color-primary)" }}
+                >
+                  Payment Method
+                </h3>
+
+                <div className="space-y-3">
+                  <label className="flex items-center cursor-pointer">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="razorPay"
+                      checked={paymentMethod === "razorPay"}
+                      onChange={(e) => setPaymentMethod(e.target.value)}
+                      className="w-4 h-4"
+                    />
+                    <span className="ml-3 text-gray-700">{"Pay Online"}</span>
+                  </label>
+                  {total < 1000 && (
+                    <label className="flex items-center cursor-pointer">
                       <input
                         type="radio"
-                        className="hidden"
-                        checked={isSelected}
-                        onChange={() => setPaymentMethod(method.id)}
+                        name="payment"
+                        value="cod"
+                        checked={paymentMethod === "cod"}
+                        onChange={(e) => setPaymentMethod(e.target.value)}
+                        className="w-4 h-4"
                       />
-                      <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${isSelected ? "border-blue-500" : "border-gray-300"}`}>
-                        <motion.div 
-                          initial={false}
-                          animate={{ scale: isSelected ? 1 : 0 }}
-                          className="w-3 h-3 bg-blue-500 rounded-full" 
-                        />
-                      </div>
+                      <span className="ml-3 text-gray-700">
+                        {"Cash on Delivery"}
+                      </span>
                     </label>
-                  );
-                })}
-              </div>
-            </motion.div>
-
-            {/* SUMMARY & CHECKOUT */}
-            <motion.div variants={fadeUpItem} className="bg-gray-900 rounded-[2rem] shadow-2xl p-8 text-white relative overflow-hidden">
-              {/* Decorative background circle */}
-              <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/5 rounded-full blur-3xl pointer-events-none" />
-
-              <h2 className="text-xl font-bold mb-6 text-white">Payment Summary</h2>
-
-              <div className="space-y-4 text-sm font-medium text-gray-400 mb-6">
-                <div className="flex justify-between">
-                  <span>Subtotal</span>
-                  <span className="text-white">₹{subtotal.toFixed(2)}</span>
-                </div>
-
-                <AnimatePresence>
-                  {discountAmount > 0 && (
-                    <motion.div 
-                      initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}
-                      className="flex justify-between text-green-400"
-                    >
-                      <span>Discount ({PromoCode[appliedPromo]}%)</span>
-                      <span className="font-bold">- ₹{discountAmount.toFixed(2)}</span>
-                    </motion.div>
                   )}
-                </AnimatePresence>
-
-                <div className="flex justify-between">
-                  <span>Taxes & Fees</span>
-                  <span className="text-white">₹{tax.toFixed(2)}</span>
-                </div>
-
-                <div className="flex justify-between">
-                  <span>Delivery Partner Fee</span>
-                  <span className="text-white">₹{DELIVERY_CHARGE}</span>
                 </div>
               </div>
 
-              <div className="border-t border-gray-700 pt-6 mb-8 flex justify-between items-end">
-                <span className="text-gray-400 font-bold uppercase tracking-widest text-[11px]">Total to Pay</span>
-                <span className="text-4xl font-black text-white tracking-tighter">₹{total.toFixed(2)}</span>
-              </div>
-
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+              {/* Place Order Button */}
+              <button
                 onClick={handlePlaceOrder}
                 disabled={isProcessing}
-                className={`w-full py-5 rounded-2xl text-[15px] font-black uppercase tracking-widest flex items-center justify-center gap-3 transition-all shadow-[0_10px_30px_rgba(234,88,12,0.3)]
-                  ${isProcessing 
-                    ? "bg-blue-400 text-white cursor-not-allowed" 
-                    : "bg-blue-600 hover:bg-blue-500 text-white"
-                  }
-                `}
+                style={{
+                  backgroundColor: "var(--color-secondary)",
+                }}
+                className="w-full text-white font-bold py-3 rounded-lg hover:opacity-90 transition disabled:opacity-50"
               >
-                {isProcessing ? "Processing..." : "Confirm Order"}
-                {!isProcessing && <FiArrowRight size={20} />}
-              </motion.button>
-            </motion.div>
+                {isProcessing ? "Processing..." : "Place Order"}
+              </button>
 
+              {/* Continue Shopping Link */}
+              <button
+                onClick={() => navigate(-1)}
+                className="w-full mt-3 text-blue-600 font-semibold py-2 rounded-lg hover:text-blue-800 transition"
+              >
+                ← Continue Shopping
+              </button>
+            </div>
           </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };
