@@ -1,261 +1,327 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Target, Eye, Zap, Utensils, ShieldCheck, Heart, ArrowRight, Info } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Target, Eye, Zap, Utensils, ShieldCheck, Heart, ArrowRight, Info, Award, ChefHat } from "lucide-react";
 
-// ✨ Upgraded Animation Variants matching the Home page
+// ✨ Master Animation Variants
 const staggerContainer = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.1 }
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 }
   }
 };
 
 const fadeUpItem = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 30, filter: "blur(8px)" },
   show: { 
     opacity: 1, 
     y: 0, 
-    transition: { type: "spring", stiffness: 100, damping: 20 } 
+    filter: "blur(0px)",
+    transition: { type: "spring", stiffness: 100, damping: 15, mass: 1 } 
   }
+};
+
+const letterAnimation = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { type: "spring", damping: 12, stiffness: 200 } }
 };
 
 const About = () => {
   const navigate = useNavigate();
 
+  // Parallax Scroll Setup for Hero
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"]
+  });
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "80%"]);
+  const opacityFade = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
   return (
-    <div className="bg-white text-gray-800 min-h-screen font-sans selection:bg-purple-200 selection:text-purple-900 overflow-x-hidden">
+    <div className="bg-[#f4f6f8] text-gray-800 min-h-screen font-sans selection:bg-purple-300 selection:text-purple-900 overflow-x-hidden">
       
-      <motion.div initial="hidden" animate="show" variants={staggerContainer} className="relative z-10">
+      {/* ---------------- HERO SECTION ---------------- */}
+      <section ref={heroRef} className="relative h-[85vh] w-full bg-zinc-950 overflow-hidden flex flex-col justify-center items-center rounded-b-[3rem] md:rounded-b-[4rem] shadow-2xl z-10">
         
-        {/* ---------------- HERO SECTION (Cinematic) ---------------- */}
-        <section className="relative h-[600px] w-full bg-zinc-900 overflow-hidden flex flex-col items-center justify-center text-center px-6">
-          {/* Animated Cinematic Background */}
-          <div className="absolute inset-0 z-0 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90 z-10" />
-            <motion.img
-              initial={{ scale: 1 }}
-              animate={{ scale: 1.1 }}
-              transition={{ duration: 25, repeat: Infinity, repeatType: "reverse", ease: "linear" }}
-              src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
-              alt="Dining Experience"
-              className="w-full h-full object-cover opacity-60"
-            />
-          </div>
+        {/* Parallax Background */}
+        <motion.div style={{ y: backgroundY }} className="absolute inset-0 z-0 w-full h-[120%]">
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-[#f4f6f8] z-10" />
+          <img
+            src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=2500&q=80"
+            alt="Dining Experience"
+            className="w-full h-full object-cover object-center opacity-60"
+          />
+        </motion.div>
 
-          <div className="relative z-20 max-w-4xl mx-auto flex flex-col items-center">
-            <motion.div variants={fadeUpItem} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md text-white border border-white/10 font-bold text-xs uppercase tracking-widest mb-8 shadow-xl">
-              <div className="bg-purple-500/20 p-1.5 rounded-full text-purple-400"><Info size={14} /></div>
-              Our Story
+        {/* Floating Light Beams */}
+        <motion.div 
+          animate={{ rotate: 360 }} 
+          transition={{ duration: 150, repeat: Infinity, ease: "linear" }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[150vw] bg-[conic-gradient(from_0deg,transparent_0_340deg,rgba(167,139,250,0.1)_360deg)] z-0 pointer-events-none"
+        />
+
+        {/* Hero Content */}
+        <motion.div 
+          style={{ y: textY, opacity: opacityFade }}
+          initial="hidden" animate="show" variants={staggerContainer}
+          className="relative z-20 max-w-5xl mx-auto px-6 lg:px-8 w-full text-center flex flex-col items-center -mt-10"
+        >
+          <motion.div variants={fadeUpItem} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-xl text-white border border-white/20 font-bold text-xs uppercase tracking-[0.2em] mb-8 shadow-xl">
+            <div className="bg-purple-500/30 p-1.5 rounded-full text-purple-300"><Info size={14} /></div>
+            Our Story
+          </motion.div>
+
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 tracking-tighter leading-[1.05]">
+            <motion.div variants={fadeUpItem} className="drop-shadow-2xl">
+              Redefining the
             </motion.div>
+            <motion.div variants={fadeUpItem} className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-emerald-400 pb-2">
+              Dining Experience.
+            </motion.div>
+          </h1>
 
-            <motion.h1 variants={fadeUpItem} className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.05] text-white mb-6">
-              Redefining the <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-emerald-300">
-                Dining Experience.
-              </span>
-            </motion.h1>
+          <motion.p variants={fadeUpItem} className="text-lg md:text-2xl text-gray-200 max-w-2xl mx-auto font-medium tracking-wide leading-relaxed mb-12 drop-shadow-md">
+            Connecting food lovers with elite local kitchens. Fast delivery, breathtaking taste, and a flawless digital experience.
+          </motion.p>
+        </motion.div>
+      </section>
 
-            <motion.p variants={fadeUpItem} className="text-gray-300 md:text-xl max-w-2xl mx-auto font-light tracking-wide leading-relaxed mb-12">
-              We connect food lovers with the best restaurants around them. Fast delivery, amazing taste, and a delightful digital experience.
-            </motion.p>
-
+      <div className="relative z-30 max-w-7xl mx-auto px-6 lg:px-8 -mt-20 pb-24">
+        
+        {/* ---------------- WHO WE ARE (Image + Text) ---------------- */}
+        <section className="mb-32">
+          <div className="grid md:grid-cols-2 gap-16 lg:gap-24 items-center">
+            
+            {/* Cinematic Image Card */}
             <motion.div
-              variants={fadeUpItem}
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              transition={{ type: "spring", stiffness: 200 }}
-              className="w-24 h-24 bg-white/10 backdrop-blur-md rounded-full shadow-[0_0_30px_rgba(76,175,80,0.3)] flex items-center justify-center text-5xl border border-white/20"
+              initial={{ opacity: 0, y: 50, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, type: "spring" }}
+              className="relative h-[500px] lg:h-[600px] rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] overflow-hidden group border-4 border-white"
             >
-              🍝
+              <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500 z-10" />
+              <motion.img 
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.7 }}
+                src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                alt="Chef preparing food" 
+                className="w-full h-full object-cover"
+              />
+              
+              {/* Floating Badge */}
+              <motion.div 
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute bottom-8 left-8 lg:-left-6 z-20 bg-white/90 backdrop-blur-xl p-5 rounded-3xl shadow-2xl flex items-center gap-4 border border-white/50"
+              >
+                <div className="bg-emerald-100 p-3 rounded-full text-emerald-600">
+                  <Award size={28} />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Guarantee</p>
+                  <p className="text-lg font-black text-gray-900">100% Quality</p>
+                </div>
+              </motion.div>
             </motion.div>
-          </div>
-        </section>
 
-        {/* ---------------- WHO WE ARE ---------------- */}
-        <section className="py-24 bg-white">
-          <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+            {/* Text Content */}
             <motion.div variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true }}>
-              <motion.h2 variants={fadeUpItem} className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
-                Who We Are
+              <motion.h2 variants={fadeUpItem} className="text-4xl md:text-5xl font-black text-gray-900 mb-8 tracking-tighter">
+                Crafted for the <br/> Modern Foodie
               </motion.h2>
 
               <motion.p variants={fadeUpItem} className="text-gray-500 text-lg font-medium leading-relaxed mb-6">
-                DineX is a modern food ordering platform designed to make your cravings disappear in minutes. We partner with top-rated local restaurants to bring quality meals straight to your doorstep.
+                DineX is a premium food ordering platform designed to make your cravings disappear in minutes. We partner exclusively with top-rated local chefs and restaurants to bring world-class meals straight to your doorstep.
               </motion.p>
 
-              <motion.p variants={fadeUpItem} className="text-gray-500 text-lg font-medium leading-relaxed">
-                Our goal is simple — deliver happiness through food with a smooth, reliable, and highly curated digital experience.
+              <motion.p variants={fadeUpItem} className="text-gray-500 text-lg font-medium leading-relaxed mb-10">
+                Our goal is simple — deliver happiness through food with a smooth, reliable, and highly curated digital experience that respects your time and your tastebuds.
               </motion.p>
-            </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, rotate: -2 }}
-              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, type: "spring" }}
-              className="relative flex justify-center items-center h-[450px] bg-gradient-to-br from-purple-50 via-emerald-50 to-teal-50 rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden border border-purple-100/50 group"
-            >
-              <div className="absolute inset-0 bg-black/[0.02] group-hover:bg-transparent transition-colors z-10" />
-              <motion.div 
-                className="absolute z-20 text-[140px] drop-shadow-2xl cursor-pointer"
-                whileHover={{ scale: 1.15, rotate: [0, -5, 5, 0] }}
-                transition={{ duration: 0.5 }}
-              >
-                🍜
+              <motion.div variants={fadeUpItem} className="flex gap-4">
+                <div className="w-16 h-16 rounded-2xl bg-purple-100 flex items-center justify-center text-purple-600 shadow-sm">
+                  <ChefHat size={30} />
+                </div>
+                <div className="w-16 h-16 rounded-2xl bg-emerald-100 flex items-center justify-center text-emerald-600 shadow-sm">
+                  <Heart size={30} />
+                </div>
               </motion.div>
             </motion.div>
+
           </div>
         </section>
 
-        {/* ---------------- MISSION & VISION ---------------- */}
-        <section className="pb-24 pt-10 bg-white">
-          <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-8">
+        {/* ---------------- STATS STRIP ---------------- */}
+        <section className="mb-32">
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
+            className="bg-white rounded-[3rem] p-10 md:p-14 shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-gray-100"
+          >
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-10 text-center divide-x divide-gray-100/50">
+              {[
+                { value: "500+", label: "Elite Partners", gradient: "from-blue-600 to-indigo-600" },
+                { value: "50K+", label: "Happy Foodies", gradient: "from-orange-500 to-red-500" },
+                { value: "1M+", label: "Meals Delivered", gradient: "from-emerald-500 to-teal-500" },
+                { value: "24/7", label: "Priority Support", gradient: "from-purple-600 to-pink-500" },
+              ].map((stat, i) => (
+                <div key={i} className="flex flex-col items-center justify-center">
+                  <p className={`text-4xl md:text-5xl font-black tracking-tighter mb-3 text-transparent bg-clip-text bg-gradient-to-b ${stat.gradient}`}>
+                    {stat.value}
+                  </p>
+                  <p className="text-gray-400 font-bold uppercase tracking-[0.2em] text-xs">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </section>
+
+        {/* ---------------- MISSION & VISION (Bento/Offset Layout) ---------------- */}
+        <section className="mb-32">
+          <div className="grid md:grid-cols-2 gap-8 items-start">
             {[
               {
                 icon: Target,
                 title: "Our Mission",
-                text: "To make food ordering effortless, fast, and enjoyable while supporting local restaurants and delivering exceptional dining experiences.",
+                text: "To make food ordering effortless, fast, and enjoyable while supporting local restaurants and delivering exceptional dining experiences right to your table.",
+                margin: "md:mt-0",
+                color: "purple"
               },
               {
                 icon: Eye,
                 title: "Our Vision",
-                text: "To become the most loved food delivery platform by continuously improving convenience, quality, and overall customer satisfaction.",
+                text: "To become the most loved food delivery platform globally by continuously innovating convenience, quality, and pushing the boundaries of customer satisfaction.",
+                margin: "md:mt-16",
+                color: "emerald"
               },
             ].map((item, i) => (
               <motion.div
                 key={i}
-                variants={fadeUpItem}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                whileHover={{ y: -8 }}
-                className="bg-white p-10 md:p-12 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:border-purple-100 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-300 group"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: i * 0.1, type: "spring" }}
+                className={`relative bg-white p-12 md:p-14 rounded-[3rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-gray-100 hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] transition-all duration-500 group overflow-hidden ${item.margin}`}
               >
-                <div className="w-16 h-16 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-purple-500 group-hover:text-white transition-all duration-300">
-                  <item.icon size={28} strokeWidth={2.5} />
-                </div>
-                <h3 className="text-3xl font-bold text-gray-900 mb-4 tracking-tight">
-                  {item.title}
-                </h3>
-                <p className="text-gray-500 font-medium leading-relaxed text-lg">
-                  {item.text}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </section>
+                {/* Sweep Glass Shine Effect */}
+                <motion.div 
+                  className="absolute top-0 -inset-full h-full w-1/2 z-0 block transform -skew-x-12 bg-gradient-to-r from-transparent via-gray-50 to-transparent opacity-0 group-hover:opacity-100"
+                  transition={{ duration: 0.7, ease: "easeInOut" }}
+                  whileHover={{ left: "150%" }}
+                />
 
-        {/* ---------------- WHY PEOPLE LOVE DINEX ---------------- */}
-        <section className="py-24 bg-zinc-900 text-white relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-purple-500/10 rounded-full blur-[120px] pointer-events-none -translate-y-1/2 translate-x-1/3" />
-          
-          <div className="max-w-7xl mx-auto px-6 relative z-10">
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-4xl md:text-5xl font-bold text-center mb-16 tracking-tight"
-            >
-              Why People Love <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-emerald-400">DineX</span>
-            </motion.h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                { icon: Zap, title: "Lightning Fast", desc: "Quick delivery you can rely on" },
-                { icon: Utensils, title: "Wide Variety", desc: "Hundreds of elite kitchens" },
-                { icon: ShieldCheck, title: "Secure Payments", desc: "Safe & trusted checkout" },
-                { icon: Heart, title: "Customer First", desc: "We value every single order" },
-              ].map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  whileHover={{ y: -8 }}
-                  className="bg-white/5 backdrop-blur-md rounded-[1.5rem] p-8 border border-white/10 text-center hover:bg-white/10 transition-colors group"
-                >
-                  <div className="w-14 h-14 mx-auto bg-purple-500/20 text-purple-400 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-purple-500 group-hover:text-white transition-all duration-300">
-                    <item.icon size={24} strokeWidth={2} />
+                <div className="relative z-10">
+                  <div className={`w-20 h-20 bg-${item.color}-50 text-${item.color}-600 rounded-[1.5rem] flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-${item.color}-500 group-hover:text-white transition-all duration-500 shadow-sm group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)] group-hover:-rotate-3`}>
+                    <item.icon size={36} strokeWidth={2} />
                   </div>
-                  <h3 className="font-bold text-xl mb-3 tracking-tight text-gray-100">
+                  <h3 className="text-4xl font-black text-gray-900 mb-6 tracking-tight">
                     {item.title}
                   </h3>
-                  <p className="text-gray-400 font-medium text-sm leading-relaxed">
-                    {item.desc}
+                  <p className="text-gray-500 font-medium leading-relaxed text-lg">
+                    {item.text}
                   </p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ---------------- STATS ---------------- */}
-        <section className="py-20 bg-gray-50/50 border-b border-gray-100">
-          <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
-            {[
-              { value: "500+", label: "Restaurants", gradient: "from-blue-600 to-indigo-600" },
-              { value: "50K+", label: "Happy Customers", gradient: "from-orange-500 to-red-500" },
-              { value: "1M+", label: "Orders Delivered", gradient: "from-purple-500 to-emerald-500" },
-              { value: "24/7", label: "Priority Support", gradient: "from-purple-600 to-pink-500" },
-            ].map((stat, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, type: "spring" }}
-                className="p-4"
-              >
-                <p className={`text-4xl md:text-5xl font-black tracking-tight mb-3 text-transparent bg-clip-text bg-gradient-to-r ${stat.gradient}`}>
-                  {stat.value}
-                </p>
-                <p className="text-gray-500 font-bold uppercase tracking-widest text-xs">
-                  {stat.label}
-                </p>
+                </div>
               </motion.div>
             ))}
           </div>
         </section>
 
-        {/* ---------------- CTA ---------------- */}
-        <section className="py-32 text-center px-6 bg-white relative overflow-hidden">
-          {/* Subtle background decoration */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-50 rounded-full blur-[100px] pointer-events-none opacity-50" />
-          
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-2xl mx-auto relative z-10"
+      </div>
+
+      {/* ---------------- WHY PEOPLE LOVE DINEX (Immersive Dark Section) ---------------- */}
+      <section className="py-32 bg-zinc-950 text-white relative overflow-hidden rounded-t-[4rem] shadow-[0_-20px_50px_rgba(0,0,0,0.2)]">
+        
+        {/* Animated Orbs */}
+        <motion.div animate={{ rotate: 360 }} transition={{ duration: 100, repeat: Infinity, ease: "linear" }} className="absolute -top-1/2 -right-1/4 w-[1000px] h-[1000px] bg-gradient-to-b from-purple-600/20 to-transparent rounded-full blur-[150px] pointer-events-none" />
+        <motion.div animate={{ rotate: -360 }} transition={{ duration: 120, repeat: Infinity, ease: "linear" }} className="absolute -bottom-1/2 -left-1/4 w-[800px] h-[800px] bg-gradient-to-t from-emerald-600/10 to-transparent rounded-full blur-[120px] pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <motion.div 
+            initial="hidden" whileInView="show" viewport={{ once: true }}
+            className="flex flex-col items-center text-center mb-20"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
-              Hungry Already?
+            <h2 className="text-5xl md:text-6xl font-black tracking-tighter flex overflow-hidden mb-4">
+              {Array.from("Why Choose Us?").map((letter, index) => (
+                <motion.span key={index} variants={letterAnimation} className={letter === " " ? "w-3 md:w-4" : ""}>
+                  {letter}
+                </motion.span>
+              ))}
             </h2>
-
-            <p className="text-gray-500 text-lg font-medium mb-10 leading-relaxed">
-              Explore our curated selection of top-tier restaurants and order your favorite meals right now.
-            </p>
-
-            <motion.button
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => navigate("/order-now")}
-              className="group bg-gradient-to-r from-[#4CAF50] to-[#43a047] text-white px-10 py-4 rounded-xl font-bold transition-all duration-300 text-base inline-flex items-center gap-3 shadow-[0_10px_40px_-10px_rgba(76,175,80,0.6)] hover:shadow-[0_20px_50px_-10px_rgba(76,175,80,0.8)]"
-            >
-              Order Now
-              <motion.div
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <ArrowRight size={20} className="group-hover:text-purple-100" />
-              </motion.div>
-            </motion.button>
+            <p className="text-zinc-400 text-lg max-w-2xl">The details that make us the most loved food platform.</p>
           </motion.div>
-        </section>
 
-      </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { icon: Zap, title: "Lightning Fast", desc: "AI-optimized routing for hot, rapid delivery." },
+              { icon: Utensils, title: "World-Class", desc: "Only the finest, hand-vetted local kitchens." },
+              { icon: ShieldCheck, title: "Hyper Secure", desc: "Bank-grade encryption for all transactions." },
+              { icon: Heart, title: "Customer First", desc: "24/7 dedicated human support team." },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, type: "spring", bounce: 0.4 }}
+                whileHover={{ y: -10 }}
+                className="bg-white/5 backdrop-blur-xl rounded-[2rem] p-8 border border-white/10 text-center hover:bg-white/10 hover:border-white/20 transition-all duration-300 group shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
+              >
+                <div className="w-16 h-16 mx-auto bg-gradient-to-br from-purple-500/20 to-purple-500/5 text-purple-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-purple-500 group-hover:text-white transition-all duration-500 border border-purple-500/20 group-hover:border-purple-500 group-hover:shadow-[0_0_20px_rgba(168,85,247,0.4)]">
+                  <item.icon size={28} strokeWidth={1.5} />
+                </div>
+                <h3 className="font-extrabold text-2xl mb-3 tracking-tight text-white">
+                  {item.title}
+                </h3>
+                <p className="text-zinc-400 font-medium text-sm leading-relaxed">
+                  {item.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------- CTA SECTION ---------------- */}
+      <section className="py-32 text-center px-6 bg-[#f4f6f8] relative overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ type: "spring", bounce: 0.4 }}
+          className="max-w-3xl mx-auto relative z-10 bg-white rounded-[3rem] p-12 md:p-20 shadow-[0_20px_60px_rgba(0,0,0,0.05)] border border-gray-100"
+        >
+          <h2 className="text-4xl md:text-6xl font-black text-gray-900 mb-6 tracking-tighter">
+            Hungry Already?
+          </h2>
+          <p className="text-gray-500 text-lg md:text-xl font-medium mb-12 leading-relaxed max-w-xl mx-auto">
+            Stop waiting. Explore our curated selection of top-tier restaurants and order your next unforgettable meal right now.
+          </p>
+
+          <motion.button
+            whileHover={{ scale: 1.05, paddingRight: "3.5rem" }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => navigate("/order-now")}
+            className="relative group bg-zinc-900 text-white px-10 py-5 rounded-full font-black transition-all duration-400 text-lg inline-flex items-center gap-4 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-emerald-500 translate-y-full group-hover:translate-y-0 transition-transform duration-500 z-0" />
+            <span className="relative z-10 flex items-center gap-2">
+              Start Your Order
+              <motion.div className="absolute right-6 opacity-0 group-hover:opacity-100 group-hover:right-8 transition-all duration-300">
+                <ArrowRight size={22} className="text-white" />
+              </motion.div>
+            </span>
+          </motion.button>
+        </motion.div>
+      </section>
+
     </div>
   );
 };
