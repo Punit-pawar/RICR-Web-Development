@@ -139,7 +139,7 @@ const About = () => {
               </motion.p>
 
               <motion.p variants={fadeUpItem} className="text-gray-500 text-lg font-medium leading-relaxed mb-10">
-                Our goal is simple — deliver happiness through food with a smooth, reliable, and highly curated digital experience that respects your time and your tastebuds.
+                Our goal is simple — deliver happiness through food with a smooth, reliable, and highly curated digital experience that respects your time and your tastebuds. Whether you're in the mood for a quick bite or a gourmet feast, DineX has you covered with an ever-evolving menu of culinary delights.
               </motion.p>
 
               <motion.div variants={fadeUpItem} className="flex gap-4">
