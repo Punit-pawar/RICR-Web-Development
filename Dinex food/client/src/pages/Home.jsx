@@ -8,23 +8,29 @@ const staggerContainer = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 }
+    transition: { staggerChildren: 0.15, delayChildren: 0.1 }
   }
 };
 
 const fadeUpItem = {
-  hidden: { opacity: 0, y: 30, filter: "blur(8px)" },
+  hidden: { opacity: 0, y: 40, filter: "blur(10px)" },
   show: { 
     opacity: 1, 
     y: 0,
     filter: "blur(0px)",
-    transition: { type: "spring", stiffness: 100, damping: 15, mass: 1 }
+    transition: { type: "spring", stiffness: 80, damping: 12, mass: 1 }
   }
 };
 
 const letterAnimation = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { type: "spring", damping: 12, stiffness: 200 } }
+  hidden: { opacity: 0, y: 30, rotateX: -90 },
+  show: { opacity: 1, y: 0, rotateX: 0, transition: { type: "spring", damping: 12, stiffness: 200 } }
+};
+
+// New: For staggered grids
+const gridItem = {
+  hidden: { opacity: 0, scale: 0.8, y: 20 },
+  show: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", bounce: 0.4, duration: 0.8 } }
 };
 
 const Home = () => {
@@ -37,9 +43,12 @@ const Home = () => {
     target: heroRef,
     offset: ["start start", "end start"]
   });
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-  const opacityFade = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  
+  // Smoother Parallax transforms
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const backgroundScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]); // Added zoom effect
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "80%"]);
+  const opacityFade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   const categories = ["All", "Indian", "Italian", "Chinese", "American"];
 
@@ -59,18 +68,18 @@ const Home = () => {
     <div className="bg-[#f4f6f8] text-gray-800 min-h-screen font-sans selection:bg-emerald-300 selection:text-emerald-900 overflow-x-hidden">
 
       {/* ---------------- HERO SECTION ---------------- */}
-      <section ref={heroRef} className="relative h-[90vh] w-full bg-zinc-950 overflow-hidden flex flex-col justify-center items-center">
+      <section ref={heroRef} className="relative h-[95vh] w-full bg-zinc-950 overflow-hidden flex flex-col justify-center items-center">
         
-        {/* Parallax Background */}
+        {/* Parallax Background with Zoom */}
         <motion.div 
-          style={{ y: backgroundY }}
-          className="absolute inset-0 z-0 w-full h-[120%]"
+          style={{ y: backgroundY, scale: backgroundScale }}
+          className="absolute inset-0 z-0 w-full h-[120%] origin-top"
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-[#f4f6f8] z-10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-[#f4f6f8] z-10" />
           <img
             src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&auto=format&fit=crop&w=2500&q=80"
             alt="Hero Background"
-            className="w-full h-full object-cover object-center opacity-70"
+            className="w-full h-full object-cover object-center opacity-80"
           />
         </motion.div>
 
@@ -84,7 +93,7 @@ const Home = () => {
             <Flame size={16} className="text-orange-400 animate-pulse" /> The New Standard
           </motion.div>
           
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-white mb-6 tracking-tighter leading-[0.95]">
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-white mb-6 tracking-tighter leading-[0.95] perspective-1000">
             <motion.div variants={fadeUpItem} className="drop-shadow-2xl">
               Crave It.
             </motion.div>
@@ -99,31 +108,46 @@ const Home = () => {
 
           <motion.button
             variants={fadeUpItem}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(255,255,255,0.2)" }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate("/order-now")}
-            className="relative group bg-white text-gray-900 px-10 py-5 rounded-full font-black transition-all duration-300 text-lg inline-flex items-center gap-4 overflow-hidden shadow-[0_15px_30px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_40px_rgba(255,255,255,0.2)]"
+            className="relative group bg-white text-gray-900 px-10 py-5 rounded-full font-black transition-all duration-300 text-lg inline-flex items-center gap-4 overflow-hidden shadow-[0_15px_30px_rgba(0,0,0,0.3)]"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-100 to-emerald-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0" />
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-100 to-emerald-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0" />
             <span className="relative z-10 flex items-center gap-3">
               Explore Menu
-              <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform duration-300" />
+              <motion.div
+                animate={{ x: [0, 5, 0] }}
+                transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+              >
+                <ArrowRight size={22} className="group-hover:text-emerald-600 transition-colors" />
+              </motion.div>
             </span>
           </motion.button>
         </motion.div>
+
+        {/* Bouncy Scroll Indicator */}
+        <motion.div 
+          style={{ opacity: opacityFade }}
+          animate={{ y: [0, 15, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          className="absolute bottom-10 z-20 text-white/50"
+        >
+          <ChevronDown size={36} />
+        </motion.div>
       </section>
 
-      {/* Main Content Wrapper to handle proper layout overlapping */}
+      {/* Main Content Wrapper */}
       <div className="relative z-30 max-w-7xl mx-auto px-6 lg:px-8 pb-32">
         
         {/* ---------------- UNIFIED FEATURE DASHBOARD ---------------- */}
         <section className="-mt-20 mb-24 relative">
           <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial="hidden"
+            whileInView="show"
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
-            className="bg-white/90 backdrop-blur-2xl rounded-[2.5rem] p-8 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-white/50 w-full"
+            variants={staggerContainer}
+            className="bg-white/90 backdrop-blur-2xl rounded-[2.5rem] p-8 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-white/50 w-full"
           >
             <div className="grid md:grid-cols-3 gap-10 md:gap-6 divide-y md:divide-y-0 md:divide-x divide-gray-100">
               {[
@@ -133,11 +157,14 @@ const Home = () => {
               ].map((item, i) => (
                 <motion.div 
                   key={i} 
-                  whileHover={{ y: -5 }}
-                  className="flex flex-col items-center text-center px-4 pt-6 md:pt-0 first:pt-0 group cursor-default"
+                  variants={gridItem}
+                  whileHover={{ y: -8 }}
+                  className="flex flex-col items-center text-center px-4 pt-6 md:pt-0 first:pt-0 group cursor-default transition-transform duration-300"
                 >
-                  <div className="w-16 h-16 mb-5 bg-zinc-50 text-zinc-800 rounded-2xl flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300 shadow-sm group-hover:shadow-emerald-500/30 group-hover:-rotate-6 group-hover:scale-110">
-                    <item.icon size={28} strokeWidth={2} />
+                  <div className="w-16 h-16 mb-5 bg-zinc-50 text-zinc-800 rounded-2xl flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-500 shadow-sm relative overflow-hidden">
+                     {/* Icon background burst on hover */}
+                     <span className="absolute inset-0 bg-white/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-500 ease-out" />
+                    <item.icon size={28} strokeWidth={2} className="relative z-10 group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-300" />
                   </div>
                   <h3 className="font-extrabold text-xl text-gray-900 mb-2">{item.title}</h3>
                   <p className="text-gray-500 text-sm font-medium">{item.desc}</p>
@@ -149,18 +176,19 @@ const Home = () => {
 
         {/* ---------------- COLLECTION HEADER ---------------- */}
         <motion.div 
-          initial="hidden" whileInView="show" viewport={{ once: true }}
+          initial="hidden" whileInView="show" viewport={{ once: true, margin: "-100px" }}
           className="mb-12 flex flex-col items-center text-center gap-4"
         >
           <motion.div variants={fadeUpItem} className="flex items-center gap-2 px-4 py-1.5 bg-purple-100 rounded-full">
-            <Sparkles size={16} className="text-purple-600" />
+            <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 4, ease: "linear" }}>
+              <Sparkles size={16} className="text-purple-600" />
+            </motion.div>
             <span className="text-purple-700 font-bold uppercase tracking-widest text-xs">Curated For You</span>
           </motion.div>
           
-          {/* Staggered Letter Animation for Title */}
-          <h2 className="text-4xl md:text-6xl font-black text-gray-900 tracking-tighter flex overflow-hidden">
+          <h2 className="text-4xl md:text-6xl font-black text-gray-900 tracking-tighter flex overflow-hidden perspective-1000">
             {Array.from("Trending Now").map((letter, index) => (
-              <motion.span key={index} variants={letterAnimation} className={letter === " " ? "w-3 md:w-4" : ""}>
+              <motion.span key={index} variants={letterAnimation} className={letter === " " ? "w-3 md:w-4" : "inline-block"}>
                 {letter}
               </motion.span>
             ))}
@@ -170,7 +198,8 @@ const Home = () => {
         {/* ---------------- CATEGORY FILTER ---------------- */}
         <section className="mb-16 flex justify-center">
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            transition={{ type: "spring", stiffness: 100 }}
             className="flex flex-wrap items-center justify-center gap-2 p-2 bg-white rounded-3xl border border-gray-200/60 shadow-[0_8px_30px_rgba(0,0,0,0.04)]"
           >
             {categories.map(cat => (
@@ -185,7 +214,7 @@ const Home = () => {
                   <motion.div
                     layoutId="activeCategoryTab"
                     className="absolute inset-0 bg-gray-900 rounded-2xl -z-10 shadow-md"
-                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
                   />
                 )}
                 <span className="relative z-10">{cat}</span>
@@ -202,21 +231,19 @@ const Home = () => {
                 <motion.div
                   key={r.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                  initial={{ opacity: 0, scale: 0.8, y: 50 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.9, filter: "blur(5px)" }}
-                  transition={{ duration: 0.4, delay: i * 0.05, type: "spring" }}
-                  whileHover="hover"
-                  className="group cursor-pointer rounded-[2rem] overflow-hidden shadow-[0_8px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.1)] transition-all duration-500 bg-white flex flex-col h-full border border-gray-100"
+                  exit={{ opacity: 0, scale: 0.8, filter: "blur(10px)", transition: { duration: 0.2 } }}
+                  transition={{ duration: 0.5, delay: i * 0.08, type: "spring", bounce: 0.3 }}
+                  whileHover={{ y: -12 }} // Explicit hover lift via Framer Motion
+                  className="group cursor-pointer rounded-[2rem] overflow-hidden shadow-[0_8px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.12)] transition-shadow duration-500 bg-white flex flex-col h-full border border-gray-100"
                   onClick={() => navigate("/order-now")}
                 >
                   {/* Image Area */}
                   <div className="h-52 w-full relative bg-gradient-to-br from-indigo-50 via-purple-50 to-emerald-50 overflow-hidden flex justify-center items-center">
                     
                     {/* Hover Image Scale effect */}
-                    <motion.div 
-                      className="absolute inset-0 bg-black/5 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" 
-                    />
+                    <div className="absolute inset-0 bg-black/5 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                     {r.trending && (
                       <span className="absolute top-4 left-4 z-20 bg-white/95 backdrop-blur-md text-gray-900 font-extrabold text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full shadow-sm flex items-center gap-2">
@@ -228,20 +255,24 @@ const Home = () => {
                       </span>
                     )}
 
-                    {/* Emoji Background Art */}
+                    {/* Continuous Floating Emoji Background Art */}
                     <motion.div 
-                      variants={{ hover: { scale: 1.15, rotate: 5 } }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                      className="text-[5rem] drop-shadow-xl z-0"
+                      animate={{ y: [0, -10, 0], rotate: [0, 5, -5, 0] }}
+                      transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: i * 0.2 }}
+                      className="text-[5rem] drop-shadow-xl z-0 absolute"
                     >
-                      {r.emoji}
+                      <motion.div
+                        variants={{ hover: { scale: 1.25, rotate: 10 } }} // Extra boost on hover
+                        transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                      >
+                        {r.emoji}
+                      </motion.div>
                     </motion.div>
                   </div>
 
-                  {/* Card Content - Overlapping layout */}
-                  <div className="p-6 flex-grow flex flex-col bg-white relative">
-                    {/* Floating Accent Badge bridging image and text */}
-                    <div className="absolute -top-4 right-6 bg-emerald-500 text-white text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-lg z-20 transform group-hover:-translate-y-1 transition-transform duration-300">
+                  {/* Card Content */}
+                  <div className="p-6 flex-grow flex flex-col bg-white relative z-20">
+                    <div className="absolute -top-4 right-6 bg-emerald-500 text-white text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-lg z-20 transform group-hover:-translate-y-2 transition-transform duration-500">
                       {r.badge}
                     </div>
 
@@ -256,7 +287,7 @@ const Home = () => {
                       <span className="flex items-center gap-1.5 text-sm font-bold text-gray-700">
                         <Star size={16} className="text-yellow-400 fill-yellow-400" /> {r.rating}
                       </span>
-                      <span className="flex items-center gap-1.5 text-sm font-bold text-gray-500 bg-gray-50 px-3 py-1 rounded-lg group-hover:bg-gray-100 transition-colors">
+                      <span className="flex items-center gap-1.5 text-sm font-bold text-gray-500 bg-gray-50 px-3 py-1 rounded-lg group-hover:bg-emerald-50 group-hover:text-emerald-700 transition-colors duration-300">
                         <Clock size={14} /> {r.time}
                       </span>
                     </div>
@@ -272,10 +303,18 @@ const Home = () => {
       {/* ---------------- BRAND STATS ---------------- */}
       <section className="py-24 bg-zinc-950 relative overflow-hidden text-white rounded-t-[3rem] shadow-[0_-20px_50px_rgba(0,0,0,0.1)] mt-10">
         
-        {/* Dynamic Glow Background */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-gradient-to-r from-purple-600/20 via-emerald-600/20 to-blue-600/20 blur-[120px] rounded-full pointer-events-none" />
+        {/* Ambient Breathing Background Glow */}
+        <motion.div 
+          animate={{ scale: [1, 1.05, 1], opacity: [0.6, 0.9, 0.6] }}
+          transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] bg-gradient-to-r from-purple-600/30 via-emerald-600/30 to-blue-600/30 blur-[120px] rounded-full pointer-events-none" 
+        />
         
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-12 text-center relative z-10">
+        <motion.div 
+          initial="hidden" whileInView="show" viewport={{ once: true, margin: "-50px" }}
+          variants={staggerContainer}
+          className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-12 text-center relative z-10"
+        >
           {[
             { number: "500+", label: "Curated Kitchens" },
             { number: "180K", label: "Happy Foodies" },
@@ -284,21 +323,18 @@ const Home = () => {
           ].map((stat, i) => (
             <motion.div 
               key={i} 
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ type: "spring", delay: i * 0.1, bounce: 0.5 }}
-              className="flex flex-col items-center justify-center"
+              variants={gridItem}
+              className="flex flex-col items-center justify-center group"
             >
-              <h3 className="text-5xl md:text-6xl font-black tracking-tighter mb-3 text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 drop-shadow-lg">
+              <h3 className="text-5xl md:text-6xl font-black tracking-tighter mb-3 text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 drop-shadow-lg group-hover:scale-110 transition-transform duration-500 ease-out">
                 {stat.number}
               </h3>
-              <p className="text-zinc-400 text-xs font-bold uppercase tracking-[0.2em]">
+              <p className="text-zinc-400 text-xs font-bold uppercase tracking-[0.2em] group-hover:text-zinc-300 transition-colors">
                 {stat.label}
               </p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
     </div>
