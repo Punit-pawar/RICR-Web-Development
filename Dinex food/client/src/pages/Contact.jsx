@@ -280,7 +280,7 @@ const Contact = () => {
                   </motion.div>
                   <div>
                     <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1 group-hover:text-fuchsia-400 transition-colors">Headquarters</p>
-                    <p className="text-gray-900 font-bold leading-tight">123 Culinary Blvd, Suite 400<br/>Beverly Hills, CA 90210</p>
+                    <p className="text-gray-900 font-bold leading-tight">bhopal<br/>Indrapuri Sector C </p>
                   </div>
                 </motion.div>
               </div>
