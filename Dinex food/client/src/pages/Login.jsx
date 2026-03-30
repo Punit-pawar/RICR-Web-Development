@@ -135,7 +135,7 @@ const Login = () => {
                 className="text-xs font-bold text-gray-500 hover:text-purple-600 transition-colors"
                 onClick={() => setIsForgetPasswordModelOpen(true)}
               >
-                Forgot Password?
+                Forgot Password ?
               </button>
             </div>
 
@@ -146,13 +146,13 @@ const Login = () => {
               type="submit"
               className="w-full py-4 mt-2 rounded-2xl bg-purple-600 text-white font-black uppercase tracking-widest text-sm shadow-[0_10px_30px_rgba(234,88,12,0.3)] hover:bg-purple-500 transition-colors flex items-center justify-center gap-2"
             >
-              Sign In <ArrowRight size={18} />
+              SIGN IN <ArrowRight size={18} />
             </motion.button>
           </form>
 
           {/* Registration Link */}
           <p className="text-center text-sm text-gray-500 font-medium mt-8">
-            Don't have an account?{" "}
+            Don't have an account ?{" "}
             <Link to="/register" className="text-purple-600 font-bold hover:underline underline-offset-4 decoration-purple-200">
               Create one now
             </Link>
